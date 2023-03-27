@@ -4,10 +4,10 @@ import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
-import MapViewDirections from "react-native-maps-directions";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import PlotMarkers from "./Components/PlotMarkers";
+import DestinationSearch from "./Components/DestinationSearch";
+import PlotRoute from "./Components/PlotRoute";
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 export default function App() {
@@ -80,39 +80,15 @@ export default function App() {
   return (
     <View style={styles.container}>
       {location ? (
-        <GooglePlacesAutocomplete
-          placeholder="Search"
-          fetchDetails={true}
-          GooglePlacesSearchQuery={{ rankby: "distance" }}
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            setSearchedDestination({
-              latitude: details.geometry.location.lat,
-              longitude: details.geometry.location.lng,
-              latitudeDelta: 0.004,
-              longitudeDelta: 0.009,
-            });
-          }}
-          query={{
-            key: GOOGLE_MAPS_APIKEY,
-            language: "en",
-            types: "establishment",
-            radius: 1000,
-            location: `${location.latitude},${location.longitude}`,
-          }}
-          styles={{
-            container: {
-              flex: 0,
-              width: "100%",
-              zIndex: 1,
-              listView: { backgroundColor: "white" },
-            },
-          }}
+        /* DestinationSearch component creates a search function 
+        above the map (only renders when there is a location set initially), 
+        and if you click on something it will then create a marker there 
+        (down below in mapview) */
+        <DestinationSearch
+          setSearchedDestination={setSearchedDestination}
+          location={location}
         />
       ) : null}
-      {/* Above component creates a search function above the map (only renders when
-      there is a location set initially), and if you click on something it will
-      then create a marker there (down below in mapview) */}
       {location ? (
         <MapView
           provider={PROVIDER_GOOGLE}
@@ -124,14 +100,10 @@ export default function App() {
           // ^^ this gives blue dot on map for your location
         >
           <PlotMarkers />
-          <MapViewDirections
+          <PlotRoute
             origin={origin}
             destination={destination}
-            mode="WALKING"
-            strokeWidth={5}
-            strokeColor="hotpink"
-            waypoints={["Trafford Centre"]}
-            apikey={GOOGLE_MAPS_APIKEY}
+            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
           />
           {searchedDestination ? (
             <Marker
