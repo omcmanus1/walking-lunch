@@ -7,6 +7,7 @@ import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
+import PlotMarkers from "./Components/PlotMarkers";
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 export default function App() {
@@ -76,12 +77,6 @@ export default function App() {
     getPermissions();
   }, []);
 
-  // const markerLocations = [
-  //   { id: 1, coordinate: { latitude: 53.472114, longitude: -2.237752 } },
-  //   { id: 2, coordinate: { latitude: 53.486475, longitude: -2.264716 } },
-  // ];
-  // ^^ this is an array of locations to set as markers
-
   return (
     <View style={styles.container}>
       {location ? (
@@ -128,16 +123,7 @@ export default function App() {
           customMapStyle={mapJson}
           // ^^ this gives blue dot on map for your location
         >
-          {/* {markerLocations.map((location) => {
-            return (
-              <Marker key={location.id} coordinate={location.coordinate} />
-            );
-          })} */}
-          {/* <Marker
-          key="1"
-          coordinate={{ latitude: 53.3869, longitude: -2.3489 }}
-          // ^^ this is laying one hard coded marker rather than mapping over an array of locations to mark
-          /> */}
+          <PlotMarkers />
           <MapViewDirections
             origin={origin}
             destination={destination}
