@@ -7,6 +7,8 @@ import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
+// import { GeocodeAddress } from "./Components/GeocodeAddress";
+
 export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -18,6 +20,7 @@ export default function App() {
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
   // for directions
 
+  // mapJSON customises google maps styling, roads etc
   const mapJson = [
     {
       featureType: "poi.park",
@@ -53,7 +56,6 @@ export default function App() {
       ],
     },
   ];
-  // ^^ mapJSON customises google maps styling, roads etc
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -70,28 +72,9 @@ export default function App() {
         latitudeDelta: 0.015,
         longitudeDelta: 0.032,
       });
-
-      // console.log("Location:");
-      // console.log(currentLocation);
     };
     getPermissions();
   }, []);
-
-  const geocode = async () => {
-    const geocodedLocation = await Location.geocodeAsync(address);
-    console.log("Geocoded Address:");
-    console.log(geocodedLocation);
-  };
-
-  const reverseGeocode = async () => {
-    const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
-      longitude: location.longitude,
-      latitude: location.latitude,
-    });
-
-    console.log("Reverse Geocoded:");
-    console.log(reverseGeocodedAddress);
-  };
 
   // const markerLocations = [
   //   { id: 1, coordinate: { latitude: 53.472114, longitude: -2.237752 } },
@@ -135,17 +118,6 @@ export default function App() {
       {/* Above component creates a search function above the map (only renders when
       there is a location set initially), and if you click on something it will
       then create a marker there (down below in mapview) */}
-
-      <TextInput
-        placeholder=" Input Address"
-        value={address}
-        onChangeText={setAddress}
-      />
-      <Button title="Geocode Address" onPress={geocode} />
-      <Button
-        title="Reverse Geocode Current Location"
-        onPress={reverseGeocode}
-      />
       {location ? (
         <MapView
           provider={PROVIDER_GOOGLE}
