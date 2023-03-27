@@ -71,8 +71,8 @@ export default function App() {
         longitudeDelta: 0.009,
       });
 
-      console.log("Location:");
-      console.log(currentLocation);
+      // console.log("Location:");
+      // console.log(currentLocation);
     };
     getPermissions();
   }, []);
@@ -85,18 +85,18 @@ export default function App() {
 
   const reverseGeocode = async () => {
     const reverseGeocodedAddress = await Location.reverseGeocodeAsync({
-      longitude: location.coords.longitude,
-      latitude: location.coords.latitude,
+      longitude: location.longitude,
+      latitude: location.latitude,
     });
 
     console.log("Reverse Geocoded:");
     console.log(reverseGeocodedAddress);
   };
 
-  const markerLocations = [
-    { id: 1, coordinate: { latitude: 53.472114, longitude: -2.237752 } },
-    { id: 2, coordinate: { latitude: 53.486475, longitude: -2.264716 } },
-  ];
+  // const markerLocations = [
+  //   { id: 1, coordinate: { latitude: 53.472114, longitude: -2.237752 } },
+  //   { id: 2, coordinate: { latitude: 53.486475, longitude: -2.264716 } },
+  // ];
   // ^^ this is an array of locations to set as markers
 
   return (
@@ -156,11 +156,11 @@ export default function App() {
           customMapStyle={mapJson}
           // ^^ this gives blue dot on map for your location
         >
-          {markerLocations.map((location) => {
+          {/* {markerLocations.map((location) => {
             return (
               <Marker key={location.id} coordinate={location.coordinate} />
             );
-          })}
+          })} */}
           {/* <Marker
           key="1"
           coordinate={{ latitude: 53.3869, longitude: -2.3489 }}
