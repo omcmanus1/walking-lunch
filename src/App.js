@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    width: "50%",
-    height: "50%",
+    width: "90%",
+    height: "60%",
   },
 });
