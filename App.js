@@ -4,10 +4,11 @@ import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
+import Timer from "./src/Components/Timer";
 
-import PlotMarkers from "./Components/PlotMarkers";
-import DestinationSearch from "./Components/DestinationSearch";
-import PlotRoute from "./Components/PlotRoute";
+import PlotMarkers from "./src/Components/PlotMarkers";
+import DestinationSearch from "./src/Components/DestinationSearch";
+import PlotRoute from "./src/Components/PlotRoute";
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 export default function App() {
@@ -79,6 +80,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Timer></Timer>
       {location ? (
         /* DestinationSearch component creates a search function 
         above the map (only renders when there is a location set initially), 
