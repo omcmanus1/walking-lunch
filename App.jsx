@@ -56,7 +56,7 @@ export default function App() {
         />
       ) : null}
       {location ? (
-        <MapView
+          <MapView
           provider={PROVIDER_GOOGLE}
           // ^^ set google as the fixed map provider
           style={styles.map}
@@ -66,17 +66,22 @@ export default function App() {
           // ^^ this gives blue dot on map for your location
         >
           <PlotMarkers searchedDestination={searchedDestination}/>
-          <PlotRoute
-            origin={origin}
-            destination={destination}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-          />
-          {searchedDestination ? (
+          {searchedDestination ? ( 
             <Marker
-              coordinate={{
-                latitude: searchedDestination.latitude,
-                longitude: searchedDestination.longitude,
-              }}
+            coordinate={{
+              latitude: searchedDestination.latitude,
+              longitude: searchedDestination.longitude,
+            }}
+          />
+          ) : null}
+        
+         
+
+        {origin && destination ? (
+            <PlotRoute
+              origin={origin}
+              destination={destination}
+              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
             />
           ) : null}
           {/* Above is the marker that gets placed if a destination is searched for */}

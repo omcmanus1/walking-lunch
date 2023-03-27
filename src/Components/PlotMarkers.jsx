@@ -8,23 +8,28 @@ export default function PlotMarkers({searchedDestination}) {
     { id: 1, coordinate: { latitude: 53.486475, longitude: -2.264716 } },
   ])
   
+  console.log(searchedDestination);
 
-
-useEffect(() => {
-  setMarkerLocations([...markerLocations, {
-    id: markerLocations.length,
-    coordinate: {
-      latitude: searchedDestination.latitude,
-      longitude: searchedDestination.longitude
+  useEffect(() => {
+    if (searchedDestination !== null) {
+      setMarkerLocations((prev) => [
+        ...prev,
+        {
+          id: prev.length,
+          coordinate: {
+            latitude: markerLocations.latitude,
+            longitude: markerLocations.longitude,
+          },
+        },
+      ]);
     }
-  }])
-}, [searchedDestination]);
-
+  }, [searchedDestination]);
  
   return (
     <>
       {markerLocations.map((location) => {
-        return <Marker key={location.id} coordinate={location.coordinate} />;
+        return <Marker key={location.id} 
+        coordinate={location.coordinate} />;
       })}
       <Marker
         key="1"
