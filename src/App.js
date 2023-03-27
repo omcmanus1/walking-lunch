@@ -67,8 +67,8 @@ export default function App() {
       setLocation({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
-        latitudeDelta: 0.004,
-        longitudeDelta: 0.009,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.032,
       });
 
       // console.log("Location:");
@@ -202,6 +202,6 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "90%",
-    height: "60%",
+    height: "40%",
   },
 });
