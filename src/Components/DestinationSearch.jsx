@@ -1,4 +1,5 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { Button } from "react-native";
 
 export default function DestinationSearch({
   setSearchedDestination,
@@ -8,6 +9,7 @@ export default function DestinationSearch({
 
   
   return (
+    <>
     <GooglePlacesAutocomplete
       placeholder="Search"
       fetchDetails={true}
@@ -37,5 +39,11 @@ export default function DestinationSearch({
         },
       }}
     />
+    
+      {/* <Button title='searchDestination'>Input Destination</Button> */}
+      
+      </>
+   
+
   );
 }
