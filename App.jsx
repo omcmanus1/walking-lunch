@@ -13,8 +13,8 @@ import PlotRoute from "./src/Components/PlotRoute";
 export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
-  const [searchedDestination, setSearchedDestination] = useState();
-  console.log(searchedDestination);
+  const [searchedDestination, setSearchedDestination] = useState({});
+
   // for directions
   //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
   const origin = "Manchester Technology Centre";
