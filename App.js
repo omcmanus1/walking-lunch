@@ -77,7 +77,7 @@ export default function App() {
           customMapStyle={mapJson}
           // ^^ this gives blue dot on map for your location
         >
-          <PlotMarkers />
+          {/* <PlotMarkers searchedDestination={searchedDestination}/> */}
           <FoodMarkers />
           <PlotRoute
             origin={origin}
