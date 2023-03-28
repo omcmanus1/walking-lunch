@@ -8,6 +8,7 @@ import {FoodMarkers} from "./src/Components/FoodMarkers";
 
 
 import Timer from "./src/Components/Timer";
+import MapJson from "./src/Components/MapJson";
 
 import PlotMarkers from "./src/Components/PlotMarkers";
 import DestinationSearch from "./src/Components/DestinationSearch";
@@ -18,6 +19,9 @@ export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
   const [searchedDestination, setSearchedDestination] = useState({});
+
+  
+
 
   // for directions
   const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
@@ -74,7 +78,7 @@ export default function App() {
           style={styles.map}
           initialRegion={location}
           showsUserLocation={true}
-          customMapStyle={mapJson}
+          customMapStyle={MapJson}
           // ^^ this gives blue dot on map for your location
         >
           {/* <PlotMarkers searchedDestination={searchedDestination}/> */}
@@ -126,40 +130,4 @@ const styles = StyleSheet.create({
     height: "40%",
   },
 });
-
-const mapJson = [
-  {
-    featureType: "poi.park",
-    stylers: [
-      {
-        visibility: "on",
-      },
-    ],
-  },
-  {
-    featureType: "road.arterial",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "labels",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-  {
-    featureType: "road.local",
-    stylers: [
-      {
-        visibility: "off",
-      },
-    ],
-  },
-];
 
