@@ -60,3 +60,13 @@ https://sunnychopper.medium.com/how-to-use-axios-to-quickly-connect-to-an-api-in
 # Search for a specific destination and set a marker for it:
 
 https://www.youtube.com/watch?v=qlELLikT3FU&t=10s
+
+# Timer Functionality
+
+npm install react-native-countdown-component
+import Slider -
+npm install @react-native-community/slider
+Docs:
+https://www.npmjs.com/package/react-native-countdown-component
+https://github.com/callstack/react-native-slider
+https://www.youtube.com/watch?v=s9TnWIYV0Yw

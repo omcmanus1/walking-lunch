@@ -4,6 +4,7 @@ import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
+import Timer from "./src/Components/Timer";
 
 import PlotMarkers from "./src/Components/PlotMarkers";
 import DestinationSearch from "./src/Components/DestinationSearch";
@@ -16,8 +17,8 @@ export default function App() {
   const [searchedDestination, setSearchedDestination] = useState({});
 
   // for directions
-  //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
-  const origin = "Manchester Technology Centre";
+  const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
+  // const origin = "Manchester Technology Centre";
   const destination = { latitude: 53.636325899999996, longitude: -2.3278136 }; //Ricks house
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
   // for directions
@@ -33,18 +34,24 @@ export default function App() {
       }
 
       let currentLocation = await Location.getCurrentPositionAsync({});
+      console.log('location >>>>>>>>', currentLocation)
+
       setLocation({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
         latitudeDelta: 0.015,
         longitudeDelta: 0.032,
-      });
+            })
+            setSearchedDestination( {latitude: currentLocation.coords.latitude, longitude: currentLocation.coords.longitude})
     };
+
     getPermissions();
   }, []);
 
+
   return (
     <View style={styles.container}>
+      <Timer></Timer>
       {location ? (
         /* DestinationSearch component creates a search function 
         above the map (only renders when there is a location set initially), 
@@ -66,17 +73,16 @@ export default function App() {
           // ^^ this gives blue dot on map for your location
         >
           <PlotMarkers searchedDestination={searchedDestination}/>
-          {searchedDestination ? ( 
+          
             <Marker
             coordinate={{
               latitude: searchedDestination.latitude,
               longitude: searchedDestination.longitude,
             }}
           />
-          ) : null}
+          
         
-         
-
+        
         {origin && destination ? (
             <PlotRoute
               origin={origin}
