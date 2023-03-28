@@ -1,13 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import React from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE , Callout} from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
+import {FoodMarkers} from "./src/Components/FoodMarkers";
 
-import PlotMarkers from "./Components/PlotMarkers";
-import DestinationSearch from "./Components/DestinationSearch";
-import PlotRoute from "./Components/PlotRoute";
+
+import PlotMarkers from "./src/Components/PlotMarkers";
+import DestinationSearch from "./src/Components/DestinationSearch";
+import PlotRoute from "./src/Components/PlotRoute";
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 export default function App() {
@@ -20,6 +22,8 @@ export default function App() {
   const destination = { latitude: 53.636325899999996, longitude: -2.3278136 }; //Ricks house
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
   // for directions
+
+
 
   // mapJSON customises google maps styling, roads etc
   const mapJson = [
@@ -100,6 +104,7 @@ export default function App() {
           // ^^ this gives blue dot on map for your location
         >
           <PlotMarkers />
+          <FoodMarkers />
           <PlotRoute
             origin={origin}
             destination={destination}
@@ -113,7 +118,8 @@ export default function App() {
               }}
             />
           ) : null}
-          {/* Above is the marker that gets placed if a destination is searched for */}
+          {/* Above is the marker that gets placed if a destination is searched for */}     
+      
         </MapView>
       ) : (
         <Text>Loading...</Text>
