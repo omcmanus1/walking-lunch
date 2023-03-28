@@ -3,8 +3,6 @@ import { View, Text } from "react-native";
 import { useState, useEffect } from "react";
 
 export default function PlotRoute({
-  origin,
-  destination,
   GOOGLE_MAPS_APIKEY,
   markerWayPoints,
   setDistances,
