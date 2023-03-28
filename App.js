@@ -14,51 +14,17 @@ import PlotRoute from "./src/Components/PlotRoute";
 export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
-  const [searchedDestination, setSearchedDestination] = useState();
+  const [searchedDestination, setSearchedDestination] = useState({});
+
   // for directions
-  //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
-  const origin = "Manchester Technology Centre";
+  const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
+  // const origin = "Manchester Technology Centre";
   const destination = { latitude: 53.636325899999996, longitude: -2.3278136 }; //Ricks house
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
   // for directions
 
   // mapJSON customises google maps styling, roads etc
-  const mapJson = [
-    {
-      featureType: "poi.park",
-      stylers: [
-        {
-          visibility: "on",
-        },
-      ],
-    },
-    {
-      featureType: "road.arterial",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "labels",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "road.local",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-  ];
-
+ 
   useEffect(() => {
     const getPermissions = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -68,15 +34,20 @@ export default function App() {
       }
 
       let currentLocation = await Location.getCurrentPositionAsync({});
+      console.log('location >>>>>>>>', currentLocation)
+
       setLocation({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
         latitudeDelta: 0.015,
         longitudeDelta: 0.032,
-      });
+            })
+            setSearchedDestination( {latitude: currentLocation.coords.latitude, longitude: currentLocation.coords.longitude})
     };
+
     getPermissions();
   }, []);
+
 
   return (
     <View style={styles.container}>
@@ -92,7 +63,7 @@ export default function App() {
         />
       ) : null}
       {location ? (
-        <MapView
+          <MapView
           provider={PROVIDER_GOOGLE}
           // ^^ set google as the fixed map provider
           style={styles.map}
@@ -101,18 +72,22 @@ export default function App() {
           customMapStyle={mapJson}
           // ^^ this gives blue dot on map for your location
         >
-          <PlotMarkers />
-          <PlotRoute
-            origin={origin}
-            destination={destination}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-          />
-          {searchedDestination ? (
+          <PlotMarkers searchedDestination={searchedDestination}/>
+          
             <Marker
-              coordinate={{
-                latitude: searchedDestination.latitude,
-                longitude: searchedDestination.longitude,
-              }}
+            coordinate={{
+              latitude: searchedDestination.latitude,
+              longitude: searchedDestination.longitude,
+            }}
+          />
+          
+        
+        
+        {origin && destination ? (
+            <PlotRoute
+              origin={origin}
+              destination={destination}
+              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
             />
           ) : null}
           {/* Above is the marker that gets placed if a destination is searched for */}
@@ -137,3 +112,40 @@ const styles = StyleSheet.create({
     height: "40%",
   },
 });
+
+const mapJson = [
+  {
+    featureType: "poi.park",
+    stylers: [
+      {
+        visibility: "on",
+      },
+    ],
+  },
+  {
+    featureType: "road.arterial",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "road.local",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+];
+
