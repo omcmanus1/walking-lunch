@@ -1,3 +1,3 @@
-export default function RemoveMarkers({ markerLocations, setMarkerLocations }) {
+export default function RemoveMarkers({ setMarkerLocations }) {
   // const [markerLocations, setMarkerLocations] = useState([]);
 }

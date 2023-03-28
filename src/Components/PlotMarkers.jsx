@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Marker } from "react-native-maps";
+import RemoveMarkers from "./RemoveMarkers";
 
-export default function PlotMarkers({
-  searchedDestination,
-  markerLocations,
-  setMarkerLocations,
-}) {
+export default function PlotMarkers({ searchedDestination }) {
+  const [markerLocations, setMarkerLocations] = useState([]);
+
   useEffect(() => {
     if (Object.keys(searchedDestination).length) {
       const newMarker = {
@@ -24,6 +23,7 @@ export default function PlotMarkers({
       {markerLocations.map((location) => {
         return <Marker key={location.id} coordinate={location.coordinate} />;
       })}
+      <RemoveMarkers setMarkerLocations={setMarkerLocations} />
     </>
   );
 }
