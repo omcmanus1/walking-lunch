@@ -1,7 +1,7 @@
 import { fetchAllFood } from "../api/api";
 import { useState, useEffect } from "react";
-import { Marker, Callout, Text } from "react-native-maps";
-import { View } from "react-native";
+import { Marker } from "react-native-maps";
+
 
 
 export const FoodMarkers = () => {
@@ -15,7 +15,7 @@ useEffect(() => {
 
  return (
     <>{foodPlaces.map((eatery) => {
-    console.log(eatery.geometry.location.lat)
+    
     return (
       
       <Marker
