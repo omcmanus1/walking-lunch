@@ -13,6 +13,7 @@ import MapJson from "./src/Components/MapJson";
 import PlotMarkers from "./src/Components/PlotMarkers";
 import DestinationSearch from "./src/Components/DestinationSearch";
 import PlotRoute from "./src/Components/PlotRoute";
+import { POIMarkers } from "./src/Components/POIMarkers";
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 export default function App() {
@@ -82,7 +83,14 @@ export default function App() {
           // ^^ this gives blue dot on map for your location
         >
           {/* <PlotMarkers searchedDestination={searchedDestination}/> */}
-          <FoodMarkers />
+          <FoodMarkers 
+          location={location}
+          GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY }
+          />
+          <POIMarkers 
+          location={location}
+          GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY }
+          />
           <PlotRoute
             origin={origin}
             destination={destination}

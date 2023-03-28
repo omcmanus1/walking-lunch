@@ -4,11 +4,11 @@ import { Marker } from "react-native-maps";
 
 
 
-export const FoodMarkers = () => {
+export const FoodMarkers = ({location, GOOGLE_MAPS_APIKEY }) => {
 const [foodPlaces, setFoodPlaces] = useState([]);
 
 useEffect(() => {
-    fetchAllFood().then((data) => {
+    fetchAllFood(location, GOOGLE_MAPS_APIKEY ).then((data) => {
       setFoodPlaces(data);
     });
   }, []);
