@@ -21,11 +21,10 @@ export default function PlotMarkers({
   }, [searchedDestination]);
 
   return (
-    <View>
+    <>
       {markerLocations.map((location) => {
-        console.log(location);
         return <Marker key={location.id} coordinate={location.coordinate} />;
       })}
-    </View>
+    </>
   );
 }
