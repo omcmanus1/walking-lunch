@@ -5,6 +5,8 @@ import { Text, Image, Button, View } from "react-native";
 
 export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
   const [foodPlaces, setFoodPlaces] = useState([]);
+  const [buttonPressed, setButtonPressed] = useState(false);
+  const [testArray, setTestArray] = useState([]);
 
   useEffect(() => {
     fetchAllFood(location, GOOGLE_MAPS_APIKEY).then((data) => {
@@ -28,6 +30,11 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
     }
   };
 
+  const handleAddDestination = (destinationCoords) => {
+    setTestArray([...testArray, destinationCoords]);
+    alert("Destination added to route!");
+  };
+
   return (
     <>
       {foodPlaces.map((eatery) => {
@@ -45,7 +52,12 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
           >
             <Image source={require("../../assets/food.png")} />
             <Callout
-              onPress={() => console.log("Pressed!")}
+              onPress={() => {
+                handleAddDestination({
+                  latitude: eatery.geometry.location.lat,
+                  longitude: eatery.geometry.location.lng,
+                });
+              }}
               style={{ flex: -1, position: "absolute", width: 300 }}
             >
               <View>
@@ -59,18 +71,15 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
                       resizeMode="cover"
                       style={{ width: 100, height: 100 }}
                       source={{
-                        //uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photoreference=${eatery.photos[0].photo_reference}&key=${GOOGLE_MAPS_APIKEY}`,
+                        uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photoreference=${eatery.photos[0].photo_reference}&key=${GOOGLE_MAPS_APIKEY}`,
 
-                        uri: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Test.gif",
+                        // uri: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Test.gif",
                       }}
                     />
                   </Text>
                 ) : null}
 
-                <Button
-                  title="Eat Here"
-                  onPress={() => console.log("Pressed!")}
-                />
+                <Button title="Add destination" />
               </View>
             </Callout>
           </Marker>
