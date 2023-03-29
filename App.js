@@ -26,7 +26,6 @@ export default function App() {
   const [origin, setOrigin] = useState({});
   const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
-
   // for directions
   //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
   // const origin = "Manchester Technology Centre";
@@ -57,20 +56,7 @@ export default function App() {
     };
 
     getPermissions();
-  }, []);
-
-  useEffect(() => {
-    if (Object.keys(origin).length) {
-      const newMarker = {
-        id: markerLocations.length,
-        coordinate: {
-          latitude: origin.latitude,
-          longitude: origin.longitude,
-        },
-      };
-      setMarkerLocations([...markerLocations, newMarker]);
-    }
-  }, [origin]);
+  }, [setOrigin]);
 
   return (
     <View style={styles.container}>
@@ -115,13 +101,6 @@ export default function App() {
               setMarkerLocations={setMarkerLocations}
               origin={origin}
               setOrigin={setOrigin}
-            />
-
-            <Marker
-              coordinate={{
-                latitude: searchedDestination.latitude,
-                longitude: searchedDestination.longitude,
-              }}
             />
 
             {markerLocations.length === 4 ? (

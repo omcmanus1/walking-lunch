@@ -7,19 +7,31 @@ export default function PlotMarkers({
   setMarkerLocations,
   origin,
 }) {
-  console.log("markerLocations:", markerLocations);
-  // useEffect(() => {
-  //   if (Object.keys(origin).length) {
-  //     const newMarker = {
-  //       id: markerLocations.length,
-  //       coordinate: {
-  //         latitude: origin.latitude,
-  //         longitude: origin.longitude,
-  //       },
-  //     };
-  //     setMarkerLocations([...markerLocations, newMarker]);
-  //   }
-  // }, [origin]);
+  useEffect(() => {
+    if (Object.keys(origin).length !== 1) {
+      const newMarker = {
+        id: "origin_location",
+        coordinate: {
+          latitude: Number(origin.latitude),
+          longitude: Number(origin.longitude),
+        },
+      };
+      setMarkerLocations([...markerLocations, newMarker]);
+    }
+  }, [origin]);
+
+  useEffect(() => {
+    if (Object.keys(searchedDestination).length) {
+      const newMarker = {
+        id: `searched_${markerLocations.length}`,
+        coordinate: {
+          latitude: searchedDestination.latitude,
+          longitude: searchedDestination.longitude,
+        },
+      };
+      setMarkerLocations([...markerLocations, newMarker]);
+    }
+  }, [searchedDestination]);
 
   return (
     <>
