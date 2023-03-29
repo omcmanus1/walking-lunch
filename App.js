@@ -10,13 +10,14 @@ import Timer from "./src/Components/Timer";
 import MapJson from "./src/Components/MapJson";
 
 import PlotMarkers from "./src/Components/PlotMarkers";
+import RemoveMarkers from "./src/Components/RemoveMarkers";
 import DestinationSearch from "./src/Components/DestinationSearch";
 import PlotRoute from "./src/Components/PlotRoute";
-// import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 export default function App() {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
+  const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
   // for directions
   const origin = { latitude: 53.4721341, longitude: -2.2377251 }; // hard coded NC
@@ -25,18 +26,16 @@ export default function App() {
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
   // for directions
 
-  // mapJSON customises google maps styling, roads etc
+  console.log(markerLocations);
 
   useEffect(() => {
     const getPermissions = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log("Please grant location permissions");
         return;
       }
 
       let currentLocation = await Location.getCurrentPositionAsync({});
-      console.log("location >>>>>>>>", currentLocation);
 
       setLocation({
         latitude: currentLocation.coords.latitude,
@@ -67,40 +66,51 @@ export default function App() {
         />
       ) : null}
       {location ? (
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          // ^^ set google as the fixed map provider
-          style={styles.map}
-          initialRegion={location}
-          showsUserLocation={true}
-          customMapStyle={MapJson}
-          // ^^ this gives blue dot on map for your location
-        >
-          <FoodMarkers />
-          <PlotRoute
-            origin={origin}
-            destination={destination}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-          />
-
-          <PlotMarkers searchedDestination={searchedDestination} />
-
-          <Marker
-            coordinate={{
-              latitude: searchedDestination.latitude,
-              longitude: searchedDestination.longitude,
-            }}
-          />
-
-          {origin && destination ? (
+        <>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            // ^^ set google as the fixed map provider
+            style={styles.map}
+            initialRegion={location}
+            showsUserLocation={true}
+            customMapStyle={MapJson}
+            // ^^ this gives blue dot on map for your location
+          >
+            <FoodMarkers />
             <PlotRoute
               origin={origin}
               destination={destination}
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
             />
+
+            <PlotMarkers
+              searchedDestination={searchedDestination}
+              markerLocations={markerLocations}
+              setMarkerLocations={setMarkerLocations}
+            />
+
+            <Marker
+              coordinate={{
+                latitude: searchedDestination.latitude,
+                longitude: searchedDestination.longitude,
+              }}
+            />
+
+            {origin && destination ? (
+              <PlotRoute
+                origin={origin}
+                destination={destination}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+              />
+            ) : null}
+            {/* Above is the marker that gets placed if a destination is searched for */}
+          </MapView>
+          {markerLocations.length ? (
+            <View>
+              {/* <RemoveMarkers setMarkerLocations={setMarkerLocations} /> */}
+            </View>
           ) : null}
-          {/* Above is the marker that gets placed if a destination is searched for */}
-        </MapView>
+        </>
       ) : (
         <Text>Loading...</Text>
       )}
