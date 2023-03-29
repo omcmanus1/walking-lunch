@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Marker } from "react-native-maps";
 
 export default function PlotMarkers({
+  origin,
   searchedDestination,
   markerLocations,
   setMarkerLocations,
-  origin,
 }) {
   useEffect(() => {
     if (Object.keys(origin).length !== 1) {

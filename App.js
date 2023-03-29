@@ -24,8 +24,8 @@ export default function App() {
   // ^^ kmh speed can be set by user in dropdown/slider form "slow", "medium", or "fast" each with a different kmh value. Ie. "medium" is 4.5kmh which is what this state is set as default. "slow" could be 3kmh, "fast" could be 6kmh
   const [distances, setDistances] = useState([]);
   const [origin, setOrigin] = useState({});
-  const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
+  const [markerLocations, setMarkerLocations] = useState([]);
   // for directions
   //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
   // const origin = "Manchester Technology Centre";
@@ -96,11 +96,10 @@ export default function App() {
             />
 
             <PlotMarkers
+              origin={origin}
               searchedDestination={searchedDestination}
               markerLocations={markerLocations}
               setMarkerLocations={setMarkerLocations}
-              origin={origin}
-              setOrigin={setOrigin}
             />
 
             {markerLocations.length === 4 ? (
