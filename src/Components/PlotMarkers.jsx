@@ -6,7 +6,7 @@ export default function PlotMarkers({
   markerLocations,
   setMarkerLocations,
 }) {
-  console.log("marker locations", markerLocations);
+  // console.log("marker locations", markerLocations);
   // console.log('searchedDestination', searchedDestination)
 
   useEffect(() => {
