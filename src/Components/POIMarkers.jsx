@@ -1,16 +1,17 @@
 import { fetchAllPOI } from "../api/api";
 import { useState, useEffect } from "react";
 import { Marker } from "react-native-maps";
+import { View, Text } from "react-native";
 
-export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
-  const [POIPlaces, setPOIPlaces] = useState([]);
+export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY, POIPlaces}) => {
+  // const [POIPlaces, setPOIPlaces] = useState([]);
 
-  useEffect(() => {
-    fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
-      setPOIPlaces(data);
-    });
-  }, []);
-
+  // useEffect(() => {
+  //   fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
+  //     setPOIPlaces(data);
+  //   });
+  // }, []);
+  
   return (
     <>
       {POIPlaces.map((POI) => {
@@ -30,3 +31,6 @@ export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
     </>
   );
 };
+
+
+

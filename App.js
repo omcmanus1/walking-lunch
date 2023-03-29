@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View, TextInput } from "react-native";
+import { Button, StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
 import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import { useState, useEffect } from "react";
@@ -13,8 +13,13 @@ import PlotMarkers from "./src/Components/PlotMarkers";
 import DestinationSearch from "./src/Components/DestinationSearch";
 import PlotRoute from "./src/Components/PlotRoute";
 import RouteCalculations from "./src/Components/RouteCalculations";
-import { POIMarkers } from "./src/Components/POIMarkers";
+import {  POIMarkers } from "./src/Components/POIMarkers";
+import { fetchAllPOI } from "./src/api/api";
+import { ListAllPOI } from "./src/Components/POIList";
+
+
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
+
 
 export default function App() {
   const [location, setLocation] = useState();
@@ -32,6 +37,9 @@ export default function App() {
   // for directions - THE ABOVE ORIGIN/DESTINATION VARS ARE NOT USED ANYMORE AFTER EMMA'S ROUTE CALCS IMPLEMENTATION
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
+
+  
+  
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -59,8 +67,21 @@ export default function App() {
     getPermissions();
   }, []);
 
+  const [POIPlaces, setPOIPlaces] = useState([]);
+
+  useEffect(() => {
+    fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
+      setPOIPlaces(data);
+    });
+  }, []);
+  
+
+
+ 
   return (
+    //  <ScrollView >
     <View style={styles.container}>
+     
       <Timer></Timer>
       <SpeedSelector setKmh={setKmh} />
       {location ? (
@@ -74,6 +95,7 @@ export default function App() {
         />
       ) : null}
       {location ? (
+        
         <MapView
           provider={PROVIDER_GOOGLE}
           // ^^ set google as the fixed map provider
@@ -86,10 +108,13 @@ export default function App() {
           <FoodMarkers
             location={location}
             GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+            
           />
           <POIMarkers
             location={location}
             GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+            POIPlaces={POIPlaces}
+            
           />
 
           <PlotMarkers
@@ -113,12 +138,19 @@ export default function App() {
             />
           ) : null}
         </MapView>
+        
+        
       ) : (
         <Text>Loading...</Text>
       )}
       <RouteCalculations distances={distances} kmh={kmh} />
       <StatusBar style="auto" />
+     <ListAllPOI 
+     POIPlaces={POIPlaces} 
+     GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+     />
     </View>
+    //  </ScrollView>
   );
 }
 
