@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { Button } from "react-native";
+import PlotMarkers from "./PlotMarkers";
 
-export default function RemoveMarkers({ setMarkerLocations }) {
+export default function RemoveMarkers({ setMarkerLocations, markerLocations }) {
   const wipeMarkers = () => {
-    setMarkerLocations([]);
+    setMarkerLocations(markerLocations.filter((marker) => marker.id === 0));
   };
 
   return (

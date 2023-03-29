@@ -23,6 +23,7 @@ export default function App() {
   const [kmh, setKmh] = useState(4.5);
   // ^^ kmh speed can be set by user in dropdown/slider form "slow", "medium", or "fast" each with a different kmh value. Ie. "medium" is 4.5kmh which is what this state is set as default. "slow" could be 3kmh, "fast" could be 6kmh
   const [distances, setDistances] = useState([]);
+  const [origin, setOrigin] = useState({});
   const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
 
@@ -49,7 +50,7 @@ export default function App() {
         latitudeDelta: 0.015,
         longitudeDelta: 0.032,
       });
-      setSearchedDestination({
+      setOrigin({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
       });
@@ -57,6 +58,19 @@ export default function App() {
 
     getPermissions();
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(origin).length) {
+      const newMarker = {
+        id: markerLocations.length,
+        coordinate: {
+          latitude: origin.latitude,
+          longitude: origin.longitude,
+        },
+      };
+      setMarkerLocations([...markerLocations, newMarker]);
+    }
+  }, [origin]);
 
   return (
     <View style={styles.container}>
@@ -68,50 +82,61 @@ export default function App() {
         and if you click on something it will then create a marker there 
         (down below in mapview) */
         <DestinationSearch
+          searchedDestination={searchedDestination}
           setSearchedDestination={setSearchedDestination}
+          markerLocations={markerLocations}
+          setMarkerLocations={setMarkerLocations}
           location={location}
         />
       ) : null}
       {location ? (
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          // ^^ set google as the fixed map provider
-          style={styles.map}
-          initialRegion={location}
-          showsUserLocation={true}
-          customMapStyle={MapJson}
-          // ^^ this gives blue dot on map for your location
-        >
-          <FoodMarkers
-            location={location}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-          />
-          <POIMarkers
-            location={location}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-          />
-
-          <PlotMarkers
-            searchedDestination={searchedDestination}
-            markerLocations={markerLocations}
-            setMarkerLocations={setMarkerLocations}
-          />
-
-          <Marker
-            coordinate={{
-              latitude: searchedDestination.latitude,
-              longitude: searchedDestination.longitude,
-            }}
-          />
-
-          {markerLocations.length === 4 ? (
-            <PlotRoute
+        <>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            // ^^ set google as the fixed map provider
+            style={styles.map}
+            initialRegion={location}
+            showsUserLocation={true}
+            customMapStyle={MapJson}
+            // ^^ this gives blue dot on map for your location
+          >
+            <FoodMarkers
+              location={location}
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              setDistances={setDistances}
-              markerLocations={markerLocations}
             />
-          ) : null}
-        </MapView>
+            <POIMarkers
+              location={location}
+              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+            />
+
+            <PlotMarkers
+              searchedDestination={searchedDestination}
+              markerLocations={markerLocations}
+              setMarkerLocations={setMarkerLocations}
+              origin={origin}
+              setOrigin={setOrigin}
+            />
+
+            <Marker
+              coordinate={{
+                latitude: searchedDestination.latitude,
+                longitude: searchedDestination.longitude,
+              }}
+            />
+
+            {markerLocations.length === 4 ? (
+              <PlotRoute
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                setDistances={setDistances}
+                markerLocations={markerLocations}
+              />
+            ) : null}
+          </MapView>
+          <RemoveMarkers
+            setMarkerLocations={setMarkerLocations}
+            markerLocations={markerLocations}
+          />
+        </>
       ) : (
         <Text>Loading...</Text>
       )}

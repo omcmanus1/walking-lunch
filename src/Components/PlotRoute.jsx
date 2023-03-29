@@ -14,7 +14,6 @@ export default function PlotRoute({
     setDistances([distanceA, distanceB, distanceC]);
   }, [distanceA, distanceB, distanceC]);
 
-  console.log("array---------->", markerLocations);
   // THIS COMPONENT WON'T WORK CURRENTLY BECAUSE MARKERLOCATIONS ARRAY IS EMPTY/UNDEFINED BASED ON HOW PLOTMARKERS IS CURRENTLY SET UP TO ONLY PLOT LOCATIONS FOR A SEARCHED DESTINATION
 
   return (

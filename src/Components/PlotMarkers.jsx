@@ -1,24 +1,25 @@
 import { useEffect } from "react";
-import { View } from "react-native";
 import { Marker } from "react-native-maps";
 
 export default function PlotMarkers({
   searchedDestination,
   markerLocations,
   setMarkerLocations,
+  origin,
 }) {
-  useEffect(() => {
-    if (Object.keys(searchedDestination).length) {
-      const newMarker = {
-        id: markerLocations.length,
-        coordinate: {
-          latitude: searchedDestination.latitude,
-          longitude: searchedDestination.longitude,
-        },
-      };
-      setMarkerLocations([...markerLocations, newMarker]);
-    }
-  }, [searchedDestination]);
+  console.log("markerLocations:", markerLocations);
+  // useEffect(() => {
+  //   if (Object.keys(origin).length) {
+  //     const newMarker = {
+  //       id: markerLocations.length,
+  //       coordinate: {
+  //         latitude: origin.latitude,
+  //         longitude: origin.longitude,
+  //       },
+  //     };
+  //     setMarkerLocations([...markerLocations, newMarker]);
+  //   }
+  // }, [origin]);
 
   return (
     <>
