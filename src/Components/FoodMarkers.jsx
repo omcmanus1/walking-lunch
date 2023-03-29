@@ -30,6 +30,22 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
     }
   };
 
+  const getEmojiForPrice = (rating) => {
+    if (rating >= 4.5) {
+      return "💸 💸 💸 💸 💸 ";
+    } else if (rating >= 4) {
+      return "💸 💸 💸 💸";
+    } else if (rating >= 3) {
+      return "💸 💸 💸 ";
+    } else if (rating >= 2) {
+      return "💸 💸";
+    } else if (rating >= 1) {
+      return "💸";
+    } else {
+      return "";
+    }
+  };
+
   const handleAddDestination = (destinationCoords) => {
     setTestArray([...testArray, destinationCoords]);
     alert("Destination added to route!");
@@ -44,7 +60,7 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
             pinColor="#123"
             key={eatery.place_id}
             title={eatery.name}
-            description={`👛 ${eatery.price_level} Rating:${eatery.rating}`}
+            description={` ${eatery.price_level} Rating:${eatery.rating}`}
             coordinate={{
               latitude: eatery.geometry.location.lat,
               longitude: eatery.geometry.location.lng,
@@ -61,8 +77,11 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
               style={{ flex: -1, position: "absolute", width: 300 }}
             >
               <View>
-                <Text>{eatery.name}</Text>
+                <Text style={{ fontWeight: "bold", fontWeight: "bold" }}>
+                  {eatery.name}
+                </Text>
                 <Text>{eatery.vicinity}</Text>
+                <Text>Price:{getEmojiForPrice(eatery.price_level)} </Text>
                 <Text>Rating:{getEmojiForRating(eatery.rating)}</Text>
 
                 {eatery.photos && eatery.photos.length > 0 ? (
