@@ -31,6 +31,7 @@ export default function App() {
     { latitude: 53.47321401601933, longitude: -2.2644399595214377 },
     { latitude: 53.47232447050321, longitude: -2.238606030469162 },
   ]);
+  // ^^ testLocations is temporarily being used to pass to PlotRoute until markerLocations array can be used instead
 
   // for directions
   //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
@@ -99,11 +100,11 @@ export default function App() {
             GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
           />
 
-          {/* <PlotMarkers
+          <PlotMarkers
             searchedDestination={searchedDestination}
             markerLocations={markerLocations}
             setMarkerLocations={setMarkerLocations}
-          /> */}
+          />
 
           <Marker
             coordinate={{
@@ -118,6 +119,7 @@ export default function App() {
               setDistances={setDistances}
               markerLocations={markerLocations}
               testLocations={testLocations}
+              //^^ testLocations is being passed in temporarily until markerLocations array can be used
               showRoute={showRoute}
             />
           ) : null}
