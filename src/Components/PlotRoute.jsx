@@ -1,10 +1,9 @@
 import MapViewDirections from "react-native-maps-directions";
-import { View, Text } from "react-native";
 import { useState, useEffect } from "react";
 
 export default function PlotRoute({
   GOOGLE_MAPS_APIKEY,
-  markerWayPoints,
+  markerLocations,
   setDistances,
 }) {
   const [distanceA, setDistanceA] = useState(0);
@@ -15,11 +14,14 @@ export default function PlotRoute({
     setDistances([distanceA, distanceB, distanceC]);
   }, [distanceA, distanceB, distanceC]);
 
+  console.log("array---------->", markerLocations);
+  // THIS COMPONENT WON'T WORK CURRENTLY BECAUSE MARKERLOCATIONS ARRAY IS EMPTY/UNDEFINED BASED ON HOW PLOTMARKERS IS CURRENTLY SET UP TO ONLY PLOT LOCATIONS FOR A SEARCHED DESTINATION
+
   return (
     <>
       <MapViewDirections
-        origin={markerWayPoints[0]}
-        destination={markerWayPoints[1]}
+        origin={markerLocations[0].coordinate}
+        destination={markerLocations[1].coordinate}
         mode="WALKING"
         strokeWidth={5}
         strokeColor="hotpink"
@@ -30,8 +32,8 @@ export default function PlotRoute({
         }}
       />
       <MapViewDirections
-        origin={markerWayPoints[1]}
-        destination={markerWayPoints[2]}
+        origin={markerLocations[1].coordinate}
+        destination={markerLocations[2].coordinate}
         mode="WALKING"
         strokeWidth={5}
         strokeColor="blue"
@@ -42,8 +44,8 @@ export default function PlotRoute({
         }}
       />
       <MapViewDirections
-        origin={markerWayPoints[2]}
-        destination={markerWayPoints[3]}
+        origin={markerLocations[2].coordinate}
+        destination={markerLocations[3].coordinate}
         mode="WALKING"
         strokeWidth={5}
         strokeColor="orange"

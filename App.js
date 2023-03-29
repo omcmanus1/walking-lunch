@@ -22,13 +22,7 @@ export default function App() {
   const [kmh, setKmh] = useState(4.5);
   // ^^ kmh speed can be set by user in dropdown/slider form "slow", "medium", or "fast" each with a different kmh value. Ie. "medium" is 4.5kmh which is what this state is set as default. "slow" could be 3kmh, "fast" could be 6kmh
   const [distances, setDistances] = useState([]);
-  const [markerWayPoints, setMarkerWayPoints] = useState([
-    { latitude: 53.47233724234388, longitude: -2.2386060301324466 },
-    { latitude: 53.477314035548645, longitude: -2.2359793198206 },
-    { latitude: 53.477392438907366, longitude: -2.2409457571161577 },
-    { latitude: 53.47233724234388, longitude: -2.2386060301324466 },
-  ]);
-  // ^^ markerWayPoints hardcoded for now
+  const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
 
   // for directions
@@ -89,7 +83,6 @@ export default function App() {
           customMapStyle={MapJson}
           // ^^ this gives blue dot on map for your location
         >
-          {/* <PlotMarkers searchedDestination={searchedDestination}/> */}
           <FoodMarkers
             location={location}
             GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
@@ -98,17 +91,12 @@ export default function App() {
             location={location}
             GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
           />
-          <PlotRoute
-            origin={origin}
-            destination={destination}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-            // setTotalDistance={setTotalDistance}
-            // setTotalWalkingDuration={setTotalWalkingDuration}
-            markerWayPoints={markerWayPoints}
-            setDistances={setDistances}
-          />
 
-          <PlotMarkers searchedDestination={searchedDestination} />
+          <PlotMarkers
+            searchedDestination={searchedDestination}
+            markerLocations={markerLocations}
+            setMarkerLocations={setMarkerLocations}
+          />
 
           <Marker
             coordinate={{
@@ -117,14 +105,13 @@ export default function App() {
             }}
           />
 
-          {origin && destination ? (
+          {markerLocations.length === 4 ? (
             <PlotRoute
-              origin={origin}
-              destination={destination}
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+              setDistances={setDistances}
+              markerLocations={markerLocations}
             />
           ) : null}
-          {/* Above is the marker that gets placed if a destination is searched for */}
         </MapView>
       ) : (
         <Text>Loading...</Text>
