@@ -27,6 +27,8 @@ export default function App() {
   const [searchedDestination, setSearchedDestination] = useState({});
   const [markerLocations, setMarkerLocations] = useState([]);
   const [showRoute, setShowRoute] = useState(true);
+  const [waypointA, setWaypointA] = useState({});
+  const [waypointB, setWaypointB] = useState({});
   const [testLocations, setTestLocations] = useState([
     { latitude: 53.47232447050321, longitude: -2.238606030469162 },
     { latitude: 53.48156944141346, longitude: -2.25029073925313 },
@@ -83,6 +85,7 @@ export default function App() {
             markerLocations={markerLocations}
             setMarkerLocations={setMarkerLocations}
             location={location}
+            setWaypointA={setWaypointA}
           />
 
           <MapView
@@ -118,13 +121,18 @@ export default function App() {
                   searchedDestination={searchedDestination}
                   markerLocations={markerLocations}
                   setMarkerLocations={setMarkerLocations}
+                  waypointA={waypointA}
+                  waypointB={waypointB}
                 />
               </>
             ) : null}
           </MapView>
           <RemoveMarkers
             setMarkerLocations={setMarkerLocations}
+            origin={origin}
             markerLocations={markerLocations}
+            waypointA={waypointA}
+            waypointB={waypointB}
           />
         </>
       ) : (

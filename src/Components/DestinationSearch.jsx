@@ -4,8 +4,13 @@ import { Button } from "react-native";
 export default function DestinationSearch({
   setSearchedDestination,
   location,
+  setWaypointA,
 }) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
+
+  const confirmChoice = () => {
+    // logic to decide which waypoint to populate
+  };
 
   return (
     <>
@@ -36,8 +41,10 @@ export default function DestinationSearch({
           },
         }}
       />
-
-      {/* <Button title='searchDestination'>Input Destination</Button> */}
+      {/* Start by prompting user to decide if choice
+          is for waypointA or waypointB.
+          Use conditional to populate either state based on choice. */}
+      {/* <Button onPress={confirmChoice}></Button> */}
     </>
   );
 }
