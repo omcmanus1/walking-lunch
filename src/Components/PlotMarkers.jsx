@@ -7,16 +7,28 @@ export default function PlotMarkers({
   markerLocations,
   setMarkerLocations,
 }) {
+  console.log(markerLocations);
   useEffect(() => {
     if (Object.keys(origin).length !== 1) {
-      const newMarker = {
-        id: "origin_location",
-        coordinate: {
-          latitude: Number(origin.latitude),
-          longitude: Number(origin.longitude),
+      const markers = [
+        {
+          id: "start_point",
+          coordinate: origin,
         },
-      };
-      setMarkerLocations([...markerLocations, newMarker]);
+        {
+          id: "waypoint_1",
+          coordinate: { latitude: 0, longitude: 0 },
+        },
+        {
+          id: "waypoint_2",
+          coordinate: { latitude: 0, longitude: 0 },
+        },
+        {
+          id: "end_point",
+          coordinate: origin,
+        },
+      ];
+      setMarkerLocations(markers);
     }
   }, [origin]);
 

@@ -26,6 +26,15 @@ export default function App() {
   const [origin, setOrigin] = useState({});
   const [searchedDestination, setSearchedDestination] = useState({});
   const [markerLocations, setMarkerLocations] = useState([]);
+  const [showRoute, setShowRoute] = useState(true);
+  const [testLocations, setTestLocations] = useState([
+    { latitude: 53.47232447050321, longitude: -2.238606030469162 },
+    { latitude: 53.48156944141346, longitude: -2.25029073925313 },
+    { latitude: 53.47321401601933, longitude: -2.2644399595214377 },
+    { latitude: 53.47232447050321, longitude: -2.238606030469162 },
+  ]);
+  // ^^ testLocations is temporarily being used to pass to PlotRoute until markerLocations array can be used instead
+
   // for directions
   //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
   // const origin = "Manchester Technology Centre";
@@ -67,16 +76,15 @@ export default function App() {
         above the map (only renders when there is a location set initially), 
         and if you click on something it will then create a marker there 
         (down below in mapview) */
-        <DestinationSearch
-          searchedDestination={searchedDestination}
-          setSearchedDestination={setSearchedDestination}
-          markerLocations={markerLocations}
-          setMarkerLocations={setMarkerLocations}
-          location={location}
-        />
-      ) : null}
-      {location ? (
         <>
+          <DestinationSearch
+            searchedDestination={searchedDestination}
+            setSearchedDestination={setSearchedDestination}
+            markerLocations={markerLocations}
+            setMarkerLocations={setMarkerLocations}
+            location={location}
+          />
+
           <MapView
             provider={PROVIDER_GOOGLE}
             // ^^ set google as the fixed map provider
@@ -95,19 +103,23 @@ export default function App() {
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
             />
 
-            <PlotMarkers
-              origin={origin}
-              searchedDestination={searchedDestination}
-              markerLocations={markerLocations}
-              setMarkerLocations={setMarkerLocations}
-            />
-
-            {markerLocations.length === 4 ? (
-              <PlotRoute
-                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-                setDistances={setDistances}
-                markerLocations={markerLocations}
-              />
+            {testLocations.length === 4 ? (
+              <>
+                <PlotRoute
+                  GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                  setDistances={setDistances}
+                  markerLocations={markerLocations}
+                  testLocations={testLocations}
+                  //^^ testLocations is being passed in temporarily until markerLocations array can be used
+                  showRoute={showRoute}
+                />
+                <PlotMarkers
+                  origin={origin}
+                  searchedDestination={searchedDestination}
+                  markerLocations={markerLocations}
+                  setMarkerLocations={setMarkerLocations}
+                />
+              </>
             ) : null}
           </MapView>
           <RemoveMarkers
@@ -118,7 +130,12 @@ export default function App() {
       ) : (
         <Text>Loading...</Text>
       )}
-      <RouteCalculations distances={distances} kmh={kmh} />
+      <RouteCalculations
+        distances={distances}
+        kmh={kmh}
+        showRoute={showRoute}
+        setShowRoute={setShowRoute}
+      />
       <StatusBar style="auto" />
     </View>
   );

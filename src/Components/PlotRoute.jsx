@@ -5,6 +5,8 @@ export default function PlotRoute({
   GOOGLE_MAPS_APIKEY,
   markerLocations,
   setDistances,
+  testLocations,
+  // ^^ testLocations being passed in temporarily until markerLocations array can be used
 }) {
   const [distanceA, setDistanceA] = useState(0);
   const [distanceB, setDistanceB] = useState(0);
@@ -14,13 +16,13 @@ export default function PlotRoute({
     setDistances([distanceA, distanceB, distanceC]);
   }, [distanceA, distanceB, distanceC]);
 
-  // THIS COMPONENT WON'T WORK CURRENTLY BECAUSE MARKERLOCATIONS ARRAY IS EMPTY/UNDEFINED BASED ON HOW PLOTMARKERS IS CURRENTLY SET UP TO ONLY PLOT LOCATIONS FOR A SEARCHED DESTINATION
-
+  // console.log("array---------->", markerLocations);
+  // THIS COMPONENT IS CURRENTLY USING TESTLOCATIONS TO CREATE THE ROUTE DUE TO MARKERLOCATIONS FUNCTIONALITY NOT WORKING CORRECTLY YET
   return (
     <>
       <MapViewDirections
-        origin={markerLocations[0].coordinate}
-        destination={markerLocations[1].coordinate}
+        origin={testLocations[0]}
+        destination={testLocations[1]}
         mode="WALKING"
         strokeWidth={5}
         strokeColor="hotpink"
@@ -31,8 +33,8 @@ export default function PlotRoute({
         }}
       />
       <MapViewDirections
-        origin={markerLocations[1].coordinate}
-        destination={markerLocations[2].coordinate}
+        origin={testLocations[1]}
+        destination={testLocations[2]}
         mode="WALKING"
         strokeWidth={5}
         strokeColor="blue"
@@ -43,8 +45,8 @@ export default function PlotRoute({
         }}
       />
       <MapViewDirections
-        origin={markerLocations[2].coordinate}
-        destination={markerLocations[3].coordinate}
+        origin={testLocations[2]}
+        destination={testLocations[3]}
         mode="WALKING"
         strokeWidth={5}
         strokeColor="orange"
