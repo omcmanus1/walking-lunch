@@ -5,7 +5,6 @@ import { Text, Image, Button, View } from "react-native";
 
 export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
   const [foodPlaces, setFoodPlaces] = useState([]);
-  const [buttonPressed, setButtonPressed] = useState(false);
   const [testArray, setTestArray] = useState([]);
 
   useEffect(() => {
@@ -26,7 +25,7 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
     } else if (rating >= 1) {
       return "🌟";
     } else {
-      return "";
+      return "None";
     }
   };
 
@@ -42,7 +41,7 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
     } else if (rating >= 1) {
       return "💸";
     } else {
-      return "";
+      return "N/A";
     }
   };
 
@@ -81,7 +80,7 @@ export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
                   {eatery.name}
                 </Text>
                 <Text>{eatery.vicinity}</Text>
-                <Text>Price:{getEmojiForPrice(eatery.price_level)} </Text>
+                <Text>Price Level:{getEmojiForPrice(eatery.price_level)} </Text>
                 <Text>Rating:{getEmojiForRating(eatery.rating)}</Text>
 
                 {eatery.photos && eatery.photos.length > 0 ? (
