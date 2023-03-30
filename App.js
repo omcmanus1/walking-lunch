@@ -1,10 +1,13 @@
-import { Button, StyleSheet, Text, View, TextInput } from "react-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StartWalk from "./src/Components/StartWalk";
 import UserPastWalks from "./src/Components/UserPastWalks";
-import Home from "./Home";
+import Home from "./src/Components/Home";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { StatusBar } from "expo-status-bar";
+import React from "react";
+
+
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
 const Tab = createBottomTabNavigator();
@@ -48,15 +51,16 @@ export default function App() {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  map: {
-    width: "90%",
-    height: "40%",
-  },
-});
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+//   map: {
+//     width: "90%",
+//     height: "40%",
+//   },
+// });

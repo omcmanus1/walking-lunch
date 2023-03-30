@@ -5,15 +5,16 @@ import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
-import { FoodMarkers } from "./src/Components/FoodMarkers";
-import Timer from "./src/Components/Timer";
-import SpeedSelector from "./src/Components/SpeedSelector";
-import MapJson from "./src/Components/MapJson";
-import PlotMarkers from "./src/Components/PlotMarkers";
-import DestinationSearch from "./src/Components/DestinationSearch";
-import PlotRoute from "./src/Components/PlotRoute";
-import RouteCalculations from "./src/Components/RouteCalculations";
-import { POIMarkers } from "./src/Components/POIMarkers";
+import { FoodMarkers } from "./FoodMarkers";
+import Timer from "./Timer";
+import SpeedSelector from "./SpeedSelector";
+import MapJson from "./MapJson";
+import PlotMarkers from "./PlotMarkers";
+import DestinationSearch from "./DestinationSearch";
+import PlotRoute from "./PlotRoute";
+import RouteCalculations from "./RouteCalculations";
+import { POIMarkers } from "./POIMarkers";
+import RemoveMarkers from './RemoveMarkers'
 
 export default function Home() {
     const [location, setLocation] = useState();
@@ -23,6 +24,11 @@ export default function Home() {
     const [distances, setDistances] = useState([]);
     const [markerLocations, setMarkerLocations] = useState([]);
     const [searchedDestination, setSearchedDestination] = useState({});
+    const [showRoute, setShowRoute] = useState(true);
+    const [waypointA, setWaypointA] = useState({});
+    const [waypointB, setWaypointB] = useState({});
+    const [origin, setOrigin] = useState({});
+  
 
   
     // for directions
@@ -35,17 +41,14 @@ export default function Home() {
   
   
       
-  
     useEffect(() => {
       const getPermissions = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
-          console.log("Please grant location permissions");
           return;
         }
   
         let currentLocation = await Location.getCurrentPositionAsync({});
-        console.log("location >>>>>>>>", currentLocation);
   
         setLocation({
           latitude: currentLocation.coords.latitude,
@@ -53,86 +56,92 @@ export default function Home() {
           latitudeDelta: 0.015,
           longitudeDelta: 0.032,
         });
-        setSearchedDestination({
+        setOrigin({
           latitude: currentLocation.coords.latitude,
           longitude: currentLocation.coords.longitude,
         });
       };
   
       getPermissions();
-    }, []);
+    }, [setOrigin]);
   
     return (
-  <>
-     
-  
       <View style={styles.container}>
-      <Timer  />
-      <SpeedSelector setKmh={setKmh} />
+        <Timer></Timer>
+        <SpeedSelector setKmh={setKmh} />
         {location ? (
           /* DestinationSearch component creates a search function 
           above the map (only renders when there is a location set initially), 
           and if you click on something it will then create a marker there 
           (down below in mapview) */
-          <DestinationSearch
-            setSearchedDestination={setSearchedDestination}
-            location={location}
-          />
-        ) : null}
-        {location ? (
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            // ^^ set google as the fixed map provider
-            style={styles.map}
-            initialRegion={location}
-            showsUserLocation={true}
-            customMapStyle={MapJson}
-            // ^^ this gives blue dot on map for your location
-          >
-            <FoodMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-            />
-            <POIMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-            />
-  
-            <PlotMarkers
+          <>
+            <DestinationSearch
               searchedDestination={searchedDestination}
-              markerLocations={markerLocations}
-              setMarkerLocations={setMarkerLocations}
+              setSearchedDestination={setSearchedDestination}
+              location={location}
+              setWaypointA={setWaypointA}
+              setWaypointB={setWaypointB}
             />
   
-            <Marker
-              coordinate={{
-                latitude: searchedDestination.latitude,
-                longitude: searchedDestination.longitude,
-              }}
-            />
-  
-            {markerLocations.length === 4 ? (
-              <PlotRoute
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              // ^^ set google as the fixed map provider
+              style={styles.map}
+              initialRegion={location}
+              showsUserLocation={true}
+              customMapStyle={MapJson}
+              // ^^ this gives blue dot on map for your location
+            >
+              <FoodMarkers
+                location={location}
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-                setDistances={setDistances}
-                markerLocations={markerLocations}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
               />
-            ) : null}
-          </MapView>
+              <POIMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+              />
+              <PlotMarkers
+                origin={origin}
+                searchedDestination={searchedDestination}
+                markerLocations={markerLocations}
+                setMarkerLocations={setMarkerLocations}
+                waypointA={waypointA}
+                waypointB={waypointB}
+              />
+  
+              {markerLocations.length &&
+              markerLocations[1].coordinate.latitude &&
+              markerLocations[2].coordinate.latitude ? (
+                <PlotRoute
+                  GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                  setDistances={setDistances}
+                  markerLocations={markerLocations}
+                  showRoute={showRoute}
+                />
+              ) : null}
+            </MapView>
+            <RemoveMarkers
+              setMarkerLocations={setMarkerLocations}
+              origin={origin}
+              markerLocations={markerLocations}
+              setWaypointA={setWaypointA}
+              setWaypointB={setWaypointB}
+            />
+          </>
         ) : (
           <Text>Loading...</Text>
         )}
-        <RouteCalculations distances={distances} kmh={kmh} />
+        <RouteCalculations
+          distances={distances}
+          kmh={kmh}
+          showRoute={showRoute}
+          setShowRoute={setShowRoute}
+        />
         <StatusBar style="auto" />
-  
-       
-  
       </View>
-    
-  
-      </>
     );
-   
   }
 
 const styles = StyleSheet.create({

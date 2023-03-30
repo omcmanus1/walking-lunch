@@ -14,9 +14,7 @@ export default function PlotRoute({
     setDistances([distanceA, distanceB, distanceC]);
   }, [distanceA, distanceB, distanceC]);
 
-  console.log("array---------->", markerLocations);
-  // THIS COMPONENT WON'T WORK CURRENTLY BECAUSE MARKERLOCATIONS ARRAY IS EMPTY/UNDEFINED BASED ON HOW PLOTMARKERS IS CURRENTLY SET UP TO ONLY PLOT LOCATIONS FOR A SEARCHED DESTINATION
-
+  console.log("markerLocations -->", markerLocations);
   return (
     <>
       <MapViewDirections
@@ -25,7 +23,6 @@ export default function PlotRoute({
         mode="WALKING"
         strokeWidth={5}
         strokeColor="hotpink"
-        // waypoints={markerWayPoints}
         apikey={GOOGLE_MAPS_APIKEY}
         onReady={(result) => {
           setDistanceA(result.distance);
@@ -37,7 +34,6 @@ export default function PlotRoute({
         mode="WALKING"
         strokeWidth={5}
         strokeColor="blue"
-        // waypoints={markerWayPoints}
         apikey={GOOGLE_MAPS_APIKEY}
         onReady={(result) => {
           setDistanceB(result.distance);
@@ -49,7 +45,6 @@ export default function PlotRoute({
         mode="WALKING"
         strokeWidth={5}
         strokeColor="orange"
-        // waypoints={markerWayPoints}
         apikey={GOOGLE_MAPS_APIKEY}
         onReady={(result) => {
           setDistanceC(result.distance);
