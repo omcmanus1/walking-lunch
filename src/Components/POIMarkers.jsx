@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import { Marker } from "react-native-maps";
 import { View, Text } from "react-native";
 
-export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY, POIPlaces}) => {
+export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY, POIPlaces, setPOIPlaces}) => {
   // const [POIPlaces, setPOIPlaces] = useState([]);
 
-  // useEffect(() => {
-  //   fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
-  //     setPOIPlaces(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
+      setPOIPlaces(data);
+    });
+  }, []);
   
   return (
     <>

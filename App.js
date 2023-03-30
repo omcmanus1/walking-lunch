@@ -69,17 +69,8 @@ export default function App() {
 
   const [POIPlaces, setPOIPlaces] = useState([]);
 
-  useEffect(() => {
-    fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
-      setPOIPlaces(data);
-    });
-  }, []);
-  
-
-
- 
   return (
-    //  <ScrollView >
+    
     <View style={styles.container}>
      
       <Timer></Timer>
@@ -114,6 +105,7 @@ export default function App() {
             location={location}
             GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
             POIPlaces={POIPlaces}
+            setPOIPlaces={setPOIPlaces}
             
           />
 
@@ -150,7 +142,6 @@ export default function App() {
      GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
      />
     </View>
-    //  </ScrollView>
   );
 }
 
