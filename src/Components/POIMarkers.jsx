@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Marker, Callout } from "react-native-maps";
 import { Text, Image, Button, View } from "react-native";
 
-export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
-  const [POIPlaces, setPOIPlaces] = useState([]);
+export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY , POIPlaces, setPOIPlaces}) => {
+  
   const [testArray, setTestArray] = useState([]);
 
   useEffect(() => {
@@ -89,3 +89,6 @@ export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
     </>
   );
 };
+
+
+

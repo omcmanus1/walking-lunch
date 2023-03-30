@@ -15,8 +15,9 @@ import PlotRoute from "./PlotRoute";
 import RouteCalculations from "./RouteCalculations";
 import { POIMarkers } from "./POIMarkers";
 import RemoveMarkers from './RemoveMarkers'
+import { ListAllPOI } from "./POIList";
 
-export default function Map() {
+export default function Map({POIPlaces, setPOIPlaces}) {
     const [location, setLocation] = useState();
     const [address, setAddress] = useState();
     const [kmh, setKmh] = useState(4.5);
@@ -101,6 +102,8 @@ export default function Map() {
               <POIMarkers
                 location={location}
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                POIPlaces={POIPlaces}
+                setPOIPlaces={setPOIPlaces}
               />
               <PlotMarkers
                 origin={origin}
@@ -133,6 +136,7 @@ export default function Map() {
         ) : (
           <Text>Loading...</Text>
         )}
+        <ListAllPOI POIPlaces={POIPlaces}/>
         <RouteCalculations
           distances={distances}
           kmh={kmh}
