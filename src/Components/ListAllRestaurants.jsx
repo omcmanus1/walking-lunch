@@ -1,11 +1,15 @@
-import { Text, FlatList, Pressable, Alert, SafeAreaView } from "react-native";
+import { FlatList, Pressable, Text } from "react-native";
 
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
-export const ListAllPOI = ({ POIPlaces, setWaypointA, setWaypointB }) => {
+export const ListAllRestaurants = ({
+  foodPlaces,
+  setWaypointA,
+  setWaypointB,
+}) => {
   return (
     <FlatList
-      data={POIPlaces}
+      data={foodPlaces}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
