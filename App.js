@@ -1,8 +1,8 @@
 import { Button, StyleSheet, Text, View, TextInput } from "react-native"
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StartWalk from "./StartWalk";
-import UserPastWalks from "./UserPastWalks";
+import StartWalk from "./src/Components/StartWalk";
+import UserPastWalks from "./src/Components/UserPastWalks";
 import Home from "./Home";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
@@ -33,7 +33,6 @@ export default function App() {
               iconName = focused ? 'walk-outline' : 'walk';
             }
 
-            // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'tomato',

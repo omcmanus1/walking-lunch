@@ -23,7 +23,6 @@ export default function Home() {
     const [distances, setDistances] = useState([]);
     const [markerLocations, setMarkerLocations] = useState([]);
     const [searchedDestination, setSearchedDestination] = useState({});
-    const [timerValue, setTimerValue] = useState(0);
 
   
     // for directions
@@ -68,7 +67,7 @@ export default function Home() {
      
   
       <View style={styles.container}>
-      <Timer/>        
+      <Timer  />
       <SpeedSelector setKmh={setKmh} />
         {location ? (
           /* DestinationSearch component creates a search function 
