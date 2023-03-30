@@ -7,11 +7,9 @@ export const ListAllRestaurants = ({
   setWaypointA,
   setWaypointB,
 }) => {
-  const restaurants = foodPlaces;
-
   return (
     <FlatList
-      data={restaurants}
+      data={foodPlaces}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
