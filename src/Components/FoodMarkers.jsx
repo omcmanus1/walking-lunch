@@ -10,8 +10,10 @@ export const FoodMarkers = ({
   GOOGLE_MAPS_APIKEY,
   setWaypointA,
   setWaypointB,
+  foodPlaces,
+  setFoodPlaces
 }) => {
-  const [foodPlaces, setFoodPlaces] = useState([]);
+  
 
   useEffect(() => {
     fetchAllFood(location, GOOGLE_MAPS_APIKEY).then((data) => {

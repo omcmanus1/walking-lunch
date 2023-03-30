@@ -13,7 +13,6 @@ export const ListAllPOI = (POIPlaces) => {
             Alert.alert(
               item.name,
               "Alert Message",
-
               [
                 {
                   text: "Close",

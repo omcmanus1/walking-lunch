@@ -1,5 +1,5 @@
 import { fetchAllPOI } from "../api/api";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Marker, Callout } from "react-native-maps";
 import { Text, Image, Button, View } from "react-native";
 import { addWaypoints } from "../utils/functions/add-waypoints";
@@ -12,8 +12,6 @@ export const POIMarkers = ({
   setWaypointA,
   setWaypointB,
 }) => {
-  const [testArray, setTestArray] = useState([]);
-
   useEffect(() => {
     fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
       setPOIPlaces(data);
