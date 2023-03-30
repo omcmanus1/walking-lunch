@@ -3,30 +3,13 @@ import { Button } from "react-native";
 export default function RemoveMarkers({
   setMarkerLocations,
   origin,
-  waypointA,
-  waypointB,
+  setWaypointA,
+  setWaypointB,
 }) {
   const wipeMarkers = () => {
     // make util file to house markers (also for PlotMarkers)??
-    const markers = [
-      {
-        id: "start_point",
-        coordinate: origin,
-      },
-      {
-        id: "waypoint_1",
-        coordinate: { latitude: 0, longitude: 0 },
-      },
-      {
-        id: "waypoint_2",
-        coordinate: { latitude: 0, longitude: 0 },
-      },
-      {
-        id: "end_point",
-        coordinate: origin,
-      },
-    ];
-    setMarkerLocations(markers);
+    setWaypointA({})
+    setWaypointB({})
   };
 
   return (

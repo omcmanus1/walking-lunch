@@ -3,7 +3,12 @@ import { fetchAllFood } from "../api/api";
 import { Marker, Callout } from "react-native-maps";
 import { Text, Image, Button, View } from "react-native";
 
-export const FoodMarkers = ({ location, GOOGLE_MAPS_APIKEY }) => {
+export const FoodMarkers = ({
+  location,
+  GOOGLE_MAPS_APIKEY,
+  setWaypointA,
+  setWaypointB,
+}) => {
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [testArray, setTestArray] = useState([]);
 

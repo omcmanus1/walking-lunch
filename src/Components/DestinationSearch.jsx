@@ -1,6 +1,8 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Alert, Button } from "react-native";
 
+import { addWaypoints } from "../utils/functions/add-waypoints";
+
 export default function DestinationSearch({
   searchedDestination,
   setSearchedDestination,
@@ -9,29 +11,6 @@ export default function DestinationSearch({
   setWaypointB,
 }) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
-
-  const confirmChoice = () => {
-    Alert.alert("Add Destination", "Is this your first or second stop?", [
-      {
-        text: "Cancel",
-        onPress: () => {
-          console.log("cancelled choice");
-        },
-      },
-      {
-        text: "Stop 1",
-        onPress: () => {
-          setWaypointA(searchedDestination);
-        },
-      },
-      {
-        text: "Stop 2",
-        onPress: () => {
-          setWaypointB(searchedDestination);
-        },
-      },
-    ]);
-  };
 
   return (
     <>
@@ -65,7 +44,12 @@ export default function DestinationSearch({
       {/* Start by prompting user to decide if choice
           is for waypointA or waypointB.
           Use conditional to populate either state based on choice. */}
-      <Button title="Add Destination" onPress={confirmChoice}></Button>
+      <Button
+        title="Add Destination"
+        onPress={() =>
+          addWaypoints(setWaypointA, setWaypointB, searchedDestination)
+        }
+      ></Button>
     </>
   );
 }

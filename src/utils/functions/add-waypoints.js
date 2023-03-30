@@ -1,26 +1,24 @@
-export const addWaypoints = (whichWaypoint, coords) => {
+import { Alert } from "react-native";
 
-
-  const markersTemplate = [
+export const addWaypoints = (setA, setB, coords) => {
+  Alert.alert("Add Destination", "Is this your first or second stop?", [
     {
-      id: "start_point",
-      coordinate: origin,
+      text: "Cancel",
+      onPress: () => {
+        console.log("cancelled choice");
+      },
     },
     {
-      id: "waypoint_1",
-      coordinate: waypointA.latitude
-        ? waypointA
-        : { latitude: 0, longitude: 0 },
+      text: "Stop 1",
+      onPress: () => {
+        setA(coords);
+      },
     },
     {
-      id: "waypoint_2",
-      coordinate: waypointB.latitude
-        ? waypointB
-        : { latitude: 0, longitude: 0 },
+      text: "Stop 2",
+      onPress: () => {
+        setB(coords);
+      },
     },
-    {
-      id: "end_point",
-      coordinate: origin,
-    },
-  ];
+  ]);
 };

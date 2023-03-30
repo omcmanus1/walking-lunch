@@ -69,8 +69,6 @@ export default function App() {
           <DestinationSearch
             searchedDestination={searchedDestination}
             setSearchedDestination={setSearchedDestination}
-            markerLocations={markerLocations}
-            setMarkerLocations={setMarkerLocations}
             location={location}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
@@ -88,6 +86,8 @@ export default function App() {
             <FoodMarkers
               location={location}
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+              setWaypointA={setWaypointA}
+              setWaypointB={setWaypointB}
             />
             <POIMarkers
               location={location}
@@ -105,20 +105,20 @@ export default function App() {
             {markerLocations.length &&
             markerLocations[1].coordinate.latitude &&
             markerLocations[2].coordinate.latitude ? (
-                <PlotRoute
-                  GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-                  setDistances={setDistances}
-                  markerLocations={markerLocations}
-                  showRoute={showRoute}
-                />
+              <PlotRoute
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                setDistances={setDistances}
+                markerLocations={markerLocations}
+                showRoute={showRoute}
+              />
             ) : null}
           </MapView>
           <RemoveMarkers
             setMarkerLocations={setMarkerLocations}
             origin={origin}
             markerLocations={markerLocations}
-            waypointA={waypointA}
-            waypointB={waypointB}
+            setWaypointA={setWaypointA}
+            setWaypointB={setWaypointB}
           />
         </>
       ) : (
