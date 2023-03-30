@@ -175,7 +175,6 @@ const styles = StyleSheet.create({
       margin: 25, 
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: '25px'
     }
   });
 
