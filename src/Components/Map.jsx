@@ -16,7 +16,7 @@ import RouteCalculations from "./RouteCalculations";
 import { POIMarkers } from "./POIMarkers";
 import RemoveMarkers from './RemoveMarkers'
 
-export default function Home() {
+export default function Map() {
     const [location, setLocation] = useState();
     const [address, setAddress] = useState();
     const [kmh, setKmh] = useState(4.5);

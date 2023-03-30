@@ -2,10 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StartWalk from "./src/Components/StartWalk";
 import UserPastWalks from "./src/Components/UserPastWalks";
-import Home from "./src/Components/Home";
+import Map from "./src/Components/Map";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import { StatusBar } from "expo-status-bar";
 import React from "react";
+
 
 
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
@@ -26,7 +27,7 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') {
+            if (route.name === 'Map') {
               iconName = focused
                 ? 'pin'
                 : 'pin-outline';
@@ -43,8 +44,10 @@ export default function App() {
         })}>
           
     <Tab.Screen name="Start Walk" component={StartWalk} />
-    <Tab.Screen name="Home" component={Home} />
+    <Tab.Screen name="Map" component={Map} />
     <Tab.Screen name="User" component={UserPastWalks} />
+
+
   </Tab.Navigator>
   </NavigationContainer>
   )
