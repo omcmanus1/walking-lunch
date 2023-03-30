@@ -1,4 +1,4 @@
-import {  Text, FlatList, Pressable , Alert} from "react-native";
+import {  Text, FlatList, Pressable , Alert, SafeAreaView} from "react-native";
 export const ListAllPOI = (POIPlaces) => {
 
 const places = POIPlaces.POIPlaces
@@ -7,13 +7,15 @@ return(
 
 
     <FlatList
+    //scrollEnabled={false}
     data={places}
     renderItem= 
     {({item}) => 
     <Pressable onPress={()=>{
         Alert.alert(
             item.name,
-            item.place_id,
+            'Alert Message',
+
             [
               {
                 text: "Close",
@@ -33,5 +35,6 @@ return(
     </Pressable>
     }
   />
+  
 )
 }

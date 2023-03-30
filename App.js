@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import { Button, StyleSheet, Text, View, TextInput, ScrollView, SafeAreaView } from "react-native";
 import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import { useState, useEffect } from "react";
@@ -14,7 +14,6 @@ import DestinationSearch from "./src/Components/DestinationSearch";
 import PlotRoute from "./src/Components/PlotRoute";
 import RouteCalculations from "./src/Components/RouteCalculations";
 import {  POIMarkers } from "./src/Components/POIMarkers";
-import { fetchAllPOI } from "./src/api/api";
 import { ListAllPOI } from "./src/Components/POIList";
 
 
@@ -29,6 +28,14 @@ export default function App() {
   const [distances, setDistances] = useState([]);
   const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
+  const [showRoute, setShowRoute] = useState(true);
+  const [testLocations, setTestLocations] = useState([
+    { latitude: 53.47232447050321, longitude: -2.238606030469162 },
+    { latitude: 53.48156944141346, longitude: -2.25029073925313 },
+    { latitude: 53.47321401601933, longitude: -2.2644399595214377 },
+    { latitude: 53.47232447050321, longitude: -2.238606030469162 },
+  ]);
+  // ^^ testLocations is temporarily being used to pass to PlotRoute until markerLocations array can be used instead
 
   // for directions
   //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
@@ -70,7 +77,7 @@ export default function App() {
   const [POIPlaces, setPOIPlaces] = useState([]);
 
   return (
-    
+   //<ScrollView style={{ flex: 1 }}>
     <View style={styles.container}>
      
       <Timer></Timer>
@@ -122,11 +129,14 @@ export default function App() {
             }}
           />
 
-          {markerLocations.length === 4 ? (
+          {testLocations.length === 4 ? (
             <PlotRoute
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
               setDistances={setDistances}
               markerLocations={markerLocations}
+              testLocations={testLocations}
+              //^^ testLocations is being passed in temporarily until markerLocations array can be used
+              showRoute={showRoute}
             />
           ) : null}
         </MapView>
@@ -135,13 +145,23 @@ export default function App() {
       ) : (
         <Text>Loading...</Text>
       )}
-      <RouteCalculations distances={distances} kmh={kmh} />
+      <RouteCalculations
+        distances={distances}
+        kmh={kmh}
+        showRoute={showRoute}
+        setShowRoute={setShowRoute}
+      />
       <StatusBar style="auto" />
+      
      <ListAllPOI 
      POIPlaces={POIPlaces} 
      GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
      />
+     
+     
     </View>
+    //</ScrollView>
+   
   );
 }
 
