@@ -155,7 +155,11 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
       ) : (
         <>
           <Button title="show places" onPress={() => setWhichList("POI")} />
-          {/* <ListAllRestaurants foodPlaces={foodPlaces} /> */}
+          <ListAllRestaurants
+            foodPlaces={foodPlaces}
+            setWaypointA={setWaypointA}
+            setWaypointB={setWaypointB}
+          />
         </>
       )}
       <RouteCalculations
