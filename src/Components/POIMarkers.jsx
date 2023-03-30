@@ -2,9 +2,16 @@ import { fetchAllPOI } from "../api/api";
 import React, { useState, useEffect } from "react";
 import { Marker, Callout } from "react-native-maps";
 import { Text, Image, Button, View } from "react-native";
+import { addWaypoints } from "../utils/functions/add-waypoints";
 
-export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY , POIPlaces, setPOIPlaces}) => {
-  
+export const POIMarkers = ({
+  location,
+  GOOGLE_MAPS_APIKEY,
+  POIPlaces,
+  setPOIPlaces,
+  setWaypointA,
+  setWaypointB,
+}) => {
   const [testArray, setTestArray] = useState([]);
 
   useEffect(() => {
@@ -29,11 +36,6 @@ export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY , POIPlaces, setPOIPla
     }
   };
 
-  const handleAddDestination = (destinationCoords) => {
-    setTestArray([...testArray, destinationCoords]);
-    alert("Destination added to route!");
-  };
-
   return (
     <>
       {POIPlaces.map((POI) => {
@@ -51,7 +53,7 @@ export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY , POIPlaces, setPOIPla
 
             <Callout
               onPress={() => {
-                handleAddDestination({
+                addWaypoints(setWaypointA, setWaypointB, {
                   latitude: POI.geometry.location.lat,
                   longitude: POI.geometry.location.lng,
                 });
@@ -89,6 +91,3 @@ export const POIMarkers = ({ location, GOOGLE_MAPS_APIKEY , POIPlaces, setPOIPla
     </>
   );
 };
-
-
-
