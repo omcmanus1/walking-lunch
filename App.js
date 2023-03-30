@@ -5,7 +5,8 @@ import UserPastWalks from "./src/Components/UserPastWalks";
 import SetRoute from "./src/Components/SetRoute";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
+
 
 
 
@@ -15,7 +16,7 @@ const Tab = createBottomTabNavigator();
 
 
 export default function App() {
-
+const [POIPlaces, setPOIPlaces] = useState([]);
   return( 
 
   <NavigationContainer>
@@ -43,9 +44,13 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}>
           
-          <Tab.Screen name="Set Route" component={SetRoute} />
+          <Tab.Screen name="Set Route" component={SetRoute} >
+          {()=><Map POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} />}</Tab.Screen>
           <Tab.Screen name="Start Walk" component={StartWalk} />
           <Tab.Screen name="User" component={UserPastWalks} />
+
+
+  
 
 
   </Tab.Navigator>
