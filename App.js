@@ -76,41 +76,8 @@ export default function App() {
         above the map (only renders when there is a location set initially), 
         and if you click on something it will then create a marker there 
         (down below in mapview) */
-<<<<<<< HEAD
-        <DestinationSearch
-          setSearchedDestination={setSearchedDestination}
-          location={location}
-        />
-      ) : null}
-      {location ? (
-        
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          // ^^ set google as the fixed map provider
-          style={styles.map}
-          initialRegion={location}
-          showsUserLocation={true}
-          customMapStyle={MapJson}
-          // ^^ this gives blue dot on map for your location
-        >
-          <FoodMarkers
-            location={location}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-            
-          />
-          <POIMarkers
-            location={location}
-            GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-            POIPlaces={POIPlaces}
-            setPOIPlaces={setPOIPlaces}
-            
-          />
-
-          <PlotMarkers
-=======
         <>
           <DestinationSearch
->>>>>>> 85c64081953bb9857a1c0cf48ea093aeead90e0e
             searchedDestination={searchedDestination}
             setSearchedDestination={setSearchedDestination}
             location={location}
@@ -133,12 +100,6 @@ export default function App() {
               setWaypointA={setWaypointA}
               setWaypointB={setWaypointB}
             />
-<<<<<<< HEAD
-          ) : null}
-        </MapView>
-        
-        
-=======
             <POIMarkers
               location={location}
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
@@ -171,7 +132,6 @@ export default function App() {
             setWaypointB={setWaypointB}
           />
         </>
->>>>>>> 85c64081953bb9857a1c0cf48ea093aeead90e0e
       ) : (
         <Text>Loading...</Text>
       )}

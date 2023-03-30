@@ -1,4 +1,6 @@
 import {  Text, FlatList, Pressable , Alert, SafeAreaView} from "react-native";
+
+
 export const ListAllPOI = (POIPlaces) => {
 
 const places = POIPlaces.POIPlaces
