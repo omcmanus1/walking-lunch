@@ -2,12 +2,8 @@ import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import { useState } from "react";
 import Slider from "@react-native-community/slider";
 
-export default function SetTimer() {
+export default function SetTimer({sliderValue, setSliderValue}) {
 
-  const [sliderValue, setSliderValue] = useState(0);
- 
-
-console.log(sliderValue);
   return (
     <View>
        

@@ -4,11 +4,7 @@ import StartWalk from "./src/Components/StartWalk";
 import UserPastWalks from "./src/Components/UserPastWalks";
 import SetRoute from "./src/Components/SetRoute";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-
-
-
 
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
@@ -17,6 +13,8 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 const [POIPlaces, setPOIPlaces] = useState([]);
+const [secondsLeft, setSecondsLeft] = useState(0);
+const [totalDuration, setTotalDuration] = useState(0);
   return( 
 
   <NavigationContainer>
@@ -45,10 +43,12 @@ const [POIPlaces, setPOIPlaces] = useState([]);
         })}>
           
           <Tab.Screen name="Set Route" >
-          {()=><SetRoute POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} />}
+          {()=><SetRoute POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} setSecondsLeft={setSecondsLeft} totalDuration={totalDuration} secondsLeft={secondsLeft}/>}
           </Tab.Screen>
-          <Tab.Screen name="Start Walk" component={StartWalk} />
-          <Tab.Screen name="User" component={UserPastWalks} />
+          <Tab.Screen name="Start Walk" >
+          {()=><StartWalk setSecondsLeft={setSecondsLeft} totalDuration={totalDuration} secondsLeft={secondsLeft} />}
+          </Tab.Screen>
+          <Tab.Screen name="User" component={UserPastWalks}  ></Tab.Screen>
     
 
 

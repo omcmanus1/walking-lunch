@@ -1,18 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View, TextInput } from "react-native";
-// import Timer from "./Timer";
-// import SpeedSelector from "./SpeedSelector";
+import StartTimer from "./StartTimer"
+import React, { useState } from "react";
 
-
-
-export default function StartWalk({setKmh}){
+export default function StartWalk({setSecondsLeft, totalDuration, secondsLeft}){
 
     return(
         <View style={styles.container}>
-        <Text>Start Walk!!</Text>
-        {/* <Timer/> */}
-        {/* <SpeedSelector setKmh={setKmh} /> */}
-
+          <StartTimer setSecondsLeft={setSecondsLeft} totalDuration={totalDuration} secondsLeft={secondsLeft}/>
         <StatusBar style='auto' />
         </View>
     )

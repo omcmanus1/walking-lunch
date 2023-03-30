@@ -1,10 +1,10 @@
+import CountDown from "react-native-countdown-component";
+import {View, Text} from "react-native"
+import React, { useState, useEffect } from "react";
 
-export default function StartTimer(){
- 
-    const [totalDuration, setTotalDuration] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState(0);
-  const [showSetMinsForm, setShowSetMinsForm] = useState(true);
-  const [showTimer, setShowTimer] = useState(false);
+
+
+export default function StartTimer({ setSecondsLeft, totalDuration, secondsLeft}){
   const [showHurryMsg, setShowHurryMsg] = useState(false);
   const [finalJourneyTimeSecs, setFinalJourneyTimeSecs] = useState(900);
   // ^^ finalJourneyTimeSecs state is temp hard coded for now, need to get this data from waypoints array - walking duration of second to last waypoint to final waypoint (back to origin)
@@ -15,29 +15,31 @@ export default function StartTimer(){
     } else setShowHurryMsg(false);
   }, [secondsLeft]);
 
-  const handlePress = () => {
-    const totalSecs = sliderValue * 60;
-    // ^^ converts user inputted mins to seconds
-    setTotalDuration(totalSecs);
-    setSecondsLeft(totalSecs);
-    setShowSetMinsForm(false);
-    setShowTimer(true);
-  };
+  // const handlePress = () => {
+  //   const totalSecs = sliderValue * 60;
+  //   // ^^ converts user inputted mins to seconds
+  //   setTotalDuration(totalSecs);
+  //   setSecondsLeft(totalSecs);
+  //   setShowSetMinsForm(false);
+  //   setShowTimer(true);
+  // };
 
-  const handleReset = () => {
-    setTotalDuration(0);
-    setShowSetMinsForm(true);
-    setShowTimer(false);
-    setSecondsLeft(0);
-    setSliderValue(0);
-  };
+  // const handleReset = () => {
+  //   setTotalDuration(0);
+  //   setShowSetMinsForm(true);
+  //   setShowTimer(false);
+  //   setSecondsLeft(0);
+  //   setSliderValue(0);
+  // };
+  // ^^ NOT BEING USED YET
+
   return(
     <View>
     <View>
       <Text>Time left: </Text>
       <CountDown
         until={totalDuration}
-        timeToShow={[“M”, “S”]}
+        timeToShow={['M', 'S']}
         onFinish={() =>
           alert(
             "Your walking lunch is up! Hopefully you are now back where you started! Have a nice afternoon :)"

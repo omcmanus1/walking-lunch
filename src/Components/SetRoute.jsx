@@ -17,11 +17,10 @@ import { ListAllPOI } from "./ListAllPOI";
 import RemoveMarkers from './RemoveMarkers'
 import Modal from "react-native-modal";
 
-export default function SetRoute({setPOIPlaces, POIPlaces}) {
+export default function SetRoute({setPOIPlaces, POIPlaces, secondsLeft, setSecondsLeft, totalDuration, setTotalDuration}) {
     const [location, setLocation] = useState();
     const [address, setAddress] = useState();
     const [kmh, setKmh] = useState(4.5);
-    // ^^ kmh speed can be set by user in dropdown/slider form "slow", "medium", or "fast" each with a different kmh value. Ie. "medium" is 4.5kmh which is what this state is set as default. "slow" could be 3kmh, "fast" could be 6kmh
     const [distances, setDistances] = useState([]);
     const [markerLocations, setMarkerLocations] = useState([]);
     const [searchedDestination, setSearchedDestination] = useState({});
@@ -30,17 +29,14 @@ export default function SetRoute({setPOIPlaces, POIPlaces}) {
     const [waypointB, setWaypointB] = useState({});
     const [origin, setOrigin] = useState({});
     const [showModal, setShowModal] =useState(true);
-  
+    const [showSetMinsForm, setShowSetMinsForm] = useState(true);
+    const [showTimer, setShowTimer] = useState(false);
+    const [sliderValue, setSliderValue] = useState(0);
 
   
-    const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
-  
-    const handleSpeedSelection = (speed) => {
-      if (speed === "slow") setKmh(3);
-      else if (speed === "medium") setKmh(4.5);
-      else if (speed === "fast") setKmh(6);
-    };
-      
+    const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";  
+
+
     useEffect(() => {
       const getPermissions = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -61,18 +57,30 @@ export default function SetRoute({setPOIPlaces, POIPlaces}) {
           longitude: currentLocation.coords.longitude,
         });
       };
-  
+
       getPermissions();
     }, [setOrigin]);
 
-  
+  console.log(kmh)
+
+ const handleStartJourney = () => {
+  const totalSecs = sliderValue * 60;
+  // ^^ converts user inputted mins to seconds
+  setTotalDuration(totalSecs);
+  setSecondsLeft(totalSecs);
+  setShowSetMinsForm(false);
+  setShowTimer(true);
+ }
+
+
+
     return (
       <View style={styles.container}>
 
 <Modal isVisible={showModal} style={styles.modal}  > 
 <Text>Set your walking preferences!!!</Text>
 <SpeedSelector setKmh={setKmh} />
-<SetTimer></SetTimer>
+<SetTimer sliderValue={sliderValue} setSliderValue={setSliderValue}></SetTimer>
 <Button title='Set Preferences' onPress={() => setShowModal(false)}></Button>
 </Modal>
 
@@ -142,13 +150,19 @@ export default function SetRoute({setPOIPlaces, POIPlaces}) {
         <Text>Loading...</Text>
       )}
       <ListAllPOI POIPlaces={POIPlaces} />
+      
+      <Button title="Start Journey" onPress={handleStartJourney}/>
+
+    
       <RouteCalculations
         distances={distances}
         kmh={kmh}
         showRoute={showRoute}
         setShowRoute={setShowRoute}
       />
+
       <StatusBar style="auto" />
+
     </View>
   );
 }
