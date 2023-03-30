@@ -7,7 +7,7 @@ export default function RemoveMarkers({
   waypointB,
 }) {
   const wipeMarkers = () => {
-    // make util file to house markers (also for PlotMarkers)
+    // make util file to house markers (also for PlotMarkers)??
     const markers = [
       {
         id: "start_point",
@@ -15,15 +15,11 @@ export default function RemoveMarkers({
       },
       {
         id: "waypoint_1",
-        coordinate: waypointA.latitude
-          ? waypointA
-          : { latitude: 0, longitude: 0 },
+        coordinate: { latitude: 0, longitude: 0 },
       },
       {
         id: "waypoint_2",
-        coordinate: waypointB.latitude
-          ? waypointB
-          : { latitude: 0, longitude: 0 },
+        coordinate: { latitude: 0, longitude: 0 },
       },
       {
         id: "end_point",

@@ -29,19 +29,6 @@ export default function App() {
   const [showRoute, setShowRoute] = useState(true);
   const [waypointA, setWaypointA] = useState({});
   const [waypointB, setWaypointB] = useState({});
-  const [testLocations, setTestLocations] = useState([
-    { latitude: 53.47232447050321, longitude: -2.238606030469162 },
-    { latitude: 53.48156944141346, longitude: -2.25029073925313 },
-    { latitude: 53.47321401601933, longitude: -2.2644399595214377 },
-    { latitude: 53.47232447050321, longitude: -2.238606030469162 },
-  ]);
-  // ^^ testLocations is temporarily being used to pass to PlotRoute until markerLocations array can be used instead
-
-  // for directions
-  //const origin = {latitude: 53.4721341, longitude: -2.2377251};// hard coded NC
-  // const origin = "Manchester Technology Centre";
-  // const destination = { latitude: 53.636325899999996, longitude: -2.3278136 }; //Ricks house
-  // for directions - THE ABOVE ORIGIN/DESTINATION VARS ARE NOT USED ANYMORE AFTER EMMA'S ROUTE CALCS IMPLEMENTATION
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -86,6 +73,7 @@ export default function App() {
             setMarkerLocations={setMarkerLocations}
             location={location}
             setWaypointA={setWaypointA}
+            setWaypointB={setWaypointB}
           />
 
           <MapView
@@ -105,26 +93,24 @@ export default function App() {
               location={location}
               GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
             />
+            <PlotMarkers
+              origin={origin}
+              searchedDestination={searchedDestination}
+              markerLocations={markerLocations}
+              setMarkerLocations={setMarkerLocations}
+              waypointA={waypointA}
+              waypointB={waypointB}
+            />
 
-            {testLocations.length === 4 ? (
-              <>
+            {markerLocations.length &&
+            markerLocations[1].coordinate.latitude &&
+            markerLocations[2].coordinate.latitude ? (
                 <PlotRoute
                   GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
                   setDistances={setDistances}
                   markerLocations={markerLocations}
-                  testLocations={testLocations}
-                  //^^ testLocations is being passed in temporarily until markerLocations array can be used
                   showRoute={showRoute}
                 />
-                <PlotMarkers
-                  origin={origin}
-                  searchedDestination={searchedDestination}
-                  markerLocations={markerLocations}
-                  setMarkerLocations={setMarkerLocations}
-                  waypointA={waypointA}
-                  waypointB={waypointB}
-                />
-              </>
             ) : null}
           </MapView>
           <RemoveMarkers
