@@ -44,13 +44,12 @@ const [POIPlaces, setPOIPlaces] = useState([]);
           tabBarInactiveTintColor: 'gray',
         })}>
           
-          <Tab.Screen name="Set Route" component={SetRoute} >
-          {()=><Map POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} />}</Tab.Screen>
+          <Tab.Screen name="Set Route" >
+          {()=><SetRoute POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} />}
+          </Tab.Screen>
           <Tab.Screen name="Start Walk" component={StartWalk} />
           <Tab.Screen name="User" component={UserPastWalks} />
-
-
-  
+    
 
 
   </Tab.Navigator>
