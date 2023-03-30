@@ -1,12 +1,12 @@
 
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View, TextInput } from "react-native";
+import { Button, StyleSheet, Text, View, TextInput, Alert} from "react-native";
 import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import { FoodMarkers } from "./FoodMarkers";
-import Timer from "./Timer";
+import SetTimer from "./SetTimer";
 import SpeedSelector from "./SpeedSelector";
 import MapJson from "./MapJson";
 import PlotMarkers from "./PlotMarkers";
@@ -15,8 +15,9 @@ import PlotRoute from "./PlotRoute";
 import RouteCalculations from "./RouteCalculations";
 import { POIMarkers } from "./POIMarkers";
 import RemoveMarkers from './RemoveMarkers'
+import Modal from "react-native-modal";
 
-export default function Map() {
+export default function SetRoute() {
     const [location, setLocation] = useState();
     const [address, setAddress] = useState();
     const [kmh, setKmh] = useState(4.5);
@@ -28,6 +29,7 @@ export default function Map() {
     const [waypointA, setWaypointA] = useState({});
     const [waypointB, setWaypointB] = useState({});
     const [origin, setOrigin] = useState({});
+    const [showModal, setShowModal] =useState(true);
   
 
   
@@ -39,7 +41,11 @@ export default function Map() {
   
     const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
   
-  
+    const handleSpeedSelection = (speed) => {
+      if (speed === "slow") setKmh(3);
+      else if (speed === "medium") setKmh(4.5);
+      else if (speed === "fast") setKmh(6);
+    };
       
     useEffect(() => {
       const getPermissions = async () => {
@@ -64,11 +70,19 @@ export default function Map() {
   
       getPermissions();
     }, [setOrigin]);
+
   
     return (
       <View style={styles.container}>
-        <Timer></Timer>
-        <SpeedSelector setKmh={setKmh} />
+
+<Modal isVisible={showModal} style={styles.modal}  > 
+<Text>Set your walking preferences!!!</Text>
+<SpeedSelector setKmh={setKmh} />
+<SetTimer></SetTimer>
+<Button title='Set Preferences' onPress={() => setShowModal(false)}></Button>
+</Modal>
+
+       
         {location ? (
           /* DestinationSearch component creates a search function 
           above the map (only renders when there is a location set initially), 
@@ -155,4 +169,14 @@ const styles = StyleSheet.create({
       width: "90%",
       height: "40%",
     },
+
+    modal: {
+      backgroundColor: 'white',
+      margin: 25, 
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '25px'
+    }
   });
+
+ 
