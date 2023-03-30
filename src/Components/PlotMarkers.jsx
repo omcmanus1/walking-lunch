@@ -1,26 +1,42 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Marker } from "react-native-maps";
 
 export default function PlotMarkers({
+  origin,
   searchedDestination,
   markerLocations,
   setMarkerLocations,
+  waypointA,
+  waypointB,
 }) {
-  // console.log("marker locations", markerLocations);
-  // console.log('searchedDestination', searchedDestination)
-
+  console.log(markerLocations);
   useEffect(() => {
-    if (Object.keys(searchedDestination).length) {
-      const newMarker = {
-        id: markerLocations.length,
-        coordinate: {
-          latitude: searchedDestination.latitude,
-          longitude: searchedDestination.longitude,
+    if (Object.keys(origin).length !== 1) {
+      const markers = [
+        {
+          id: "start_point",
+          coordinate: origin,
         },
-      };
-      setMarkerLocations([...markerLocations, newMarker]);
+        {
+          id: "waypoint_1",
+          coordinate: waypointA.latitude
+            ? waypointA
+            : { latitude: 0, longitude: 0 },
+        },
+        {
+          id: "waypoint_2",
+          coordinate: waypointB.latitude
+            ? waypointB
+            : { latitude: 0, longitude: 0 },
+        },
+        {
+          id: "end_point",
+          coordinate: origin,
+        },
+      ];
+      setMarkerLocations(markers);
     }
-  }, [searchedDestination]);
+  }, [origin, waypointA, waypointB]);
 
   return (
     <>
