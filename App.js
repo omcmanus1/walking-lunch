@@ -1,169 +1,69 @@
-import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View, TextInput, ScrollView, SafeAreaView } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import StartWalk from "./src/Components/StartWalk";
+import UserPastWalks from "./src/Components/UserPastWalks";
+import Map from "./src/Components/Map";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { StatusBar } from "expo-status-bar";
 import React from "react";
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
-import { useState, useEffect } from "react";
-import * as Location from "expo-location";
-import { FoodMarkers } from "./src/Components/FoodMarkers";
 
-import Timer from "./src/Components/Timer";
-import SpeedSelector from "./src/Components/SpeedSelector";
-import MapJson from "./src/Components/MapJson";
-import PlotMarkers from "./src/Components/PlotMarkers";
-import RemoveMarkers from "./src/Components/RemoveMarkers";
-import DestinationSearch from "./src/Components/DestinationSearch";
-import PlotRoute from "./src/Components/PlotRoute";
-import RouteCalculations from "./src/Components/RouteCalculations";
-import {  POIMarkers } from "./src/Components/POIMarkers";
-import { ListAllPOI } from "./src/Components/POIList";
 
 
 // import { GeocodeAddress } from "./Components/GeocodeAddress";
 
+const Tab = createBottomTabNavigator();
+
 
 export default function App() {
-  const [location, setLocation] = useState();
-  const [address, setAddress] = useState();
-  const [kmh, setKmh] = useState(4.5);
-  // ^^ kmh speed can be set by user in dropdown/slider form "slow", "medium", or "fast" each with a different kmh value. Ie. "medium" is 4.5kmh which is what this state is set as default. "slow" could be 3kmh, "fast" could be 6kmh
-  const [distances, setDistances] = useState([]);
-  const [origin, setOrigin] = useState({});
-  const [searchedDestination, setSearchedDestination] = useState({});
-  const [markerLocations, setMarkerLocations] = useState([]);
-  const [showRoute, setShowRoute] = useState(true);
-  const [waypointA, setWaypointA] = useState({});
-  const [waypointB, setWaypointB] = useState({});
 
-  const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
+  return( 
 
+  <NavigationContainer>
+  <Tab.Navigator  
+  initialRouteName="Start Walk"
   
-  
+  screenOptions={({ route }) => ({
+    headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-  useEffect(() => {
-    const getPermissions = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        return;
-      }
+            if (route.name === 'Map') {
+              iconName = focused
+                ? 'pin'
+                : 'pin-outline';
+            } else if (route.name === 'User') {
+              iconName = focused ? 'person-circle-outline' : 'person-circle';
+            } else if (route.name === 'Start Walk') {
+              iconName = focused ? 'walk-outline' : 'walk';
+            }
 
-      let currentLocation = await Location.getCurrentPositionAsync({});
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}>
+          
+    <Tab.Screen name="Start Walk" component={StartWalk} />
+    <Tab.Screen name="Map" component={Map} />
+    <Tab.Screen name="User" component={UserPastWalks} />
 
-      setLocation({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-        latitudeDelta: 0.015,
-        longitudeDelta: 0.032,
-      });
-      setOrigin({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-      });
-    };
 
-    getPermissions();
-  }, [setOrigin]);
-
-  const [POIPlaces, setPOIPlaces] = useState([]);
-
-  return (
-   //<ScrollView style={{ flex: 1 }}>
-    <View style={styles.container}>
-     
-      <Timer></Timer>
-      <SpeedSelector setKmh={setKmh} />
-      {location ? (
-        /* DestinationSearch component creates a search function 
-        above the map (only renders when there is a location set initially), 
-        and if you click on something it will then create a marker there 
-        (down below in mapview) */
-        <>
-          <DestinationSearch
-            searchedDestination={searchedDestination}
-            setSearchedDestination={setSearchedDestination}
-            location={location}
-            setWaypointA={setWaypointA}
-            setWaypointB={setWaypointB}
-          />
-
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            // ^^ set google as the fixed map provider
-            style={styles.map}
-            initialRegion={location}
-            showsUserLocation={true}
-            customMapStyle={MapJson}
-            // ^^ this gives blue dot on map for your location
-          >
-            <FoodMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-            />
-            <POIMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-            />
-            <PlotMarkers
-              origin={origin}
-              searchedDestination={searchedDestination}
-              markerLocations={markerLocations}
-              setMarkerLocations={setMarkerLocations}
-              waypointA={waypointA}
-              waypointB={waypointB}
-            />
-
-            {markerLocations.length &&
-            markerLocations[1].coordinate.latitude &&
-            markerLocations[2].coordinate.latitude ? (
-              <PlotRoute
-                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-                setDistances={setDistances}
-                markerLocations={markerLocations}
-                showRoute={showRoute}
-              />
-            ) : null}
-          </MapView>
-          <RemoveMarkers
-            setMarkerLocations={setMarkerLocations}
-            origin={origin}
-            markerLocations={markerLocations}
-            setWaypointA={setWaypointA}
-            setWaypointB={setWaypointB}
-          />
-        </>
-      ) : (
-        <Text>Loading...</Text>
-      )}
-      <RouteCalculations
-        distances={distances}
-        kmh={kmh}
-        showRoute={showRoute}
-        setShowRoute={setShowRoute}
-      />
-      <StatusBar style="auto" />
-      
-     <ListAllPOI 
-     POIPlaces={POIPlaces} 
-     GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-     />
-     
-     
-    </View>
-    //</ScrollView>
-   
-  );
+  </Tab.Navigator>
+  </NavigationContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  map: {
-    width: "90%",
-    height: "40%",
-  },
-});
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+//   map: {
+//     width: "90%",
+//     height: "40%",
+//   },
+// });
