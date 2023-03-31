@@ -3,13 +3,15 @@ import { Marker } from "react-native-maps";
 
 export default function PlotMarkers({
   origin,
-  searchedDestination,
   markerLocations,
   setMarkerLocations,
   waypointA,
   waypointB,
+  nameA,
+  nameB,
 }) {
-
+  console.log(markerLocations);
+  console.log(nameA);
   useEffect(() => {
     if (Object.keys(origin).length !== 1) {
       const markers = [
@@ -19,15 +21,17 @@ export default function PlotMarkers({
         },
         {
           id: "waypoint_1",
-          coordinate: waypointA.latitude
-            ? waypointA
+          coordinate: waypointA.coords.latitude
+            ? waypointA.coords
             : { latitude: 0, longitude: 0 },
+          name: nameA ? nameA : "not_set",
         },
         {
           id: "waypoint_2",
-          coordinate: waypointB.latitude
-            ? waypointB
+          coordinate: waypointB.coords
+            ? waypointB.coords.latitude
             : { latitude: 0, longitude: 0 },
+          name: nameB ? nameB : "not_set",
         },
         {
           id: "end_point",
@@ -36,7 +40,7 @@ export default function PlotMarkers({
       ];
       setMarkerLocations(markers);
     }
-  }, [origin, waypointA, waypointB]);
+  }, [origin, waypointA, waypointB, nameA, nameB]);
 
   return (
     <>

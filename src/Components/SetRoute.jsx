@@ -34,6 +34,8 @@ export default function SetRoute({
   const [showRoute, setShowRoute] = useState(true);
   const [waypointA, setWaypointA] = useState({});
   const [waypointB, setWaypointB] = useState({});
+  const [nameA, setNameA] = useState("");
+  const [nameB, setNameB] = useState("");
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
@@ -41,7 +43,6 @@ export default function SetRoute({
   const [completedModal, setCompletedModal] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0);
 
-  console.log(completedModal);
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
   useEffect(() => {
@@ -105,6 +106,8 @@ export default function SetRoute({
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
+                setNameA={setNameA}
+                setNameB={setNameB}
                 foodPlaces={foodPlaces}
                 setFoodPlaces={setFoodPlaces}
               />
@@ -126,6 +129,8 @@ export default function SetRoute({
               setMarkerLocations={setMarkerLocations}
               waypointA={waypointA}
               waypointB={waypointB}
+              nameA={nameA}
+              nameB={nameB}
             />
 
             {markerLocations.length &&
@@ -205,5 +210,12 @@ const styles = StyleSheet.create({
   map: {
     width: "90%",
     height: "40%",
+  },
+
+  modal: {
+    backgroundColor: "white",
+    margin: 25,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
