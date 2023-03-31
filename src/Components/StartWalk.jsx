@@ -4,6 +4,8 @@ import StartTimer from "./StartTimer"
 import React, { useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import MapJson from "./MapJson";
+import PlotRoute from "./PlotRoute";
+import MapViewDirections from "react-native-maps-directions";
 
 
 export default function StartWalk({kmh, setKmh, totalDuration, setTotalDuration, location }){
@@ -27,7 +29,41 @@ const [secondsLeft, setSecondsLeft] = useState(0);
             initialRegion={location}
             showsUserLocation={true}
             customMapStyle={MapJson}
-          ></MapView>
+          >
+            <MapViewDirections
+              origin="Manchester Technology Centre"
+              destination="Royal Exchange Theatre"
+              mode="WALKING"
+              strokeWidth={5}
+              strokeColor="hotpink"
+              apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
+              // onReady={(result) => {
+              //   setDistanceA(result.distance);
+              // }}
+            />
+            <MapViewDirections
+              origin="Royal Exchange Theatre"
+              destination="Manchester Art Gallery"
+              mode="WALKING"
+              strokeWidth={5}
+              strokeColor="blue"
+              apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
+              // onReady={(result) => {
+              //   setDistanceB(result.distance);
+              // }}
+            />
+            <MapViewDirections
+              origin="Manchester Art Gallery"
+              destination="Manchester Technology Centre"
+              mode="WALKING"
+              strokeWidth={5}
+              strokeColor="orange"
+              apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
+              // onReady={(result) => {
+              //   setDistanceC(result.distance);
+              // }}
+            />
+          </MapView>
         </>
       </View>
     );
