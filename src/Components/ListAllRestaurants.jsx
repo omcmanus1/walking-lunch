@@ -13,10 +13,15 @@ export const ListAllRestaurants = ({
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
-            addWaypoints(setWaypointA, setWaypointB, {
-              latitude: item.geometry.location.lat,
-              longitude: item.geometry.location.lng,
-            });
+            addWaypoints(
+              setWaypointA,
+              setWaypointB,
+              {
+                latitude: item.geometry.location.lat,
+                longitude: item.geometry.location.lng,
+              },
+              item.name
+            );
           }}
         >
           <Text>{item.name}</Text>

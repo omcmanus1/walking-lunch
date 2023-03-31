@@ -9,9 +9,6 @@ export default function PlotMarkers({
   waypointB,
 }) {
   console.log(markerLocations);
-  // console.log(waypointA);
-  // console.log(waypointA.coords.latitude);
-  // console.log(waypointA.name);
   useEffect(() => {
     if (Object.keys(origin).length !== 1) {
       const markers = [

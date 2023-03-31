@@ -8,8 +8,14 @@ export default function RemoveMarkers({
 }) {
   const wipeMarkers = () => {
     // make util file to house markers (also for PlotMarkers)??
-    setWaypointA({})
-    setWaypointB({})
+    setWaypointA({
+      coords: { latitude: 0, longitude: 0 },
+      name: "not_set",
+    });
+    setWaypointB({
+      coords: { latitude: 0, longitude: 0 },
+      name: "not_set",
+    });
   };
 
   return (
