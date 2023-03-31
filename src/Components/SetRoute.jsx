@@ -86,9 +86,7 @@ export default function SetRoute({
     }
   }, []);
 
-  const handleStartJourney = () => {
-    setShowStartJourneyModal(true);
-  };
+  console.log(markerLocations);
 
   return (
     <View style={styles.container}>
@@ -180,14 +178,13 @@ export default function SetRoute({
         </>
       )}
 
-      <RemoveMarkers
-        setMarkerLocations={setMarkerLocations}
-        origin={origin}
-        markerLocations={markerLocations}
-        setWaypointA={setWaypointA}
-        setWaypointB={setWaypointB}
+      <RemoveMarkers setWaypointA={setWaypointA} setWaypointB={setWaypointB} />
+      <Button
+        title="Start Journey"
+        onPress={() => {
+          setShowStartJourneyModal(true);
+        }}
       />
-      <Button title="Start Journey" onPress={handleStartJourney} />
       <StartJourneyModal
         showStartJourneyModal={showStartJourneyModal}
         setShowStartJourneyModal={setShowStartJourneyModal}
@@ -198,8 +195,9 @@ export default function SetRoute({
         setLastLegWalkingDuration={setLastLegWalkingDuration}
         setTotalDistance={setTotalDistance}
         totalDistance={totalDistance}
+        setWaypointA={setWaypointA}
+        setWaypointB={setWaypointB}
       />
-
       <StatusBar style="auto" />
     </View>
   );

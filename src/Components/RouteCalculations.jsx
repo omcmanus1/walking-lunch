@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, Text, Alert } from "react-native";
+import { wipeMarkers } from "../utils/functions/wipe-markers";
 
 export default function RouteCalculations({
   distances,
@@ -9,12 +10,14 @@ export default function RouteCalculations({
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
+  setWaypointA,
+  setWaypointB,
+  setShowStartJourneyModal,
 }) {
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
-
   let totalDur = 0;
 
   const convertToHoursMins = (totalMins) => {
@@ -29,38 +32,23 @@ export default function RouteCalculations({
     return totalMins;
   };
 
-  const longerThanHourAlert = () => {
-    Alert.alert("Warning!", "Your route will take longer than an hour!", [
-      {
-        text: "Select alternative destinations",
-        onPress: () => {
-          // console.log("this callback function needs to reset markerLocations");
-          // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
-        },
-        style: "cancel",
-      },
-      {
-        text: "It's okay, I have the time",
-        onPress: () => {
-          setShowRoute(true);
-        },
-        style: "ok",
-      },
-    ]);
-  };
-
   const longerThan45MinsAlert = (journeyTime) => {
+    let plugTimeInMsg = "";
+    if (journeyTime.hours > 1) {
+      plugTimeInMsg = `${journeyTime.hours} hours and ${journeyTime.mins} minutes`;
+    } else if (journeyTime.hours === 1) {
+      plugTimeInMsg = `${journeyTime.hours} hour and ${journeyTime.mins} minutes`;
+    } else if (!journeyTime.hours) {
+      plugTimeInMsg = `${journeyTime.mins} minutes`;
+    }
     Alert.alert(
       "Warning!",
-      `Your route will take ${journeyTime} mins to walk. You may not have time to fit everything into your lunch break!`,
+      `Your route will take ${plugTimeInMsg} to walk! You might not be able to fit everything into your lunchtime.`,
       [
         {
           text: "Select alternative destinations",
           onPress: () => {
-            // console.log(
-            //   "this callback function needs to reset markerLocations"
-            //   // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
-            // );
+            wipeMarkers(setWaypointA, setWaypointB);
           },
           style: "cancel",
         },
@@ -68,6 +56,7 @@ export default function RouteCalculations({
           text: "It's okay, I have the time",
           onPress: () => {
             setShowRoute(true);
+            setShowStartJourneyModal(false);
           },
           style: "ok",
         },
@@ -97,12 +86,9 @@ export default function RouteCalculations({
   }, [distances, kmh]);
 
   useEffect(() => {
-    if (totalWalkingDuration.hours) {
+    if (totalWalkingDuration.mins >= 45) {
       setShowRoute(false);
-      longerThanHourAlert();
-    } else if (totalWalkingDuration.mins >= 45) {
-      setShowRoute(false);
-      longerThan45MinsAlert(totalWalkingDuration.mins);
+      longerThan45MinsAlert(totalWalkingDuration);
     }
   }, [totalWalkingDuration]);
 
