@@ -4,9 +4,7 @@ export const addWaypoints = (setA, setB, coords) => {
   Alert.alert("Add Destination", "Is this your first or second stop?", [
     {
       text: "Cancel",
-      onPress: () => {
-        console.log("cancelled choice");
-      },
+      onPress: () => {},
     },
     {
       text: "Stop 1",

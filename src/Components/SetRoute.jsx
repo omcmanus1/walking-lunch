@@ -17,6 +17,7 @@ import { ListAllPOI } from "./ListAllPOI";
 import { ListAllRestaurants } from "./ListAllRestaurants";
 import RemoveMarkers from "./RemoveMarkers";
 import Modal from "react-native-modal";
+import CompletedWalk from "./CompletedWalk";
 
 export default function SetRoute({ setPOIPlaces, POIPlaces }) {
   const [location, setLocation] = useState();
@@ -33,7 +34,10 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
   const [showModal, setShowModal] = useState(true);
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [whichList, setWhichList] = useState("POI");
+  const [completedModal, setCompletedModal] = useState(false);
+  const [totalDistance, setTotalDistance] = useState(0);
 
+  console.log(completedModal);
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
   const handleSpeedSelection = (speed) => {
@@ -68,6 +72,13 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
 
   return (
     <View style={styles.container}>
+      <Modal isVisible={completedModal} style={styles.modal}>
+        <Text>
+          Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
+        </Text>
+        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
+      </Modal>
+
       <Modal isVisible={showModal} style={styles.modal}>
         <Text>Set your walking preferences!!!</Text>
         <SpeedSelector setKmh={setKmh} />
@@ -170,11 +181,15 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
           />
         </>
       )}
+      <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
+
       <RouteCalculations
         distances={distances}
         kmh={kmh}
         showRoute={showRoute}
         setShowRoute={setShowRoute}
+        setTotalDistance={setTotalDistance}
+        totalDistance={totalDistance}
       />
       <StatusBar style="auto" />
     </View>
