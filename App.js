@@ -15,6 +15,7 @@ const [kmh, setKmh] = useState(4.5);
 const [totalDuration, setTotalDuration] = useState(0);
 
 
+
   return( 
 
   <NavigationContainer>

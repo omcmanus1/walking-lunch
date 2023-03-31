@@ -6,11 +6,13 @@ export default function RouteCalculations({
   kmh,
   showRoute,
   setShowRoute,
+  totalDistance,
+  setTotalDistance,
 }) {
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
-  const [totalDistance, setTotalDistance] = useState(0);
+
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
 
   let totalDur = 0;
@@ -34,7 +36,7 @@ export default function RouteCalculations({
       {
         text: "Select alternative destinations",
         onPress: () => {
-          console.log("this callback function needs to reset markerLocations");
+          // console.log("this callback function needs to reset markerLocations");
           // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
         },
         style: "cancel",
@@ -57,10 +59,10 @@ export default function RouteCalculations({
         {
           text: "Select alternative destinations",
           onPress: () => {
-            console.log(
-              "this callback function needs to reset markerLocations"
-              // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
-            );
+            // console.log(
+            //   "this callback function needs to reset markerLocations"
+            //   // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
+            // );
           },
           style: "cancel",
         },

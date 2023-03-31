@@ -51,10 +51,16 @@ export const POIMarkers = ({
 
             <Callout
               onPress={() => {
-                addWaypoints(setWaypointA, setWaypointB, {
-                  latitude: POI.geometry.location.lat,
-                  longitude: POI.geometry.location.lng,
-                });
+                console.log("name >>", POI.name)
+                addWaypoints(
+                  setWaypointA,
+                  setWaypointB,
+                  {
+                    latitude: POI.geometry.location.lat,
+                    longitude: POI.geometry.location.lng,
+                  },
+                  POI.name
+                );
               }}
               style={{ flex: -1, position: "absolute", width: 300 }}
             >
