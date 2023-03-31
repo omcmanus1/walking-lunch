@@ -5,8 +5,6 @@ import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import { FoodMarkers } from "./FoodMarkers";
-import SetTimer from "./SetTimer";
-import SpeedSelector from "./SpeedSelector";
 import MapJson from "./MapJson";
 import PlotMarkers from "./PlotMarkers";
 import DestinationSearch from "./DestinationSearch";
@@ -14,16 +12,22 @@ import PlotRoute from "./PlotRoute";
 import RouteCalculations from "./RouteCalculations";
 import { POIMarkers } from "./POIMarkers";
 import { ListAllPOI } from "./ListAllPOI";
-import { ListAllRestaurants } from "./ListAllRestaurants";
 import RemoveMarkers from "./RemoveMarkers";
+import PreferencesModal from "./PreferencesModal";
+import StartJourneyModal from "./StartJourneyModal";
+import { ListAllRestaurants } from "./ListAllRestaurants";
 import Modal from "react-native-modal";
-import CompletedWalk from "./CompletedWalk";
 
-export default function SetRoute({ setPOIPlaces, POIPlaces }) {
+export default function SetRoute({
+  setPOIPlaces,
+  POIPlaces,
+  setTotalDuration,
+  totalDuration,
+  setKmh,
+  kmh,
+}) {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
-  const [kmh, setKmh] = useState(4.5);
-  // ^^ kmh speed can be set by user in dropdown/slider form "slow", "medium", or "fast" each with a different kmh value. Ie. "medium" is 4.5kmh which is what this state is set as default. "slow" could be 3kmh, "fast" could be 6kmh
   const [distances, setDistances] = useState([]);
   const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
@@ -31,7 +35,7 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
   const [waypointA, setWaypointA] = useState({});
   const [waypointB, setWaypointB] = useState({});
   const [origin, setOrigin] = useState({});
-  const [showModal, setShowModal] = useState(true);
+  const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [whichList, setWhichList] = useState("POI");
   const [completedModal, setCompletedModal] = useState(false);
@@ -39,12 +43,6 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
 
   console.log(completedModal);
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
-
-  const handleSpeedSelection = (speed) => {
-    if (speed === "slow") setKmh(3);
-    else if (speed === "medium") setKmh(4.5);
-    else if (speed === "fast") setKmh(6);
-  };
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -70,6 +68,10 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
     getPermissions();
   }, [setOrigin]);
 
+  const handleStartJourney = () => {
+    setShowStartJourneyModal(true);
+  };
+
   return (
     <View style={styles.container}>
       <Modal isVisible={completedModal} style={styles.modal}>
@@ -79,16 +81,7 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
         <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
       </Modal>
 
-      <Modal isVisible={showModal} style={styles.modal}>
-        <Text>Set your walking preferences!!!</Text>
-        <SpeedSelector setKmh={setKmh} />
-        <SetTimer></SetTimer>
-        <Button
-          title="Set Preferences"
-          onPress={() => setShowModal(false)}
-        ></Button>
-      </Modal>
-
+      <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
       {location ? (
         <>
           <DestinationSearch
@@ -101,12 +94,10 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
 
           <MapView
             provider={PROVIDER_GOOGLE}
-            // ^^ set google as the fixed map provider
             style={styles.map}
             initialRegion={location}
             showsUserLocation={true}
             customMapStyle={MapJson}
-            // ^^ this gives blue dot on map for your location
           >
             {whichList === "Restaurants" ? (
               <FoodMarkers
@@ -159,6 +150,7 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
       ) : (
         <Text>Loading...</Text>
       )}
+
       {whichList === "POI" ? (
         <>
           <Button
@@ -191,6 +183,13 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
         setTotalDistance={setTotalDistance}
         totalDistance={totalDistance}
       />
+
+      <Button title="Start Journey" onPress={handleStartJourney} />
+      <StartJourneyModal
+        showStartJourneyModal={showStartJourneyModal}
+        setShowStartJourneyModal={setShowStartJourneyModal}
+      />
+
       <StatusBar style="auto" />
     </View>
   );
@@ -206,12 +205,5 @@ const styles = StyleSheet.create({
   map: {
     width: "90%",
     height: "40%",
-  },
-
-  modal: {
-    backgroundColor: "white",
-    margin: 25,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

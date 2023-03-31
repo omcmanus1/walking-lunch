@@ -1,9 +1,14 @@
-import { Button, StyleSheet, Text, View, TextInput } from "react-native";
-import { useState } from "react";
+import { Text, View } from "react-native";
+import { useState, useEffect } from "react";
 import Slider from "@react-native-community/slider";
 
-export default function SetTimer() {
+export default function SetTimer({ setTotalDuration }) {
   const [sliderValue, setSliderValue] = useState(0);
+
+  useEffect(() => {
+    const totalSecs = sliderValue * 60;
+    setTotalDuration(totalSecs);
+  }, [sliderValue]);
 
   return (
     <View>
@@ -20,7 +25,6 @@ export default function SetTimer() {
           value={sliderValue}
           onValueChange={(value) => setSliderValue(value)}
         />
-        {/* <Button title="" onPress={handlePress}></Button> */}
       </View>
     </View>
   );
