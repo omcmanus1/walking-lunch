@@ -13,6 +13,7 @@ export default function App() {
   const [kmh, setKmh] = useState(4.5);
   const [totalDuration, setTotalDuration] = useState(0);
   const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
+  const [totalDistance, setTotalDistance] = useState(0);
 
   return (
     <NavigationContainer>
@@ -48,6 +49,8 @@ export default function App() {
               setTotalDuration={setTotalDuration}
               lastLegWalkingDuration={lastLegWalkingDuration}
               setLastLegWalkingDuration={setLastLegWalkingDuration}
+              totalDistance={totalDistance}
+              setTotalDistance={setTotalDistance}
             />
           )}
         </Tab.Screen>
@@ -59,6 +62,7 @@ export default function App() {
               totalDuration={totalDuration}
               setTotalDuration={setTotalDuration}
               lastLegWalkingDuration={lastLegWalkingDuration}
+              totalDistance={totalDistance}
             />
           )}
         </Tab.Screen>

@@ -6,7 +6,6 @@ export default function RouteCalculations({
   kmh,
   showRoute,
   setShowRoute,
-  lastLegWalkingDuration,
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
@@ -131,7 +130,7 @@ export default function RouteCalculations({
               </View>
             );
           })}
-          <Text>Total Distance: {totalDistance}</Text>
+          <Text>Total Distance: {totalDistance} km</Text>
           {totalWalkingDuration.hours ? (
             <Text>
               Total Walking Duration: {totalWalkingDuration.hours} hours{" "}

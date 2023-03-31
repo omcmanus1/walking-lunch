@@ -9,14 +9,12 @@ import MapJson from "./MapJson";
 import PlotMarkers from "./PlotMarkers";
 import DestinationSearch from "./DestinationSearch";
 import PlotRoute from "./PlotRoute";
-import RouteCalculations from "./RouteCalculations";
 import { POIMarkers } from "./POIMarkers";
 import { ListAllPOI } from "./ListAllPOI";
 import RemoveMarkers from "./RemoveMarkers";
 import PreferencesModal from "./PreferencesModal";
 import StartJourneyModal from "./StartJourneyModal";
 import { ListAllRestaurants } from "./ListAllRestaurants";
-import Modal from "react-native-modal";
 import * as Device from "expo-device";
 
 export default function SetRoute({
@@ -28,6 +26,8 @@ export default function SetRoute({
   kmh,
   lastLegWalkingDuration,
   setLastLegWalkingDuration,
+  totalDistance,
+  setTotalDistance,
 }) {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -47,8 +47,6 @@ export default function SetRoute({
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [whichList, setWhichList] = useState("POI");
-  const [completedModal, setCompletedModal] = useState(false);
-  const [totalDistance, setTotalDistance] = useState(0);
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -94,13 +92,6 @@ export default function SetRoute({
 
   return (
     <View style={styles.container}>
-      <Modal isVisible={completedModal} style={styles.modal}>
-        <Text>
-          Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
-        </Text>
-        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
-      </Modal>
-
       <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
       {location ? (
         <>
@@ -159,13 +150,6 @@ export default function SetRoute({
               />
             ) : null}
           </MapView>
-          <RemoveMarkers
-            setMarkerLocations={setMarkerLocations}
-            origin={origin}
-            markerLocations={markerLocations}
-            setWaypointA={setWaypointA}
-            setWaypointB={setWaypointB}
-          />
         </>
       ) : (
         <Text>Loading...</Text>
@@ -181,6 +165,7 @@ export default function SetRoute({
             POIPlaces={POIPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
+            setWhichList={setWhichList}
           />
         </>
       ) : (
@@ -190,26 +175,29 @@ export default function SetRoute({
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
+            setWhichList={setWhichList}
           />
         </>
       )}
-      <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
 
-      <RouteCalculations
-        distances={distances}
-        kmh={kmh}
-        showRoute={showRoute}
-        setShowRoute={setShowRoute}
-        lastLegWalkingDuration={lastLegWalkingDuration}
-        setLastLegWalkingDuration={setLastLegWalkingDuration}
-        setTotalDistance={setTotalDistance}
-        totalDistance={totalDistance}
+      <RemoveMarkers
+        setMarkerLocations={setMarkerLocations}
+        origin={origin}
+        markerLocations={markerLocations}
+        setWaypointA={setWaypointA}
+        setWaypointB={setWaypointB}
       />
-
       <Button title="Start Journey" onPress={handleStartJourney} />
       <StartJourneyModal
         showStartJourneyModal={showStartJourneyModal}
         setShowStartJourneyModal={setShowStartJourneyModal}
+        distances={distances}
+        kmh={kmh}
+        showRoute={showRoute}
+        setShowRoute={setShowRoute}
+        setLastLegWalkingDuration={setLastLegWalkingDuration}
+        setTotalDistance={setTotalDistance}
+        totalDistance={totalDistance}
       />
 
       <StatusBar style="auto" />
@@ -227,11 +215,5 @@ const styles = StyleSheet.create({
   map: {
     width: "90%",
     height: "40%",
-  },
-  modal: {
-    backgroundColor: "white",
-    margin: 25,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

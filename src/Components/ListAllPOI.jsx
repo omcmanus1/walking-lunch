@@ -2,7 +2,12 @@ import { Text, FlatList, Pressable, Alert, SafeAreaView } from "react-native";
 
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
-export const ListAllPOI = ({ POIPlaces, setWaypointA, setWaypointB }) => {
+export const ListAllPOI = ({
+  POIPlaces,
+  setWaypointA,
+  setWaypointB,
+  setWhichList,
+}) => {
   return (
     <FlatList
       data={POIPlaces}
@@ -18,6 +23,7 @@ export const ListAllPOI = ({ POIPlaces, setWaypointA, setWaypointB }) => {
               },
               item.name
             );
+            setWhichList("Restaurants");
           }}
         >
           <Text>{item.name}</Text>
