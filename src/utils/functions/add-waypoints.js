@@ -1,6 +1,6 @@
 import { Alert } from "react-native";
 
-export const addWaypoints = (setA, setB, coords, defineA, defineB, name) => {
+export const addWaypoints = (setA, setB, coords, name) => {
   Alert.alert("Add Destination", "Is this your first or second stop?", [
     {
       text: "Cancel",

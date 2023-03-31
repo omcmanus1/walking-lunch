@@ -10,8 +10,7 @@ export const FoodMarkers = ({
   GOOGLE_MAPS_APIKEY,
   setWaypointA,
   setWaypointB,
-  setNameA,
-  setNameB,
+
   foodPlaces,
   setFoodPlaces,
 }) => {
@@ -71,6 +70,7 @@ export const FoodMarkers = ({
             <Image source={require("../../assets/food.png")} />
             <Callout
               onPress={() => {
+                console.log(eatery.name);
                 addWaypoints(
                   setWaypointA,
                   setWaypointB,
@@ -78,8 +78,6 @@ export const FoodMarkers = ({
                     latitude: eatery.geometry.location.lat,
                     longitude: eatery.geometry.location.lng,
                   },
-                  setNameA,
-                  setNameB,
                   eatery.name
                 );
               }}

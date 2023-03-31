@@ -7,11 +7,11 @@ export default function PlotMarkers({
   setMarkerLocations,
   waypointA,
   waypointB,
-  nameA,
-  nameB,
 }) {
   console.log(markerLocations);
-  console.log(nameA);
+  // console.log(waypointA);
+  // console.log(waypointA.coords.latitude);
+  // console.log(waypointA.name);
   useEffect(() => {
     if (Object.keys(origin).length !== 1) {
       const markers = [
@@ -21,17 +21,13 @@ export default function PlotMarkers({
         },
         {
           id: "waypoint_1",
-          coordinate: waypointA.coords.latitude
-            ? waypointA.coords
-            : { latitude: 0, longitude: 0 },
-          name: nameA ? nameA : "not_set",
+          coordinate: waypointA.coords,
+          name: waypointA.name,
         },
         {
           id: "waypoint_2",
-          coordinate: waypointB.coords
-            ? waypointB.coords.latitude
-            : { latitude: 0, longitude: 0 },
-          name: nameB ? nameB : "not_set",
+          coordinate: waypointB.coords,
+          name: waypointB.name,
         },
         {
           id: "end_point",
@@ -40,7 +36,7 @@ export default function PlotMarkers({
       ];
       setMarkerLocations(markers);
     }
-  }, [origin, waypointA, waypointB, nameA, nameB]);
+  }, [origin, waypointA, waypointB]);
 
   return (
     <>

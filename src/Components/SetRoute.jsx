@@ -32,10 +32,14 @@ export default function SetRoute({
   const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
   const [showRoute, setShowRoute] = useState(true);
-  const [waypointA, setWaypointA] = useState({});
-  const [waypointB, setWaypointB] = useState({});
-  const [nameA, setNameA] = useState("");
-  const [nameB, setNameB] = useState("");
+  const [waypointA, setWaypointA] = useState({
+    coords: { latitude: 0, longitude: 0 },
+    name: "not_set",
+  });
+  const [waypointB, setWaypointB] = useState({
+    coords: { latitude: 0, longitude: 0 },
+    name: "not_set",
+  });
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
@@ -106,8 +110,6 @@ export default function SetRoute({
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
-                setNameA={setNameA}
-                setNameB={setNameB}
                 foodPlaces={foodPlaces}
                 setFoodPlaces={setFoodPlaces}
               />
@@ -129,8 +131,6 @@ export default function SetRoute({
               setMarkerLocations={setMarkerLocations}
               waypointA={waypointA}
               waypointB={waypointB}
-              nameA={nameA}
-              nameB={nameB}
             />
 
             {markerLocations.length &&
