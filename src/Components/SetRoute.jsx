@@ -17,6 +17,7 @@ import PreferencesModal from "./PreferencesModal";
 import StartJourneyModal from "./StartJourneyModal";
 import { ListAllRestaurants } from "./ListAllRestaurants";
 import Modal from "react-native-modal";
+import * as Device from "expo-device";
 
 export default function SetRoute({
   setPOIPlaces,
@@ -44,27 +45,39 @@ export default function SetRoute({
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
   useEffect(() => {
-    const getPermissions = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        return;
-      }
-
-      let currentLocation = await Location.getCurrentPositionAsync({});
-
+    if (!Device.isDevice) {
       setLocation({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
+        latitude: 53.472669328839075,
+        longitude: -2.238509469312171,
         latitudeDelta: 0.015,
         longitudeDelta: 0.032,
       });
       setOrigin({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
+        latitude: 53.472669328839075,
+        longitude: -2.238509469312171,
       });
-    };
+    } else {
+      const getPermissions = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          return;
+        }
 
-    getPermissions();
+        let currentLocation = await Location.getCurrentPositionAsync({});
+
+        setLocation({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.032,
+        });
+        setOrigin({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
+        });
+      };
+      getPermissions();
+    }
   }, [setOrigin]);
 
   const handleStartJourney = () => {
