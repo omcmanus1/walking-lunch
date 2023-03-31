@@ -1,6 +1,6 @@
 import CountDown from "react-native-countdown-component";
 import { View, Text } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Alert } from "react-native";
 
 export default function StartTimer({

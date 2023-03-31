@@ -78,7 +78,7 @@ export default function SetRoute({
       };
       getPermissions();
     }
-  }, [setOrigin]);
+  }, []);
 
   const handleStartJourney = () => {
     setShowStartJourneyModal(true);

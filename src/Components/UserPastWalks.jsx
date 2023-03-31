@@ -18,9 +18,9 @@ export default function UserPastWalks() {
                   Math.random() * 2,
                   Math.random() * 2,
                   Math.random() * 2,
-                ]
-              }
-            ]
+                ],
+              },
+            ],
           }}
           width={325}
           height={220}
@@ -34,18 +34,18 @@ export default function UserPastWalks() {
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
-              borderRadius: 16
+              borderRadius: 16,
             },
             propsForDots: {
               r: "6",
               strokeWidth: "2",
-              stroke: "#ffa726"
-            }
+              stroke: "#ffa726",
+            },
           }}
           bezier
           style={{
             marginVertical: 8,
-            borderRadius: 16
+            borderRadius: 16,
           }}
         />
       </View>
@@ -56,7 +56,7 @@ export default function UserPastWalks() {
         <ProgressChart
           data={{
             labels: ["March", "April", "May"],
-            data: [0.9, 0.75, 0.8]
+            data: [0.9, 0.75, 0.8],
           }}
           width={325}
           height={220}
@@ -70,18 +70,18 @@ export default function UserPastWalks() {
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
-              borderRadius: 16
+              borderRadius: 16,
             },
             propsForDots: {
               r: "6",
               strokeWidth: "2",
-              stroke: "#ffa726"
-            }
+              stroke: "#ffa726",
+            },
           }}
           hideLegend={false}
           style={{
             marginVertical: 8,
-            borderRadius: 16
+            borderRadius: 16,
           }}
         />
       </View>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   chartContainer: {
     alignItems: "center",
@@ -103,11 +103,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5fcff",
     padding: 20,
     borderRadius: 16,
-    margin: 20
+    margin: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
