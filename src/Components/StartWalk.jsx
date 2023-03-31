@@ -3,7 +3,12 @@ import { Button, StyleSheet, Text, View, TextInput } from "react-native";
 import StartTimer from "./StartTimer"
 import React, { useState } from "react";
 
-export default function StartWalk({setSecondsLeft, totalDuration, secondsLeft}){
+
+export default function StartWalk({kmh, setKmh, totalDuration, setTotalDuration }){
+const [secondsLeft, setSecondsLeft] = useState(0);
+
+
+  
 
     return(
         <View style={styles.container}>

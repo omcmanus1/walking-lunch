@@ -6,15 +6,15 @@ import SetRoute from "./src/Components/SetRoute";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React, { useState } from "react";
 
-// import { GeocodeAddress } from "./Components/GeocodeAddress";
-
 const Tab = createBottomTabNavigator();
 
 
 export default function App() {
 const [POIPlaces, setPOIPlaces] = useState([]);
-const [secondsLeft, setSecondsLeft] = useState(0);
+const [kmh, setKmh] = useState(4.5);
 const [totalDuration, setTotalDuration] = useState(0);
+
+
   return( 
 
   <NavigationContainer>
@@ -43,31 +43,13 @@ const [totalDuration, setTotalDuration] = useState(0);
         })}>
           
           <Tab.Screen name="Set Route" >
-          {()=><SetRoute POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} setSecondsLeft={setSecondsLeft} totalDuration={totalDuration} secondsLeft={secondsLeft}/>}
+          {()=><SetRoute POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} kmh={kmh} setKmh={setKmh}  totalDuration={totalDuration} setTotalDuration={setTotalDuration}/>}
           </Tab.Screen>
           <Tab.Screen name="Start Walk" >
-          {()=><StartWalk setSecondsLeft={setSecondsLeft} totalDuration={totalDuration} secondsLeft={secondsLeft} />}
+          {()=><StartWalk kmh={kmh} setKmh={setKmh} totalDuration={totalDuration} setTotalDuration={setTotalDuration}/>}
           </Tab.Screen>
           <Tab.Screen name="User" component={UserPastWalks}  ></Tab.Screen>
-    
-
-
   </Tab.Navigator>
   </NavigationContainer>
   )
 }
-
-
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   map: {
-//     width: "90%",
-//     height: "40%",
-//   },
-// });

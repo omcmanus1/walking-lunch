@@ -5,8 +5,6 @@ import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import { FoodMarkers } from "./FoodMarkers";
-import SetTimer from "./SetTimer";
-import SpeedSelector from "./SpeedSelector";
 import MapJson from "./MapJson";
 import PlotMarkers from "./PlotMarkers";
 import DestinationSearch from "./DestinationSearch";
@@ -15,12 +13,14 @@ import RouteCalculations from "./RouteCalculations";
 import { POIMarkers } from "./POIMarkers";
 import { ListAllPOI } from "./ListAllPOI";
 import RemoveMarkers from './RemoveMarkers'
-import Modal from "react-native-modal";
+import PreferencesModal from "./PreferencesModal";
+import StartJourneyModal from "./StartJourneyModal";
 
-export default function SetRoute({setPOIPlaces, POIPlaces, secondsLeft, setSecondsLeft, totalDuration, setTotalDuration}) {
+
+export default function SetRoute({setPOIPlaces, POIPlaces, setTotalDuration, totalDuration, setKmh, kmh}) {
+
     const [location, setLocation] = useState();
     const [address, setAddress] = useState();
-    const [kmh, setKmh] = useState(4.5);
     const [distances, setDistances] = useState([]);
     const [markerLocations, setMarkerLocations] = useState([]);
     const [searchedDestination, setSearchedDestination] = useState({});
@@ -28,10 +28,8 @@ export default function SetRoute({setPOIPlaces, POIPlaces, secondsLeft, setSecon
     const [waypointA, setWaypointA] = useState({});
     const [waypointB, setWaypointB] = useState({});
     const [origin, setOrigin] = useState({});
-    const [showModal, setShowModal] =useState(true);
-    const [showSetMinsForm, setShowSetMinsForm] = useState(true);
-    const [showTimer, setShowTimer] = useState(false);
-    const [sliderValue, setSliderValue] = useState(0);
+    const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
+   
 
   
     const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";  
@@ -61,31 +59,15 @@ export default function SetRoute({setPOIPlaces, POIPlaces, secondsLeft, setSecon
       getPermissions();
     }, [setOrigin]);
 
-  console.log(kmh)
 
- const handleStartJourney = () => {
-  const totalSecs = sliderValue * 60;
-  // ^^ converts user inputted mins to seconds
-  setTotalDuration(totalSecs);
-  setSecondsLeft(totalSecs);
-  setShowSetMinsForm(false);
-  setShowTimer(true);
- }
-
-
+    const handleStartJourney = () => {
+      setShowStartJourneyModal(true)
+    }
 
     return (
       <View style={styles.container}>
-
-<Modal isVisible={showModal} style={styles.modal}  > 
-<Text>Set your walking preferences!!!</Text>
-<SpeedSelector setKmh={setKmh} />
-<SetTimer sliderValue={sliderValue} setSliderValue={setSliderValue}></SetTimer>
-<Button title='Set Preferences' onPress={() => setShowModal(false)}></Button>
-</Modal>
-
-       
-        {location ? (
+      <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration}/>
+       {location ? (
         <>
           <DestinationSearch
             searchedDestination={searchedDestination}
@@ -97,12 +79,10 @@ export default function SetRoute({setPOIPlaces, POIPlaces, secondsLeft, setSecon
 
           <MapView
             provider={PROVIDER_GOOGLE}
-            // ^^ set google as the fixed map provider
             style={styles.map}
             initialRegion={location}
             showsUserLocation={true}
             customMapStyle={MapJson}
-            // ^^ this gives blue dot on map for your location
           >
             <FoodMarkers
               location={location}
@@ -152,7 +132,7 @@ export default function SetRoute({setPOIPlaces, POIPlaces, secondsLeft, setSecon
       <ListAllPOI POIPlaces={POIPlaces} />
       
       <Button title="Start Journey" onPress={handleStartJourney}/>
-
+        <StartJourneyModal showStartJourneyModal={showStartJourneyModal} setShowStartJourneyModal={setShowStartJourneyModal} />
     
       <RouteCalculations
         distances={distances}
@@ -178,13 +158,6 @@ const styles = StyleSheet.create({
       width: "90%",
       height: "40%",
     },
-
-    modal: {
-      backgroundColor: 'white',
-      margin: 25, 
-      alignItems: 'center',
-      justifyContent: 'center',
-    }
   });
 
  

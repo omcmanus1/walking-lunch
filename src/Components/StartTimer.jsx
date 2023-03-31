@@ -10,19 +10,16 @@ export default function StartTimer({ setSecondsLeft, totalDuration, secondsLeft}
   // ^^ finalJourneyTimeSecs state is temp hard coded for now, need to get this data from waypoints array - walking duration of second to last waypoint to final waypoint (back to origin)
 
   useEffect(() => {
+    setSecondsLeft(totalDuration);
+  },[])
+
+
+  useEffect(() => {
     if (secondsLeft === finalJourneyTimeSecs) {
       setShowHurryMsg(true);
     } else setShowHurryMsg(false);
   }, [secondsLeft]);
 
-  // const handlePress = () => {
-  //   const totalSecs = sliderValue * 60;
-  //   // ^^ converts user inputted mins to seconds
-  //   setTotalDuration(totalSecs);
-  //   setSecondsLeft(totalSecs);
-  //   setShowSetMinsForm(false);
-  //   setShowTimer(true);
-  // };
 
   // const handleReset = () => {
   //   setTotalDuration(0);
