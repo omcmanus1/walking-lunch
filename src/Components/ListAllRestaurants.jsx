@@ -23,7 +23,7 @@ export const ListAllRestaurants = ({
               },
               item.name
             );
-            setWhichList("POI");
+            setWhichList(true);
           }}
         >
           <Text>{item.name}</Text>
