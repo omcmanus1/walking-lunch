@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import CountDown from "react-native-countdown-component";
 import Slider from "@react-native-community/slider";
 
-export default function Timer() {
+export default function Timer({ secondsLeft, setSecondsLeft, setCompletedModal }) {
   const [totalDuration, setTotalDuration] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState(0);
+
   const [sliderValue, setSliderValue] = useState(0);
   const [showSetMinsForm, setShowSetMinsForm] = useState(true);
   const [showTimer, setShowTimer] = useState(false);
@@ -26,6 +26,7 @@ export default function Timer() {
     setSecondsLeft(totalSecs);
     setShowSetMinsForm(false);
     setShowTimer(true);
+    setCompletedModal(true);
   };
 
   const handleReset = () => {

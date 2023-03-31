@@ -6,11 +6,13 @@ export default function RouteCalculations({
   kmh,
   showRoute,
   setShowRoute,
+  totalDistance,
+  setTotalDistance,
 }) {
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
-  const [totalDistance, setTotalDistance] = useState(0);
+
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
 
   let totalDur = 0;
