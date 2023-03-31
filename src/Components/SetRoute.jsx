@@ -97,22 +97,26 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
             customMapStyle={MapJson}
             // ^^ this gives blue dot on map for your location
           >
-            <FoodMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-              foodPlaces={foodPlaces}
-              setFoodPlaces={setFoodPlaces}
-            />
-            <POIMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              POIPlaces={POIPlaces}
-              setPOIPlaces={setPOIPlaces}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-            />
+            {whichList === "Restaurants" ? (
+              <FoodMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                foodPlaces={foodPlaces}
+                setFoodPlaces={setFoodPlaces}
+              />
+            ) : (
+              <POIMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                POIPlaces={POIPlaces}
+                setPOIPlaces={setPOIPlaces}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+              />
+            )}
+
             <PlotMarkers
               origin={origin}
               searchedDestination={searchedDestination}
@@ -158,10 +162,7 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
         </>
       ) : (
         <>
-          <Button 
-          title="show places" 
-          onPress={() => setWhichList("POI")} 
-          />
+          <Button title="show places" onPress={() => setWhichList("POI")} />
           <ListAllRestaurants
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
