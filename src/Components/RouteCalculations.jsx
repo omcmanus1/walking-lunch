@@ -6,18 +6,18 @@ export default function RouteCalculations({
   kmh,
   showRoute,
   setShowRoute,
+  setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
 }) {
+  const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
 
-  const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
-
   let totalDur = 0;
 
-  const convertTotalMins = (totalMins) => {
+  const convertToHoursMins = (totalMins) => {
     const hours = Math.floor(totalMins / 60);
     const mins = Math.floor(totalMins % 60);
     return { hours, mins };
@@ -26,10 +26,8 @@ export default function RouteCalculations({
   const calculateWalkingDuration = (distance, kmh) => {
     const totalMins = Math.round((distance / kmh) * 60);
     totalDur += totalMins;
-    const convertedTotalMins = convertTotalMins(totalMins);
-    return convertedTotalMins;
+    return totalMins;
   };
-  // ^^ calculations for walking duration based on selected walking speed
 
   const longerThanHourAlert = () => {
     Alert.alert("Warning!", "Your route will take longer than an hour!", [
@@ -78,18 +76,24 @@ export default function RouteCalculations({
   };
 
   useEffect(() => {
+    const lastLegMins = calculateWalkingDuration(distances[2], kmh);
+    setLastLegWalkingDuration(lastLegMins);
+  }, [distances]);
+
+  useEffect(() => {
     let id = 0;
     let totalKm = 0;
     const journeys = distances.map((distance) => {
-      const duration = calculateWalkingDuration(distance, kmh);
+      const totalMins = calculateWalkingDuration(distance, kmh);
+      const duration = convertToHoursMins(totalMins);
       id++;
       totalKm += distance;
       return { journey_id: id, distance, duration };
     });
     setJourneyDistancesDurations(journeys);
     setTotalDistance(totalKm);
-    const convertedTotalDur = convertTotalMins(totalDur);
-    setTotalWalkingDuration(convertedTotalDur);
+    const totalHoursMins = convertToHoursMins(totalDur);
+    setTotalWalkingDuration(totalHoursMins);
   }, [distances, kmh]);
 
   useEffect(() => {
@@ -126,7 +130,7 @@ export default function RouteCalculations({
               </View>
             );
           })}
-          <Text>Total Distance: {totalDistance}</Text>
+          <Text>Total Distance: {totalDistance} km</Text>
           {totalWalkingDuration.hours ? (
             <Text>
               Total Walking Duration: {totalWalkingDuration.hours} hours{" "}

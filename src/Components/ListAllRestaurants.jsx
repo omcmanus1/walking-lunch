@@ -6,6 +6,7 @@ export const ListAllRestaurants = ({
   foodPlaces,
   setWaypointA,
   setWaypointB,
+  setWhichList,
 }) => {
   return (
     <FlatList
@@ -22,6 +23,7 @@ export const ListAllRestaurants = ({
               },
               item.name
             );
+            setWhichList("POI");
           }}
         >
           <Text>{item.name}</Text>
