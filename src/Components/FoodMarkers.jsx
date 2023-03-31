@@ -10,11 +10,10 @@ export const FoodMarkers = ({
   GOOGLE_MAPS_APIKEY,
   setWaypointA,
   setWaypointB,
-  foodPlaces,
-  setFoodPlaces
-}) => {
-  
 
+  foodPlaces,
+  setFoodPlaces,
+}) => {
   useEffect(() => {
     fetchAllFood(location, GOOGLE_MAPS_APIKEY).then((data) => {
       setFoodPlaces(data);
@@ -71,10 +70,16 @@ export const FoodMarkers = ({
             <Image source={require("../../assets/food.png")} />
             <Callout
               onPress={() => {
-                addWaypoints(setWaypointA, setWaypointB, {
-                  latitude: eatery.geometry.location.lat,
-                  longitude: eatery.geometry.location.lng,
-                });
+                console.log(eatery.name);
+                addWaypoints(
+                  setWaypointA,
+                  setWaypointB,
+                  {
+                    latitude: eatery.geometry.location.lat,
+                    longitude: eatery.geometry.location.lng,
+                  },
+                  eatery.name
+                );
               }}
               style={{ flex: -1, position: "absolute", width: 300 }}
             >

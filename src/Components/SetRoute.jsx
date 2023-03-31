@@ -35,12 +35,20 @@ export default function SetRoute({
   const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
   const [showRoute, setShowRoute] = useState(true);
-  const [waypointA, setWaypointA] = useState({});
-  const [waypointB, setWaypointB] = useState({});
+  const [waypointA, setWaypointA] = useState({
+    coords: { latitude: 0, longitude: 0 },
+    name: "not_set",
+  });
+  const [waypointB, setWaypointB] = useState({
+    coords: { latitude: 0, longitude: 0 },
+    name: "not_set",
+  });
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [whichList, setWhichList] = useState("POI");
+  const [completedModal, setCompletedModal] = useState(false);
+  const [totalDistance, setTotalDistance] = useState(0);
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -86,6 +94,13 @@ export default function SetRoute({
 
   return (
     <View style={styles.container}>
+      <Modal isVisible={completedModal} style={styles.modal}>
+        <Text>
+          Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
+        </Text>
+        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
+      </Modal>
+
       <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
       {location ? (
         <>
@@ -104,22 +119,26 @@ export default function SetRoute({
             showsUserLocation={true}
             customMapStyle={MapJson}
           >
-            <FoodMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-              foodPlaces={foodPlaces}
-              setFoodPlaces={setFoodPlaces}
-            />
-            <POIMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              POIPlaces={POIPlaces}
-              setPOIPlaces={setPOIPlaces}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-            />
+            {whichList === "Restaurants" ? (
+              <FoodMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                foodPlaces={foodPlaces}
+                setFoodPlaces={setFoodPlaces}
+              />
+            ) : (
+              <POIMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                POIPlaces={POIPlaces}
+                setPOIPlaces={setPOIPlaces}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+              />
+            )}
+
             <PlotMarkers
               origin={origin}
               searchedDestination={searchedDestination}
@@ -174,6 +193,7 @@ export default function SetRoute({
           />
         </>
       )}
+      <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
 
       <RouteCalculations
         distances={distances}
@@ -182,6 +202,8 @@ export default function SetRoute({
         setShowRoute={setShowRoute}
         lastLegWalkingDuration={lastLegWalkingDuration}
         setLastLegWalkingDuration={setLastLegWalkingDuration}
+        setTotalDistance={setTotalDistance}
+        totalDistance={totalDistance}
       />
 
       <Button title="Start Journey" onPress={handleStartJourney} />
@@ -205,5 +227,11 @@ const styles = StyleSheet.create({
   map: {
     width: "90%",
     height: "40%",
+  },
+  modal: {
+    backgroundColor: "white",
+    margin: 25,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

@@ -46,9 +46,10 @@ export default function DestinationSearch({
           Use conditional to populate either state based on choice. */}
       <Button
         title="Add Destination"
-        onPress={() =>
-          addWaypoints(setWaypointA, setWaypointB, searchedDestination)
-        }
+        onPress={() => {
+          // TODO: Add location name as 4th argument, test with searchbar
+          addWaypoints(setWaypointA, setWaypointB, searchedDestination);
+        }}
       ></Button>
     </>
   );
