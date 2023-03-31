@@ -144,6 +144,10 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
       ) : (
         <Text>Loading...</Text>
       )}
+      <Button 
+      title="Show Map Nav"
+      //onPress={()=>navigation.navigate}
+      />
       {whichList === "POI" ? (
         <>
           <Button
@@ -158,10 +162,7 @@ export default function SetRoute({ setPOIPlaces, POIPlaces }) {
         </>
       ) : (
         <>
-          <Button 
-          title="show places" 
-          onPress={() => setWhichList("POI")} 
-          />
+          <Button title="show places" onPress={() => setWhichList("POI")} />
           <ListAllRestaurants
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
