@@ -13,43 +13,59 @@ export default function App() {
 const [POIPlaces, setPOIPlaces] = useState([]);
 const [kmh, setKmh] = useState(4.5);
 const [totalDuration, setTotalDuration] = useState(0);
+const [location, setLocation] = useState();
 
 
-  return( 
-
-  <NavigationContainer>
-  <Tab.Navigator  
-  initialRouteName="Set Route"
-  
-  screenOptions={({ route }) => ({
-    headerShown: false,
+  return (
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Set Route"
+        screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Set Route') {
-              iconName = focused
-                ? 'pin'
-                : 'pin-outline';
-            } else if (route.name === 'User') {
-              iconName = focused ? 'person-circle-outline' : 'person-circle';
-            } else if (route.name === 'Start Walk') {
-              iconName = focused ? 'walk-outline' : 'walk';
+            if (route.name === "Set Route") {
+              iconName = focused ? "pin" : "pin-outline";
+            } else if (route.name === "User") {
+              iconName = focused ? "person-circle-outline" : "person-circle";
+            } else if (route.name === "Start Walk") {
+              iconName = focused ? "walk-outline" : "walk";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}>
-          
-          <Tab.Screen name="Set Route" >
-          {()=><SetRoute POIPlaces={POIPlaces} setPOIPlaces={setPOIPlaces} kmh={kmh} setKmh={setKmh}  totalDuration={totalDuration} setTotalDuration={setTotalDuration}/>}
-          </Tab.Screen>
-          <Tab.Screen name="Start Walk" >
-          {()=><StartWalk kmh={kmh} setKmh={setKmh} totalDuration={totalDuration} setTotalDuration={setTotalDuration}/>}
-          </Tab.Screen>
-          <Tab.Screen name="User" component={UserPastWalks}  ></Tab.Screen>
-  </Tab.Navigator>
-  </NavigationContainer>
-  )
+          tabBarActiveTintColor: "tomato",
+          tabBarInactiveTintColor: "gray",
+        })}
+      >
+        <Tab.Screen name="Set Route">
+          {() => (
+            <SetRoute
+              POIPlaces={POIPlaces}
+              setPOIPlaces={setPOIPlaces}
+              kmh={kmh}
+              setKmh={setKmh}
+              totalDuration={totalDuration}
+              setTotalDuration={setTotalDuration}
+              location={location}
+              setLocation={setLocation}
+            />
+          )}
+        </Tab.Screen>
+        <Tab.Screen name="Start Walk">
+          {() => (
+            <StartWalk
+              kmh={kmh}
+              setKmh={setKmh}
+              totalDuration={totalDuration}
+              setTotalDuration={setTotalDuration}
+              location={location}
+            />
+          )}
+        </Tab.Screen>
+        <Tab.Screen name="User" component={UserPastWalks}></Tab.Screen>
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }

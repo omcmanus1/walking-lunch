@@ -5,9 +5,11 @@ import { useNavigation } from "@react-navigation/native";
 
 
 
+
 export default function StartJourneyModal({
   showStartJourneyModal,
   setShowStartJourneyModal,
+ 
   
   
 }) {
@@ -15,16 +17,16 @@ export default function StartJourneyModal({
   return (
     <Modal isVisible={showStartJourneyModal} style={styles.modal}>
       <Text>Are you content with your journey?</Text>
-      
-        <Button
-          title="Start Journey"
-          onPress={() => navigation.navigate("Start Walk")}
-        ></Button>
-        <Button
-          title="Go Back"
-          onPress={() => setShowStartJourneyModal(false)}
-        ></Button>
-      
+
+      <Button
+        title="Start Journey"
+        onPress={() => navigation.navigate("Start Walk")}
+      ></Button>
+      <Button
+        title="Go Back"
+        onPress={() => setShowStartJourneyModal(false)}
+      ></Button>
+     
     </Modal>
   );
 }

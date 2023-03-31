@@ -24,9 +24,11 @@ export default function SetRoute({
   setTotalDuration,
   totalDuration,
   setKmh,
-  kmh
+  kmh,
+  location,
+  setLocation
 }) {
-  const [location, setLocation] = useState();
+  // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
   const [distances, setDistances] = useState([]);
   const [markerLocations, setMarkerLocations] = useState([]);
@@ -68,7 +70,7 @@ export default function SetRoute({
   const handleStartJourney = () => {
     setShowStartJourneyModal(true);
   };
-
+console.log(">>>>>>>> Location", location)
   return (
     <View style={styles.container}>
       <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
