@@ -21,7 +21,7 @@ export default function SetTimer({ setTotalDuration }) {
           maximumValue={60}
           minimumTrackTintColor="blue"
           maximumTrackTintColor="#000000"
-          step={1}
+          step={5}
           value={sliderValue}
           onValueChange={(value) => setSliderValue(value)}
         />

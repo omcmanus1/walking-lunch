@@ -14,7 +14,7 @@ export default function StartTimer({
   }, []);
 
   useEffect(() => {
-    if (secondsLeft <= lastLegWalkingDuration * 60) {
+    if (secondsLeft === lastLegWalkingDuration * 60) {
       Alert.alert(
         `You should start walking back to the office now, you have ${lastLegWalkingDuration} minutes left!`
       );
