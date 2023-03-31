@@ -1,17 +1,16 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
+import StartTimer from "./StartTimer";
 
-import Map from "./Map";
+
 
 const Stack = createStackNavigator();
 
 export const RouteMapView = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen 
-      name="Map Route" 
-      component={Map} />
+      <Stack.Screen name="Start Walk" component={StartTimer} />
     </Stack.Navigator>
   );
 }
