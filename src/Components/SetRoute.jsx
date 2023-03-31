@@ -1,22 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, TextInput, Alert } from 'react-native';
-import React from 'react';
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import { useState, useEffect } from 'react';
-import * as Location from 'expo-location';
-import { FoodMarkers } from './FoodMarkers';
-import MapJson from './MapJson';
-import PlotMarkers from './PlotMarkers';
-import DestinationSearch from './DestinationSearch';
-import PlotRoute from './PlotRoute';
-import RouteCalculations from './RouteCalculations';
-import { POIMarkers } from './POIMarkers';
-import { ListAllPOI } from './ListAllPOI';
-import RemoveMarkers from './RemoveMarkers';
-import PreferencesModal from './PreferencesModal';
-import StartJourneyModal from './StartJourneyModal';
-import { ListAllRestaurants } from './ListAllRestaurants';
-import Modal from 'react-native-modal';
+import { StatusBar } from "expo-status-bar";
+import { Button, StyleSheet, Text, View, TextInput, Alert } from "react-native";
+import React from "react";
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
+import { useState, useEffect } from "react";
+import * as Location from "expo-location";
+import { FoodMarkers } from "./FoodMarkers";
+import MapJson from "./MapJson";
+import PlotMarkers from "./PlotMarkers";
+import DestinationSearch from "./DestinationSearch";
+import PlotRoute from "./PlotRoute";
+import RouteCalculations from "./RouteCalculations";
+import { POIMarkers } from "./POIMarkers";
+import { ListAllPOI } from "./ListAllPOI";
+import RemoveMarkers from "./RemoveMarkers";
+import PreferencesModal from "./PreferencesModal";
+import StartJourneyModal from "./StartJourneyModal";
+import { ListAllRestaurants } from "./ListAllRestaurants";
+import Modal from "react-native-modal";
 
 export default function SetRoute({
   setPOIPlaces,
@@ -24,7 +24,9 @@ export default function SetRoute({
   setTotalDuration,
   totalDuration,
   setKmh,
-  kmh
+  kmh,
+  lastLegWalkingDuration,
+  setLastLegWalkingDuration,
 }) {
   const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -37,14 +39,14 @@ export default function SetRoute({
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
-  const [whichList, setWhichList] = useState('POI');
+  const [whichList, setWhichList] = useState("POI");
 
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
+  const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
   useEffect(() => {
     const getPermissions = async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
+      if (status !== "granted") {
         return;
       }
 
@@ -54,11 +56,11 @@ export default function SetRoute({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
         latitudeDelta: 0.015,
-        longitudeDelta: 0.032
+        longitudeDelta: 0.032,
       });
       setOrigin({
         latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude
+        longitude: currentLocation.coords.longitude,
       });
     };
 
@@ -137,9 +139,12 @@ export default function SetRoute({
         <Text>Loading...</Text>
       )}
 
-      {whichList === 'POI' ? (
+      {whichList === "POI" ? (
         <>
-          <Button title="show restaurants" onPress={() => setWhichList('Restaurants')} />
+          <Button
+            title="show restaurants"
+            onPress={() => setWhichList("Restaurants")}
+          />
           <ListAllPOI
             POIPlaces={POIPlaces}
             setWaypointA={setWaypointA}
@@ -148,7 +153,7 @@ export default function SetRoute({
         </>
       ) : (
         <>
-          <Button title="show places" onPress={() => setWhichList('POI')} />
+          <Button title="show places" onPress={() => setWhichList("POI")} />
           <ListAllRestaurants
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
@@ -162,6 +167,8 @@ export default function SetRoute({
         kmh={kmh}
         showRoute={showRoute}
         setShowRoute={setShowRoute}
+        lastLegWalkingDuration={lastLegWalkingDuration}
+        setLastLegWalkingDuration={setLastLegWalkingDuration}
       />
 
       <Button title="Start Journey" onPress={handleStartJourney} />
@@ -178,12 +185,12 @@ export default function SetRoute({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   map: {
-    width: '90%',
-    height: '40%'
-  }
+    width: "90%",
+    height: "40%",
+  },
 });
