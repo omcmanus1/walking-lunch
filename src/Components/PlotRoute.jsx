@@ -14,7 +14,6 @@ export default function PlotRoute({
     setDistances([distanceA, distanceB, distanceC]);
   }, [distanceA, distanceB, distanceC]);
 
-  console.log("markerLocations -->", markerLocations);
   return (
     <>
       <MapViewDirections
