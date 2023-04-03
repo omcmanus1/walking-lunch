@@ -16,7 +16,7 @@ import MapViewDirections from 'react-native-maps-directions';
 import Modal from 'react-native-modal';
 import { wipeMarkers } from '../utils/functions/wipe-markers';
 import { useNavigation } from '@react-navigation/native';
-import {restart} from "react-native-restart"; 
+
 
 
 
