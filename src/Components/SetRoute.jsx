@@ -215,6 +215,7 @@ export default function SetRoute({
         setWaypointA={setWaypointA}
         setWaypointB={setWaypointB}
         totalDuration={totalDuration}
+        
       />
       <StatusBar style="auto" />
     </View>

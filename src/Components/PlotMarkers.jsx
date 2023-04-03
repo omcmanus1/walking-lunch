@@ -12,23 +12,25 @@ export default function PlotMarkers({
     if (Object.keys(origin).length !== 1) {
       const markers = [
         {
-          id: "start_point",
+          id: 'start_point',
           coordinate: origin,
+          name: 'Origin'
         },
         {
-          id: "waypoint_1",
+          id: 'waypoint_1',
           coordinate: waypointA.coords,
-          name: waypointA.name,
+          name: waypointA.name
         },
         {
-          id: "waypoint_2",
+          id: 'waypoint_2',
           coordinate: waypointB.coords,
-          name: waypointB.name,
+          name: waypointB.name
         },
         {
-          id: "end_point",
+          id: 'end_point',
           coordinate: origin,
-        },
+          name: 'Origin'
+        }
       ];
       setMarkerLocations(markers);
     }

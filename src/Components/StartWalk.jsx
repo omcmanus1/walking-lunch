@@ -21,13 +21,17 @@ export default function StartWalk({
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [completedModal, setCompletedModal] = useState(false);
 
+
   return (
     <View style={styles.container}>
+      
       <StartTimer
         setSecondsLeft={setSecondsLeft}
         totalDuration={totalDuration}
         secondsLeft={secondsLeft}
+        lastLegWalkingDuration={lastLegWalkingDuration}
       />
+
       <StatusBar style="auto" />
       <>
         <MapView
@@ -44,10 +48,7 @@ export default function StartWalk({
             strokeWidth={5}
             strokeColor="hotpink"
             apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
-            // onReady={(result) => {
-            //   //setDistanceA(result.distance);
-            //   console.log(result)
-            // }}
+        
           />
           <MapViewDirections
             origin={markerLocations[1].coordinate}
@@ -56,9 +57,7 @@ export default function StartWalk({
             strokeWidth={5}
             strokeColor="blue"
             apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
-            // onReady={(result) => {
-            //   setDistanceB(result.distance);
-            // }}
+           
           />
           <MapViewDirections
             origin={markerLocations[2].coordinate}
@@ -67,15 +66,12 @@ export default function StartWalk({
             strokeWidth={5}
             strokeColor="orange"
             apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
-            // onReady={(result) => {
-            //   setDistanceC(result.distance);
-            // }}
+           
           />
           <>
             {markerLocations.map(location => {
-              console.log(location);
               return (
-                <Marker key={location.id} coordinate={location.coordinate} title={location.id} />
+                <Marker key={location.id} coordinate={location.coordinate} title={location.name} />
               );
             })}
           </>
@@ -96,8 +92,8 @@ export default function StartWalk({
           </View>
         );
       })}
-      lastLegWalkingDuration={lastLegWalkingDuration}
-      />
+      {/* lastLegWalkingDuration={lastLegWalkingDuration} */}
+
       <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
       <Modal isVisible={completedModal} style={styles.modal}>
         <Text>Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!</Text>
