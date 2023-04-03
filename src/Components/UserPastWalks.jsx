@@ -9,14 +9,21 @@ import {
 } from "react-native";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 
-export default function UserPastWalks() {
+// const [userData, setUserData] = useState(null)
+
+
+
+export default function UserPastWalks({totalDistance}) {
+
+  console.log(totalDistance);
+
   return (
     <View style={styles.container}>
       <View style={styles.chartContainer}>
         <Text style={styles.title}>Weekly Walking Data</Text>
         <LineChart
           data={{
-            labels: ["Mon", "Tues", "Weds", "Thurs", "Fri"],
+            labels: ['Mon', 'Tues', 'Weds', 'Thurs', 'Fri'],
             datasets: [
               {
                 data: [
@@ -24,35 +31,35 @@ export default function UserPastWalks() {
                   Math.random() * 2,
                   Math.random() * 2,
                   Math.random() * 2,
-                  Math.random() * 2,
-                ],
-              },
-            ],
+                  totalDistance
+                ]
+              }
+            ]
           }}
           width={325}
           height={220}
           yAxisSuffix="KM"
           yAxisInterval={0.4}
           chartConfig={{
-            backgroundColor: "#e26a00",
-            backgroundGradientFrom: "#fb8c00",
-            backgroundGradientTo: "#ffa726",
+            backgroundColor: '#e26a00',
+            backgroundGradientFrom: '#fb8c00',
+            backgroundGradientTo: '#ffa726',
             decimalPlaces: 2,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
-              borderRadius: 16,
+              borderRadius: 16
             },
             propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726",
-            },
+              r: '6',
+              strokeWidth: '2',
+              stroke: '#ffa726'
+            }
           }}
           bezier
           style={{
             marginVertical: 8,
-            borderRadius: 16,
+            borderRadius: 16
           }}
         />
       </View>
@@ -62,33 +69,33 @@ export default function UserPastWalks() {
 
         <ProgressChart
           data={{
-            labels: ["March", "April", "May"],
-            data: [0.9, 0.75, 0.8],
+            labels: ['March', 'April', 'May'],
+            data: [0.9, 0.75, 0.8]
           }}
           width={325}
           height={220}
           strokeWidth={16}
           radius={32}
           chartConfig={{
-            backgroundColor: "#e26a00",
-            backgroundGradientFrom: "#fb8c00",
-            backgroundGradientTo: "#ffa726",
+            backgroundColor: '#e26a00',
+            backgroundGradientFrom: '#fb8c00',
+            backgroundGradientTo: '#ffa726',
             decimalPlaces: 2,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             style: {
-              borderRadius: 16,
+              borderRadius: 16
             },
             propsForDots: {
-              r: "6",
-              strokeWidth: "2",
-              stroke: "#ffa726",
-            },
+              r: '6',
+              strokeWidth: '2',
+              stroke: '#ffa726'
+            }
           }}
           hideLegend={false}
           style={{
             marginVertical: 8,
-            borderRadius: 16,
+            borderRadius: 16
           }}
         />
       </View>

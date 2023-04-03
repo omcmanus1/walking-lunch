@@ -1,22 +1,22 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import StartWalk from "./src/Components/StartWalk";
-import UserPastWalks from "./src/Components/UserPastWalks";
-import SetRoute from "./src/Components/SetRoute";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import React, { useState } from "react";
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import StartWalk from './src/Components/StartWalk';
+import UserPastWalks from './src/Components/UserPastWalks';
+import SetRoute from './src/Components/SetRoute';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { useState } from 'react';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-const [POIPlaces, setPOIPlaces] = useState([]);
-const [kmh, setKmh] = useState(4.5);
-const [totalDuration, setTotalDuration] = useState(0);
-const [location, setLocation] = useState();
-const [markerLocations, setMarkerLocations] = useState([]);
- const [journeyDistancesDurations, setJourneyDistancesDurations] = useState([]);
-const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
-const [totalDistance, setTotalDistance] = useState(0);
+  const [POIPlaces, setPOIPlaces] = useState([]);
+  const [kmh, setKmh] = useState(4.5);
+  const [totalDuration, setTotalDuration] = useState(0);
+  const [location, setLocation] = useState();
+  const [markerLocations, setMarkerLocations] = useState([]);
+  const [journeyDistancesDurations, setJourneyDistancesDurations] = useState([]);
+  const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
+  const [totalDistance, setTotalDistance] = useState(0);
 
   return (
     <NavigationContainer>
@@ -27,18 +27,18 @@ const [totalDistance, setTotalDistance] = useState(0);
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === "Set Route") {
-              iconName = focused ? "pin" : "pin-outline";
-            } else if (route.name === "User") {
-              iconName = focused ? "person-circle-outline" : "person-circle";
-            } else if (route.name === "Start Walk") {
-              iconName = focused ? "walk-outline" : "walk";
+            if (route.name === 'Set Route') {
+              iconName = focused ? 'pin' : 'pin-outline';
+            } else if (route.name === 'User') {
+              iconName = focused ? 'person-circle-outline' : 'person-circle';
+            } else if (route.name === 'Start Walk') {
+              iconName = focused ? 'walk-outline' : 'walk';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray'
         })}
       >
         <Tab.Screen name="Set Route">
@@ -78,7 +78,14 @@ const [totalDistance, setTotalDistance] = useState(0);
             />
           )}
         </Tab.Screen>
-        <Tab.Screen name="User" component={UserPastWalks}></Tab.Screen>
+
+        <Tab.Screen name="User">
+           {() => (
+            <UserPastWalks  
+          totalDistance={totalDistance}
+          />
+          )}
+        </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
   );
