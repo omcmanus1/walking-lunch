@@ -9,7 +9,6 @@ export default function PlotMarkers({
   waypointA,
   waypointB,
 }) {
-  console.log(markerLocations);
   useEffect(() => {
     if (Object.keys(origin).length !== 1) {
       const markers = [

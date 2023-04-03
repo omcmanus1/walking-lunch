@@ -74,7 +74,6 @@ export default function SetRoute({
   const handleStartJourney = () => {
     setShowStartJourneyModal(true);
   };
-console.log(">>>>>>>> Location", markerLocations)
   return (
     <View style={styles.container}>
       <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />

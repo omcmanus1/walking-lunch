@@ -19,7 +19,6 @@ export default function StartWalk({
 }) {
   const [secondsLeft, setSecondsLeft] = useState(0);
 
-  console.log("journeyDistancesDurations>>>", journeyDistancesDurations);
 
   return (
     <View style={styles.container}>
@@ -71,17 +70,22 @@ export default function StartWalk({
             //   setDistanceC(result.distance);
             // }}
           />
+          <>
+            {markerLocations.map(location => {
+              console.log(location);
+              return <Marker key={location.id} coordinate={location.coordinate} title={location.id} />;
+            })}
+          </>
         </MapView>
       </>
-      {journeyDistancesDurations.map((journey) => {
+      {journeyDistancesDurations.map(journey => {
         return (
           <View key={journey.journey_id}>
             <Text>Journey {journey.journey_id}:</Text>
             <Text>Distance: {journey.distance} km</Text>
             {journey.duration.hours ? (
               <Text>
-                Walking Duration: {journey.duration.hours} hours{" "}
-                {journey.duration.mins} mins{" "}
+                Walking Duration: {journey.duration.hours} hours {journey.duration.mins} mins{' '}
               </Text>
             ) : (
               <Text>Walking Duration: {journey.duration.mins} mins </Text>
