@@ -13,11 +13,13 @@ export default function RouteCalculations({
   setWaypointA,
   setWaypointB,
   setShowStartJourneyModal,
+  totalDuration,
 }) {
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
+  const [showJourneyDetails, setShowJourneyDetails] = useState(false);
   let totalDur = 0;
 
   const convertToHoursMins = (totalMins) => {
@@ -26,13 +28,18 @@ export default function RouteCalculations({
     return { hours, mins };
   };
 
+  const convertBackToMins = (totalWalkingDuration) => {
+    let mins = totalWalkingDuration.hours * 60 + totalWalkingDuration.mins;
+    return mins;
+  };
+
   const calculateWalkingDuration = (distance, kmh) => {
     const totalMins = Math.round((distance / kmh) * 60);
     totalDur += totalMins;
     return totalMins;
   };
 
-  const longerThan45MinsAlert = (journeyTime) => {
+  const journeyLengthAlert = (journeyTime) => {
     let plugTimeInMsg = "";
     if (journeyTime.hours > 1) {
       plugTimeInMsg = `${journeyTime.hours} hours and ${journeyTime.mins} minutes`;
@@ -49,15 +56,13 @@ export default function RouteCalculations({
           text: "Select alternative destinations",
           onPress: () => {
             wipeMarkers(setWaypointA, setWaypointB);
+            setShowStartJourneyModal(false);
           },
           style: "cancel",
         },
         {
           text: "It's okay, I have the time",
-          onPress: () => {
-            setShowRoute(true);
-            setShowStartJourneyModal(false);
-          },
+          onPress: setShowJourneyDetails(true),
           style: "ok",
         },
       ]
@@ -86,11 +91,12 @@ export default function RouteCalculations({
   }, [distances, kmh]);
 
   useEffect(() => {
-    if (totalWalkingDuration.mins >= 45) {
+    const totalInMins = convertBackToMins(totalWalkingDuration);
+    if (totalInMins >= totalDuration / 60) {
       setShowRoute(false);
-      longerThan45MinsAlert(totalWalkingDuration);
+      journeyLengthAlert(totalWalkingDuration);
     }
-  }, [totalWalkingDuration]);
+  }, [totalWalkingDuration, totalDuration]);
 
   if (!journeyDistancesDurations) {
     return <Text>Calculating distances...</Text>;
@@ -98,7 +104,7 @@ export default function RouteCalculations({
 
   return (
     <>
-      {showRoute ? (
+      {showJourneyDetails ? (
         <View>
           {journeyDistancesDurations.map((journey) => {
             return (

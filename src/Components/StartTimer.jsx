@@ -21,15 +21,6 @@ export default function StartTimer({
     }
   }, [secondsLeft, lastLegWalkingDuration]);
 
-  // const handleReset = () => {
-  //   setTotalDuration(0);
-  //   setShowSetMinsForm(true);
-  //   setShowTimer(false);
-  //   setSecondsLeft(0);
-  //   setSliderValue(0);
-  // };
-  // ^^ NOT BEING USED YET
-
   return (
     <View>
       <Text>Time left: </Text>
@@ -39,7 +30,6 @@ export default function StartTimer({
         onChange={() => setSecondsLeft((currSecs) => currSecs - 1)}
         size={20}
       />
-      {/* <Button title={“Reset timer”} onPress={handleReset}></Button> */}
     </View>
   );
 }

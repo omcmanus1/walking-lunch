@@ -197,6 +197,7 @@ export default function SetRoute({
         totalDistance={totalDistance}
         setWaypointA={setWaypointA}
         setWaypointB={setWaypointB}
+        totalDuration={totalDuration}
       />
       <StatusBar style="auto" />
     </View>
