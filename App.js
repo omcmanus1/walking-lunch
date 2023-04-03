@@ -9,11 +9,14 @@ import React, { useState } from "react";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [POIPlaces, setPOIPlaces] = useState([]);
-  const [kmh, setKmh] = useState(4.5);
-  const [totalDuration, setTotalDuration] = useState(0);
-  const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
-  const [totalDistance, setTotalDistance] = useState(0);
+const [POIPlaces, setPOIPlaces] = useState([]);
+const [kmh, setKmh] = useState(4.5);
+const [totalDuration, setTotalDuration] = useState(0);
+const [location, setLocation] = useState();
+const [markerLocations, setMarkerLocations] = useState([]);
+ const [journeyDistancesDurations, setJourneyDistancesDurations] = useState([]);
+const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
+const [totalDistance, setTotalDistance] = useState(0);
 
   return (
     <NavigationContainer>
@@ -47,6 +50,12 @@ export default function App() {
               setKmh={setKmh}
               totalDuration={totalDuration}
               setTotalDuration={setTotalDuration}
+              location={location}
+              setLocation={setLocation}
+              markerLocations={markerLocations}
+              setMarkerLocations={setMarkerLocations}
+              journeyDistancesDurations={journeyDistancesDurations}
+              setJourneyDistancesDurations={setJourneyDistancesDurations}
               lastLegWalkingDuration={lastLegWalkingDuration}
               setLastLegWalkingDuration={setLastLegWalkingDuration}
               totalDistance={totalDistance}
@@ -61,6 +70,9 @@ export default function App() {
               setKmh={setKmh}
               totalDuration={totalDuration}
               setTotalDuration={setTotalDuration}
+              location={location}
+              markerLocations={markerLocations}
+              journeyDistancesDurations={journeyDistancesDurations}
               lastLegWalkingDuration={lastLegWalkingDuration}
               totalDistance={totalDistance}
             />
