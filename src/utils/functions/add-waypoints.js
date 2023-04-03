@@ -1,23 +1,30 @@
 import { Alert } from "react-native";
 
-export const addWaypoints = (setA, setB, coords) => {
+export const addWaypoints = (
+  setA,
+  setB,
+  coords,
+  name,
+  listSetter,
+  listGetter
+) => {
   Alert.alert("Add Destination", "Is this your first or second stop?", [
     {
       text: "Cancel",
-      onPress: () => {
-        console.log("cancelled choice");
-      },
+      onPress: () => {},
     },
     {
       text: "Stop 1",
       onPress: () => {
-        setA(coords);
+        setA({ coords: coords, name: name });
+        listSetter(!listGetter);
       },
     },
     {
       text: "Stop 2",
       onPress: () => {
-        setB(coords);
+        setB({ coords: coords, name: name });
+        listSetter(!listGetter);
       },
     },
   ]);

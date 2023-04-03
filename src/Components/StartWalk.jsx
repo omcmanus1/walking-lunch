@@ -1,13 +1,28 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View, TextInput } from "react-native";
-import StartTimer from "./StartTimer"
+import StartTimer from "./StartTimer";
 import React, { useState } from "react";
+<<<<<<< HEAD
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import MapJson from "./MapJson";
 import PlotRoute from "./PlotRoute";
 import MapViewDirections from "react-native-maps-directions";
+=======
+import Modal from "react-native-modal";
+>>>>>>> 3650cbb5305f9271c090fcdb989026c51dfc628d
 
+export default function StartWalk({
+  kmh,
+  setKmh,
+  totalDuration,
+  setTotalDuration,
+  lastLegWalkingDuration,
+  totalDistance,
+}) {
+  const [secondsLeft, setSecondsLeft] = useState(0);
+  const [completedModal, setCompletedModal] = useState(false);
 
+<<<<<<< HEAD
 export default function StartWalk({
   kmh,
   setKmh,
@@ -20,12 +35,15 @@ export default function StartWalk({
   const [secondsLeft, setSecondsLeft] = useState(0);
 
 
+=======
+>>>>>>> 3650cbb5305f9271c090fcdb989026c51dfc628d
   return (
     <View style={styles.container}>
       <StartTimer
         setSecondsLeft={setSecondsLeft}
         totalDuration={totalDuration}
         secondsLeft={secondsLeft}
+<<<<<<< HEAD
       />
       <StatusBar style="auto" />
       <>
@@ -93,20 +111,37 @@ export default function StartWalk({
           </View>
         );
       })}
+=======
+        lastLegWalkingDuration={lastLegWalkingDuration}
+      />
+      <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
+      <Modal isVisible={completedModal} style={styles.modal}>
+        <Text>
+          Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
+        </Text>
+        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
+      </Modal>
+      <StatusBar style="auto" />
+>>>>>>> 3650cbb5305f9271c090fcdb989026c51dfc628d
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fff",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    map: {
-      width: "90%",
-      height: "40%",
-    },
-  });
-
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  map: {
+    width: "90%",
+    height: "40%",
+  },
+  modal: {
+    backgroundColor: "white",
+    margin: 25,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

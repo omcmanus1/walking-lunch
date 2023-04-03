@@ -1,62 +1,35 @@
 import CountDown from "react-native-countdown-component";
-import {View, Text} from "react-native"
-import React, { useState, useEffect } from "react";
+import { View, Text } from "react-native";
+import React, { useEffect } from "react";
+import { Alert } from "react-native";
 
-
-
-export default function StartTimer({ setSecondsLeft, totalDuration, secondsLeft}){
-  const [showHurryMsg, setShowHurryMsg] = useState(false);
-  const [finalJourneyTimeSecs, setFinalJourneyTimeSecs] = useState(900);
-  // ^^ finalJourneyTimeSecs state is temp hard coded for now, need to get this data from waypoints array - walking duration of second to last waypoint to final waypoint (back to origin)
-
+export default function StartTimer({
+  setSecondsLeft,
+  totalDuration,
+  secondsLeft,
+  lastLegWalkingDuration,
+}) {
   useEffect(() => {
     setSecondsLeft(totalDuration);
-  },[])
-
+  }, []);
 
   useEffect(() => {
-    if (secondsLeft === finalJourneyTimeSecs) {
-      setShowHurryMsg(true);
-    } else setShowHurryMsg(false);
-  }, [secondsLeft]);
+    if (secondsLeft === lastLegWalkingDuration * 60) {
+      Alert.alert(
+        `You should start walking back to the office now, you have ${lastLegWalkingDuration} minutes left!`
+      );
+    }
+  }, [secondsLeft, lastLegWalkingDuration]);
 
-
-  // const handleReset = () => {
-  //   setTotalDuration(0);
-  //   setShowSetMinsForm(true);
-  //   setShowTimer(false);
-  //   setSecondsLeft(0);
-  //   setSliderValue(0);
-  // };
-  // ^^ NOT BEING USED YET
-
-  return(
-    <View>
+  return (
     <View>
       <Text>Time left: </Text>
       <CountDown
         until={totalDuration}
-        timeToShow={['M', 'S']}
-        onFinish={() =>
-          alert(
-            "Your walking lunch is up! Hopefully you are now back where you started! Have a nice afternoon :)"
-          )
-        }
+        timeToShow={["M", "S"]}
         onChange={() => setSecondsLeft((currSecs) => currSecs - 1)}
         size={20}
       />
-      {/* <Button title={“Reset timer”} onPress={handleReset}></Button> */}
-      </View>
-  
-
-
-  
-
-
-{showHurryMsg ? (
-    <Text>You need to start walking back to the office now!</Text>
-  ) : null}
-
-</View>
-)}
-
+    </View>
+  );
+}

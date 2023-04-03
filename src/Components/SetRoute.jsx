@@ -9,14 +9,13 @@ import MapJson from './MapJson';
 import PlotMarkers from './PlotMarkers';
 import DestinationSearch from './DestinationSearch';
 import PlotRoute from './PlotRoute';
-import RouteCalculations from './RouteCalculations';
 import { POIMarkers } from './POIMarkers';
 import { ListAllPOI } from './ListAllPOI';
 import RemoveMarkers from './RemoveMarkers';
 import PreferencesModal from './PreferencesModal';
 import StartJourneyModal from './StartJourneyModal';
 import { ListAllRestaurants } from './ListAllRestaurants';
-import Modal from 'react-native-modal';
+import * as Device from 'expo-device';
 
 export default function SetRoute({
   setPOIPlaces,
@@ -30,7 +29,11 @@ export default function SetRoute({
   markerLocations,
   setMarkerLocations,
   journeyDistancesDurations,
-  setJourneyDistancesDurations
+  setJourneyDistancesDurations,
+  lastLegWalkingDuration,
+  setLastLegWalkingDuration,
+  totalDistance,
+  setTotalDistance
 }) {
   // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -38,42 +41,61 @@ export default function SetRoute({
   // const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
   const [showRoute, setShowRoute] = useState(true);
-  const [waypointA, setWaypointA] = useState({});
-  const [waypointB, setWaypointB] = useState({});
+  const [waypointA, setWaypointA] = useState({
+    coords: { latitude: 0, longitude: 0 },
+    name: 'not_set'
+  });
+  const [waypointB, setWaypointB] = useState({
+    coords: { latitude: 0, longitude: 0 },
+    name: 'not_set'
+  });
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
-  const [whichList, setWhichList] = useState('POI');
+  const [showPlaces, setShowPlaces] = useState(false);
 
   const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
-
-  useEffect(() => {
-    const getPermissions = async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        return;
-      }
-
-      let currentLocation = await Location.getCurrentPositionAsync({});
-
-      setLocation({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude,
-        latitudeDelta: 0.015,
-        longitudeDelta: 0.032
-      });
-      setOrigin({
-        latitude: currentLocation.coords.latitude,
-        longitude: currentLocation.coords.longitude
-      });
-    };
-
-    getPermissions();
-  }, [setOrigin]);
 
   const handleStartJourney = () => {
     setShowStartJourneyModal(true);
   };
+
+  useEffect(() => {
+    if (!Device.isDevice) {
+      setLocation({
+        latitude: 53.472669328839075,
+        longitude: -2.238509469312171,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.032
+      });
+      setOrigin({
+        latitude: 53.472669328839075,
+        longitude: -2.238509469312171
+      });
+    } else {
+      const getPermissions = async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          return;
+        }
+
+        let currentLocation = await Location.getCurrentPositionAsync({});
+
+        setLocation({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.032
+        });
+        setOrigin({
+          latitude: currentLocation.coords.latitude,
+          longitude: currentLocation.coords.longitude
+        });
+      };
+      getPermissions();
+    }
+  }, []);
+
   return (
     <View style={styles.container}>
       <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
@@ -94,22 +116,30 @@ export default function SetRoute({
             showsUserLocation={true}
             customMapStyle={MapJson}
           >
-            <FoodMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-              foodPlaces={foodPlaces}
-              setFoodPlaces={setFoodPlaces}
-            />
-            <POIMarkers
-              location={location}
-              GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-              POIPlaces={POIPlaces}
-              setPOIPlaces={setPOIPlaces}
-              setWaypointA={setWaypointA}
-              setWaypointB={setWaypointB}
-            />
+            {showPlaces ? (
+              <POIMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                POIPlaces={POIPlaces}
+                setPOIPlaces={setPOIPlaces}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
+              />
+            ) : (
+              <FoodMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                foodPlaces={foodPlaces}
+                setFoodPlaces={setFoodPlaces}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
+              />
+            )}
+
             <PlotMarkers
               origin={origin}
               searchedDestination={searchedDestination}
@@ -130,53 +160,62 @@ export default function SetRoute({
               />
             ) : null}
           </MapView>
-          <RemoveMarkers
-            setMarkerLocations={setMarkerLocations}
-            origin={origin}
-            markerLocations={markerLocations}
-            setWaypointA={setWaypointA}
-            setWaypointB={setWaypointB}
-          />
         </>
       ) : (
         <Text>Loading...</Text>
       )}
 
-      {whichList === 'POI' ? (
+      <Button disabled={showPlaces} title="show places" onPress={() => setShowPlaces(true)} />
+      <Button
+        title="show restaurants"
+        disabled={!showPlaces}
+        onPress={() => setShowPlaces(false)}
+      />
+      {showPlaces ? (
         <>
-          <Button title="show restaurants" onPress={() => setWhichList('Restaurants')} />
           <ListAllPOI
             POIPlaces={POIPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
+            setShowPlaces={setShowPlaces}
+            showPlaces={showPlaces}
           />
         </>
       ) : (
         <>
-          <Button title="show places" onPress={() => setWhichList('POI')} />
           <ListAllRestaurants
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
+            setShowPlaces={setShowPlaces}
+            showPlaces={showPlaces}
           />
         </>
       )}
 
-      <RouteCalculations
+      <RemoveMarkers setWaypointA={setWaypointA} setWaypointB={setWaypointB} />
+      <Button
+        title="Start Journey"
+        onPress={() => {
+          setShowStartJourneyModal(true);
+        }}
+      />
+      <StartJourneyModal
+        showStartJourneyModal={showStartJourneyModal}
+        setShowStartJourneyModal={setShowStartJourneyModal}
         distances={distances}
         kmh={kmh}
         showRoute={showRoute}
         setShowRoute={setShowRoute}
-        journeyDistancesDurations={journeyDistancesDurations} 
+        journeyDistancesDurations={journeyDistancesDurations}
         setJourneyDistancesDurations={setJourneyDistancesDurations}
+        setLastLegWalkingDuration={setLastLegWalkingDuration}
+        setTotalDistance={setTotalDistance}
+        totalDistance={totalDistance}
+        setWaypointA={setWaypointA}
+        setWaypointB={setWaypointB}
+        totalDuration={totalDuration}
       />
-
-      <Button title="Start Journey" onPress={handleStartJourney} />
-      <StartJourneyModal
-        showStartJourneyModal={showStartJourneyModal}
-        setShowStartJourneyModal={setShowStartJourneyModal}
-      />
-
       <StatusBar style="auto" />
     </View>
   );

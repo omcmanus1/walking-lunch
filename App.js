@@ -1,13 +1,12 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import StartWalk from "./src/Components/StartWalk";
 import UserPastWalks from "./src/Components/UserPastWalks";
 import SetRoute from "./src/Components/SetRoute";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
 import React, { useState } from "react";
 
 const Tab = createBottomTabNavigator();
-
 
 export default function App() {
 const [POIPlaces, setPOIPlaces] = useState([]);
@@ -16,7 +15,8 @@ const [totalDuration, setTotalDuration] = useState(0);
 const [location, setLocation] = useState();
 const [markerLocations, setMarkerLocations] = useState([]);
  const [journeyDistancesDurations, setJourneyDistancesDurations] = useState([]);
-
+const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
+const [totalDistance, setTotalDistance] = useState(0);
 
   return (
     <NavigationContainer>
@@ -56,6 +56,10 @@ const [markerLocations, setMarkerLocations] = useState([]);
               setMarkerLocations={setMarkerLocations}
               journeyDistancesDurations={journeyDistancesDurations}
               setJourneyDistancesDurations={setJourneyDistancesDurations}
+              lastLegWalkingDuration={lastLegWalkingDuration}
+              setLastLegWalkingDuration={setLastLegWalkingDuration}
+              totalDistance={totalDistance}
+              setTotalDistance={setTotalDistance}
             />
           )}
         </Tab.Screen>
@@ -69,6 +73,8 @@ const [markerLocations, setMarkerLocations] = useState([]);
               location={location}
               markerLocations={markerLocations}
               journeyDistancesDurations={journeyDistancesDurations}
+              lastLegWalkingDuration={lastLegWalkingDuration}
+              totalDistance={totalDistance}
             />
           )}
         </Tab.Screen>
