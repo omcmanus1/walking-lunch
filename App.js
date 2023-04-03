@@ -15,6 +15,7 @@ const [kmh, setKmh] = useState(4.5);
 const [totalDuration, setTotalDuration] = useState(0);
 const [location, setLocation] = useState();
 const [markerLocations, setMarkerLocations] = useState([]);
+ const [journeyDistancesDurations, setJourneyDistancesDurations] = useState([]);
 
 
   return (
@@ -53,6 +54,8 @@ const [markerLocations, setMarkerLocations] = useState([]);
               setLocation={setLocation}
               markerLocations={markerLocations}
               setMarkerLocations={setMarkerLocations}
+              journeyDistancesDurations={journeyDistancesDurations}
+              setJourneyDistancesDurations={setJourneyDistancesDurations}
             />
           )}
         </Tab.Screen>
@@ -65,6 +68,7 @@ const [markerLocations, setMarkerLocations] = useState([]);
               setTotalDuration={setTotalDuration}
               location={location}
               markerLocations={markerLocations}
+              journeyDistancesDurations={journeyDistancesDurations}
             />
           )}
         </Tab.Screen>

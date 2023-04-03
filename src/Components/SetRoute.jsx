@@ -28,7 +28,9 @@ export default function SetRoute({
   location,
   setLocation,
   markerLocations,
-  setMarkerLocations
+  setMarkerLocations,
+  journeyDistancesDurations,
+  setJourneyDistancesDurations
 }) {
   // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -166,6 +168,8 @@ console.log(">>>>>>>> Location", markerLocations)
         kmh={kmh}
         showRoute={showRoute}
         setShowRoute={setShowRoute}
+        journeyDistancesDurations={journeyDistancesDurations} 
+        setJourneyDistancesDurations={setJourneyDistancesDurations}
       />
 
       <Button title="Start Journey" onPress={handleStartJourney} />
