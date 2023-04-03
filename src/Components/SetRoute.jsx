@@ -46,8 +46,7 @@ export default function SetRoute({
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
-  const [whichList, setWhichList] = useState(false);
-
+  const [showPlaces, setShowPlaces] = useState(false);
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -111,7 +110,7 @@ export default function SetRoute({
             showsUserLocation={true}
             customMapStyle={MapJson}
           >
-            {whichList ? (
+            {showPlaces ? (
               <POIMarkers
                 location={location}
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
@@ -119,6 +118,8 @@ export default function SetRoute({
                 setPOIPlaces={setPOIPlaces}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
               />
             ) : (
               <FoodMarkers
@@ -128,6 +129,8 @@ export default function SetRoute({
                 setWaypointB={setWaypointB}
                 foodPlaces={foodPlaces}
                 setFoodPlaces={setFoodPlaces}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
               />
             )}
 
@@ -157,22 +160,23 @@ export default function SetRoute({
       )}
 
       <Button
-        disabled={whichList}
+        disabled={showPlaces}
         title="show places"
-        onPress={() => setWhichList(true)}
+        onPress={() => setShowPlaces(true)}
       />
       <Button
         title="show restaurants"
-        disabled={!whichList}
-        onPress={() => setWhichList(false)}
+        disabled={!showPlaces}
+        onPress={() => setShowPlaces(false)}
       />
-      {whichList ? (
+      {showPlaces ? (
         <>
           <ListAllPOI
             POIPlaces={POIPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
-            setWhichList={setWhichList}
+            setShowPlaces={setShowPlaces}
+            showPlaces={showPlaces}
           />
         </>
       ) : (
@@ -181,7 +185,8 @@ export default function SetRoute({
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
-            setWhichList={setWhichList}
+            setShowPlaces={setShowPlaces}
+            showPlaces={showPlaces}
           />
         </>
       )}
