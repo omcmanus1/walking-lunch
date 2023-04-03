@@ -46,7 +46,7 @@ export default function SetRoute({
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
-  const [whichList, setWhichList] = useState("POI");
+  const [showPlaces, setShowPlaces] = useState(false);
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -108,16 +108,7 @@ export default function SetRoute({
             showsUserLocation={true}
             customMapStyle={MapJson}
           >
-            {whichList === "Restaurants" ? (
-              <FoodMarkers
-                location={location}
-                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
-                setWaypointA={setWaypointA}
-                setWaypointB={setWaypointB}
-                foodPlaces={foodPlaces}
-                setFoodPlaces={setFoodPlaces}
-              />
-            ) : (
+            {showPlaces ? (
               <POIMarkers
                 location={location}
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
@@ -125,6 +116,19 @@ export default function SetRoute({
                 setPOIPlaces={setPOIPlaces}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
+              />
+            ) : (
+              <FoodMarkers
+                location={location}
+                GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                foodPlaces={foodPlaces}
+                setFoodPlaces={setFoodPlaces}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
               />
             )}
 
@@ -153,27 +157,34 @@ export default function SetRoute({
         <Text>Loading...</Text>
       )}
 
-      {whichList === "POI" ? (
+      <Button
+        disabled={showPlaces}
+        title="show places"
+        onPress={() => setShowPlaces(true)}
+      />
+      <Button
+        title="show restaurants"
+        disabled={!showPlaces}
+        onPress={() => setShowPlaces(false)}
+      />
+      {showPlaces ? (
         <>
-          <Button
-            title="show restaurants"
-            onPress={() => setWhichList("Restaurants")}
-          />
           <ListAllPOI
             POIPlaces={POIPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
-            setWhichList={setWhichList}
+            setShowPlaces={setShowPlaces}
+            showPlaces={showPlaces}
           />
         </>
       ) : (
         <>
-          <Button title="show places" onPress={() => setWhichList("POI")} />
           <ListAllRestaurants
             foodPlaces={foodPlaces}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
-            setWhichList={setWhichList}
+            setShowPlaces={setShowPlaces}
+            showPlaces={showPlaces}
           />
         </>
       )}

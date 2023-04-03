@@ -6,7 +6,8 @@ export const ListAllPOI = ({
   POIPlaces,
   setWaypointA,
   setWaypointB,
-  setWhichList,
+  setShowPlaces,
+  showPlaces,
 }) => {
   return (
     <FlatList
@@ -21,9 +22,10 @@ export const ListAllPOI = ({
                 latitude: item.geometry.location.lat,
                 longitude: item.geometry.location.lng,
               },
-              item.name
+              item.name,
+              setShowPlaces,
+              showPlaces
             );
-            setWhichList("Restaurants");
           }}
         >
           <Text>{item.name}</Text>
