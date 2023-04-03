@@ -1,12 +1,22 @@
+import { Button } from "@react-native-material/core";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  nativemodules,
+  DevSettings,
+} from "react-native";
 import StartTimer from "./StartTimer";
 import React, { useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
 import MapJson from "./MapJson";
 import MapViewDirections from "react-native-maps-directions";
 import Modal from "react-native-modal";
-import { Button } from "@react-native-material/core";
+import { wipeMarkers } from "../utils/functions/wipe-markers";
+import { useNavigation } from "@react-navigation/native";
+import { restart } from "react-native-restart";
 
 export default function StartWalk({
   kmh,
@@ -21,6 +31,12 @@ export default function StartWalk({
 }) {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [completedModal, setCompletedModal] = useState(false);
+  const navigation = useNavigation();
+
+  // const completedWalk = () => {
+  //   setCompletedModal(false);
+  //   navigation.navigate("Set Route");
+  // };
 
   return (
     <View style={styles.container}>
@@ -101,6 +117,11 @@ export default function StartWalk({
           Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
         </Text>
         <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
+        <Button title="New Walk" onPress={() => DevSettings.reload()}></Button>
+        <Button
+          title="See Stats"
+          onPress={() => navigation.navigate("User")}
+        ></Button>
       </Modal>
       <StatusBar style="auto" />
     </View>

@@ -1,6 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  DevSettings,
+  nativemodules,
+} from "react-native";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
+import { Button } from "@react-native-material/core";
 
 export default function UserPastWalks() {
   return (
@@ -85,6 +92,7 @@ export default function UserPastWalks() {
           }}
         />
       </View>
+      <Button title="New Walk" onPress={() => DevSettings.reload()}></Button>
       <StatusBar style="auto" />
     </View>
   );
