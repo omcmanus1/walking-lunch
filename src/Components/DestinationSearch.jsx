@@ -1,5 +1,6 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Alert, Button } from "react-native";
+import { Alert } from "react-native";
+import { Button } from "@react-native-material/core";
 
 import { addWaypoints } from "../utils/functions/add-waypoints";
 

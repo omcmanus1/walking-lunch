@@ -1,4 +1,5 @@
-import { Text, Button } from "react-native";
+import { Text } from "react-native";
+import { Button } from "@react-native-material/core";
 
 export default function SpeedSelector({ setKmh }) {
   const handleSpeedSelection = (speed) => {

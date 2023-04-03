@@ -1,8 +1,9 @@
 import { fetchAllPOI } from "../api/api";
 import React, { useEffect } from "react";
 import { Marker, Callout } from "react-native-maps";
-import { Text, Image, Button, View } from "react-native";
+import { Text, Image, View } from "react-native";
 import { addWaypoints } from "../utils/functions/add-waypoints";
+import { Button } from "@react-native-material/core";
 
 export const POIMarkers = ({
   location,

@@ -1,4 +1,4 @@
-import { Button } from "react-native";
+import { Button } from "@react-native-material/core";
 import { wipeMarkers } from "../utils/functions/wipe-markers";
 
 export default function RemoveMarkers({ setWaypointA, setWaypointB }) {
