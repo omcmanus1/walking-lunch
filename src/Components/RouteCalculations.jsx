@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { View, Text, Alert } from "react-native";
+import { wipeMarkers } from "../utils/functions/wipe-markers";
 
 export default function RouteCalculations({
   distances,
   kmh,
-  showRoute,
   setShowRoute,
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
+  setWaypointA,
+  setWaypointB,
+  setShowStartJourneyModal,
+  totalDuration,
 }) {
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
-
   let totalDur = 0;
 
   const convertToHoursMins = (totalMins) => {
@@ -23,52 +26,40 @@ export default function RouteCalculations({
     return { hours, mins };
   };
 
+  const convertBackToMins = (totalWalkingDuration) => {
+    let mins = totalWalkingDuration.hours * 60 + totalWalkingDuration.mins;
+    return mins;
+  };
+
   const calculateWalkingDuration = (distance, kmh) => {
     const totalMins = Math.round((distance / kmh) * 60);
     totalDur += totalMins;
     return totalMins;
   };
 
-  const longerThanHourAlert = () => {
-    Alert.alert("Warning!", "Your route will take longer than an hour!", [
-      {
-        text: "Select alternative destinations",
-        onPress: () => {
-          // console.log("this callback function needs to reset markerLocations");
-          // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
-        },
-        style: "cancel",
-      },
-      {
-        text: "It's okay, I have the time",
-        onPress: () => {
-          setShowRoute(true);
-        },
-        style: "ok",
-      },
-    ]);
-  };
-
-  const longerThan45MinsAlert = (journeyTime) => {
+  const journeyLengthAlert = (journeyTime) => {
+    let plugTimeInMsg = "";
+    if (journeyTime.hours > 1) {
+      plugTimeInMsg = `${journeyTime.hours} hours and ${journeyTime.mins} minutes`;
+    } else if (journeyTime.hours === 1) {
+      plugTimeInMsg = `${journeyTime.hours} hour and ${journeyTime.mins} minutes`;
+    } else if (!journeyTime.hours) {
+      plugTimeInMsg = `${journeyTime.mins} minutes`;
+    }
     Alert.alert(
       "Warning!",
-      `Your route will take ${journeyTime} mins to walk. You may not have time to fit everything into your lunch break!`,
+      `Your route will take ${plugTimeInMsg} to walk! You might not be able to fit everything into your lunchtime.`,
       [
         {
           text: "Select alternative destinations",
           onPress: () => {
-            // console.log(
-            //   "this callback function needs to reset markerLocations"
-            //   // ^^ NEED TO ADD FUNCTIONALITY TO RESET MARKERLOCATIONS AND START AGAIN
-            // );
+            wipeMarkers(setWaypointA, setWaypointB);
+            setShowStartJourneyModal(false);
           },
           style: "cancel",
         },
         {
           text: "It's okay, I have the time",
-          onPress: () => {
-            setShowRoute(true);
-          },
           style: "ok",
         },
       ]
@@ -97,14 +88,12 @@ export default function RouteCalculations({
   }, [distances, kmh]);
 
   useEffect(() => {
-    if (totalWalkingDuration.hours) {
+    const totalInMins = convertBackToMins(totalWalkingDuration);
+    if (totalInMins >= totalDuration / 60) {
       setShowRoute(false);
-      longerThanHourAlert();
-    } else if (totalWalkingDuration.mins >= 45) {
-      setShowRoute(false);
-      longerThan45MinsAlert(totalWalkingDuration.mins);
+      journeyLengthAlert(totalWalkingDuration);
     }
-  }, [totalWalkingDuration]);
+  }, [totalWalkingDuration, totalDuration]);
 
   if (!journeyDistancesDurations) {
     return <Text>Calculating distances...</Text>;
@@ -112,37 +101,33 @@ export default function RouteCalculations({
 
   return (
     <>
-      {showRoute ? (
-        <View>
-          {journeyDistancesDurations.map((journey) => {
-            return (
-              <View key={journey.journey_id}>
-                <Text>Journey {journey.journey_id}:</Text>
-                <Text>Distance: {journey.distance} km</Text>
-                {journey.duration.hours ? (
-                  <Text>
-                    Walking Duration: {journey.duration.hours} hours{" "}
-                    {journey.duration.mins} mins{" "}
-                  </Text>
-                ) : (
-                  <Text>Walking Duration: {journey.duration.mins} mins </Text>
-                )}
-              </View>
-            );
-          })}
-          <Text>Total Distance: {totalDistance} km</Text>
-          {totalWalkingDuration.hours ? (
-            <Text>
-              Total Walking Duration: {totalWalkingDuration.hours} hours{" "}
-              {totalWalkingDuration.mins} mins{" "}
-            </Text>
-          ) : (
-            <Text>
-              Total Walking Duration: {totalWalkingDuration.mins} mins{" "}
-            </Text>
-          )}
-        </View>
-      ) : null}
+      <View>
+        {journeyDistancesDurations.map((journey) => {
+          return (
+            <View key={journey.journey_id}>
+              <Text>Journey {journey.journey_id}:</Text>
+              <Text>Distance: {journey.distance} km</Text>
+              {journey.duration.hours ? (
+                <Text>
+                  Walking Duration: {journey.duration.hours} hours{" "}
+                  {journey.duration.mins} mins{" "}
+                </Text>
+              ) : (
+                <Text>Walking Duration: {journey.duration.mins} mins </Text>
+              )}
+            </View>
+          );
+        })}
+        <Text>Total Distance: {totalDistance} km</Text>
+        {totalWalkingDuration.hours ? (
+          <Text>
+            Total Walking Duration: {totalWalkingDuration.hours} hours{" "}
+            {totalWalkingDuration.mins} mins{" "}
+          </Text>
+        ) : (
+          <Text>Total Walking Duration: {totalWalkingDuration.mins} mins </Text>
+        )}
+      </View>
     </>
   );
 }

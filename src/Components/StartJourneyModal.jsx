@@ -13,6 +13,9 @@ export default function StartJourneyModal({
   setLastLegWalkingDuration,
   setTotalDistance,
   totalDistance,
+  setWaypointA,
+  setWaypointB,
+  totalDuration,
 }) {
   const navigation = useNavigation();
   return (
@@ -26,6 +29,10 @@ export default function StartJourneyModal({
         setLastLegWalkingDuration={setLastLegWalkingDuration}
         setTotalDistance={setTotalDistance}
         totalDistance={totalDistance}
+        setWaypointA={setWaypointA}
+        setWaypointB={setWaypointB}
+        setShowStartJourneyModal={setShowStartJourneyModal}
+        totalDuration={totalDuration}
       />
       <Text>Are you content with your journey?</Text>
       <Button
