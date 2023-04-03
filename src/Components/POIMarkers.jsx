@@ -11,6 +11,8 @@ export const POIMarkers = ({
   setPOIPlaces,
   setWaypointA,
   setWaypointB,
+  setShowPlaces,
+  showPlaces,
 }) => {
   useEffect(() => {
     fetchAllPOI(location, GOOGLE_MAPS_APIKEY).then((data) => {
@@ -51,7 +53,6 @@ export const POIMarkers = ({
 
             <Callout
               onPress={() => {
-                console.log("name >>", POI.name)
                 addWaypoints(
                   setWaypointA,
                   setWaypointB,
@@ -59,7 +60,9 @@ export const POIMarkers = ({
                     latitude: POI.geometry.location.lat,
                     longitude: POI.geometry.location.lng,
                   },
-                  POI.name
+                  POI.name,
+                  setShowPlaces,
+                  showPlaces
                 );
               }}
               style={{ flex: -1, position: "absolute", width: 300 }}
