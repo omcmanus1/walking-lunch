@@ -168,18 +168,20 @@ export default function SetRoute({
       ) : (
         <Text>Loading...</Text>
       )}
-
-      <Button
-        disabled={showPlaces}
-        style={{ color: "red" }}
-        title="show places"
-        onPress={() => setShowPlaces(true)}
-      />
-      <Button
-        title="show restaurants"
-        disabled={!showPlaces}
-        onPress={() => setShowPlaces(false)}
-      />
+      <View style={{ flexDirection: "row" }}>
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          disabled={showPlaces}
+          title="show places"
+          onPress={() => setShowPlaces(true)}
+        />
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="show restaurants"
+          disabled={!showPlaces}
+          onPress={() => setShowPlaces(false)}
+        />
+      </View>
 
       {showPlaces ? (
         <>
@@ -202,14 +204,19 @@ export default function SetRoute({
           />
         </>
       )}
-
-      <RemoveMarkers setWaypointA={setWaypointA} setWaypointB={setWaypointB} />
-      <Button
-        title="Start Journey"
-        onPress={() => {
-          setShowStartJourneyModal(true);
-        }}
-      />
+      <View style={{ flexDirection: "row" }}>
+        <RemoveMarkers
+          setWaypointA={setWaypointA}
+          setWaypointB={setWaypointB}
+        />
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="Start Journey"
+          onPress={() => {
+            setShowStartJourneyModal(true);
+          }}
+        />
+      </View>
       <StartJourneyModal
         showStartJourneyModal={showStartJourneyModal}
         setShowStartJourneyModal={setShowStartJourneyModal}

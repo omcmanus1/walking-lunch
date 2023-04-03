@@ -12,18 +12,21 @@ export default function SpeedSelector({ setKmh }) {
     <>
       <Text>How fast do you walk?</Text>
       <Button
+        style={{ backgroundColor: "green", margin: 3 }}
         title="slow"
         onPress={() => {
           handleSpeedSelection("slow");
         }}
       ></Button>
       <Button
+        style={{ backgroundColor: "green", margin: 3 }}
         title="medium"
         onPress={() => {
           handleSpeedSelection("medium");
         }}
       ></Button>
       <Button
+        style={{ backgroundColor: "green", margin: 3 }}
         title="fast"
         onPress={() => {
           handleSpeedSelection("fast");
