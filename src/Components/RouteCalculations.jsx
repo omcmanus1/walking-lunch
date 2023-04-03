@@ -5,7 +5,6 @@ import { wipeMarkers } from "../utils/functions/wipe-markers";
 export default function RouteCalculations({
   distances,
   kmh,
-  showRoute,
   setShowRoute,
   setLastLegWalkingDuration,
   totalDistance,
@@ -19,7 +18,6 @@ export default function RouteCalculations({
   const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
     []
   );
-  const [showJourneyDetails, setShowJourneyDetails] = useState(false);
   let totalDur = 0;
 
   const convertToHoursMins = (totalMins) => {
@@ -62,7 +60,6 @@ export default function RouteCalculations({
         },
         {
           text: "It's okay, I have the time",
-          onPress: setShowJourneyDetails(true),
           style: "ok",
         },
       ]
@@ -104,37 +101,33 @@ export default function RouteCalculations({
 
   return (
     <>
-      {showJourneyDetails ? (
-        <View>
-          {journeyDistancesDurations.map((journey) => {
-            return (
-              <View key={journey.journey_id}>
-                <Text>Journey {journey.journey_id}:</Text>
-                <Text>Distance: {journey.distance} km</Text>
-                {journey.duration.hours ? (
-                  <Text>
-                    Walking Duration: {journey.duration.hours} hours{" "}
-                    {journey.duration.mins} mins{" "}
-                  </Text>
-                ) : (
-                  <Text>Walking Duration: {journey.duration.mins} mins </Text>
-                )}
-              </View>
-            );
-          })}
-          <Text>Total Distance: {totalDistance} km</Text>
-          {totalWalkingDuration.hours ? (
-            <Text>
-              Total Walking Duration: {totalWalkingDuration.hours} hours{" "}
-              {totalWalkingDuration.mins} mins{" "}
-            </Text>
-          ) : (
-            <Text>
-              Total Walking Duration: {totalWalkingDuration.mins} mins{" "}
-            </Text>
-          )}
-        </View>
-      ) : null}
+      <View>
+        {journeyDistancesDurations.map((journey) => {
+          return (
+            <View key={journey.journey_id}>
+              <Text>Journey {journey.journey_id}:</Text>
+              <Text>Distance: {journey.distance} km</Text>
+              {journey.duration.hours ? (
+                <Text>
+                  Walking Duration: {journey.duration.hours} hours{" "}
+                  {journey.duration.mins} mins{" "}
+                </Text>
+              ) : (
+                <Text>Walking Duration: {journey.duration.mins} mins </Text>
+              )}
+            </View>
+          );
+        })}
+        <Text>Total Distance: {totalDistance} km</Text>
+        {totalWalkingDuration.hours ? (
+          <Text>
+            Total Walking Duration: {totalWalkingDuration.hours} hours{" "}
+            {totalWalkingDuration.mins} mins{" "}
+          </Text>
+        ) : (
+          <Text>Total Walking Duration: {totalWalkingDuration.mins} mins </Text>
+        )}
+      </View>
     </>
   );
 }

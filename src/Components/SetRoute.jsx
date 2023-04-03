@@ -86,8 +86,6 @@ export default function SetRoute({
     }
   }, []);
 
-  console.log(markerLocations);
-
   return (
     <View style={styles.container}>
       <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
