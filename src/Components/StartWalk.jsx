@@ -8,7 +8,7 @@ import PlotRoute from "./PlotRoute";
 import MapViewDirections from "react-native-maps-directions";
 
 
-export default function StartWalk({kmh, setKmh, totalDuration, setTotalDuration, location }){
+export default function StartWalk({kmh, setKmh, totalDuration, setTotalDuration, location, markerLocations }){
 const [secondsLeft, setSecondsLeft] = useState(0);
 
 
@@ -31,19 +31,20 @@ const [secondsLeft, setSecondsLeft] = useState(0);
             customMapStyle={MapJson}
           >
             <MapViewDirections
-              origin="Manchester Technology Centre"
-              destination="Royal Exchange Theatre"
+              origin={markerLocations[0].coordinate}
+              destination={markerLocations[1].coordinate}
               mode="WALKING"
               strokeWidth={5}
               strokeColor="hotpink"
               apikey="AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U"
               // onReady={(result) => {
-              //   setDistanceA(result.distance);
+              //   //setDistanceA(result.distance);
+              //   console.log(result)
               // }}
             />
             <MapViewDirections
-              origin="Royal Exchange Theatre"
-              destination="Manchester Art Gallery"
+              origin={markerLocations[1].coordinate}
+              destination={markerLocations[2].coordinate}
               mode="WALKING"
               strokeWidth={5}
               strokeColor="blue"
@@ -53,8 +54,8 @@ const [secondsLeft, setSecondsLeft] = useState(0);
               // }}
             />
             <MapViewDirections
-              origin="Manchester Art Gallery"
-              destination="Manchester Technology Centre"
+              origin={markerLocations[2].coordinate}
+              destination={markerLocations[3].coordinate}
               mode="WALKING"
               strokeWidth={5}
               strokeColor="orange"

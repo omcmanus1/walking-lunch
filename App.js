@@ -14,6 +14,7 @@ const [POIPlaces, setPOIPlaces] = useState([]);
 const [kmh, setKmh] = useState(4.5);
 const [totalDuration, setTotalDuration] = useState(0);
 const [location, setLocation] = useState();
+const [markerLocations, setMarkerLocations] = useState([]);
 
 
   return (
@@ -50,6 +51,8 @@ const [location, setLocation] = useState();
               setTotalDuration={setTotalDuration}
               location={location}
               setLocation={setLocation}
+              markerLocations={markerLocations}
+              setMarkerLocations={setMarkerLocations}
             />
           )}
         </Tab.Screen>
@@ -61,6 +64,7 @@ const [location, setLocation] = useState();
               totalDuration={totalDuration}
               setTotalDuration={setTotalDuration}
               location={location}
+              markerLocations={markerLocations}
             />
           )}
         </Tab.Screen>
