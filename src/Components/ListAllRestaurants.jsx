@@ -1,5 +1,6 @@
-import { FlatList, Pressable, Text, View } from "react-native";
-import { Chip } from "@rneui/themed";
+import React from "react";
+import { FlatList, View } from "react-native";
+import { Chip } from "react-native-paper";
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
 export const ListAllRestaurants = ({
@@ -12,10 +13,15 @@ export const ListAllRestaurants = ({
   const renderItem = ({ item }) => (
     <Chip
       key={item.name}
-      title={item.name}
-      type="outline"
-      containerStyle={{ flexDirection: "row", margin: 1 }}
-      onLongPress={()=>{console.log("LongPress")}}
+      style={{
+        width: "auto",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        margin: 5,
+        selectedColor: "green",
+        backgroundColor: "lightgreen",
+        justifyContent: "space-between",
+      }}
       onPress={() => {
         addWaypoints(
           setWaypointA,
@@ -29,12 +35,27 @@ export const ListAllRestaurants = ({
           showPlaces
         );
       }}
-    />
+    >
+      🍽️ {item.name}
+    </Chip>
   );
 
   return (
-    <View>
-      <FlatList data={foodPlaces} renderItem={renderItem} />
+    <View
+      style={{
+        flexDirection: "column",
+        maxWidth: 400,
+        height: 200,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
+      <FlatList
+        data={foodPlaces}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.name}
+        style={{ flexDirection: "row" }}
+      />
     </View>
   );
 };
