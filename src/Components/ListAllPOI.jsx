@@ -51,9 +51,10 @@ export const ListAllPOI = ({
       style={{
         flexDirection: "column",
         maxWidth: 400,
-        height: 200,
+        height: 180,
         alignItems: "center",
         flexWrap: "wrap",
+        margin: 10,
       }}
     >
       <FlatList

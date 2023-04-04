@@ -10,6 +10,8 @@ export default function DestinationSearch({
   location,
   setWaypointA,
   setWaypointB,
+  showPlaces,
+  setShowPlaces,
 }) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -22,8 +24,11 @@ export default function DestinationSearch({
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
           setSearchedDestination({
-            latitude: details.geometry.location.lat,
-            longitude: details.geometry.location.lng,
+            name: details.name,
+            coords: {
+              latitude: details.geometry.location.lat,
+              longitude: details.geometry.location.lng,
+            },
           });
         }}
         query={{
@@ -53,7 +58,14 @@ export default function DestinationSearch({
         title="Add Destination"
         onPress={() => {
           // TODO: Add location name as 4th argument, test with searchbar
-          addWaypoints(setWaypointA, setWaypointB, searchedDestination);
+          addWaypoints(
+            setWaypointA,
+            setWaypointB,
+            searchedDestination.coords,
+            searchedDestination.name,
+            setShowPlaces,
+            showPlaces
+          );
         }}
       ></Button>
     </>

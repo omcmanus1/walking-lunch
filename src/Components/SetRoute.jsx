@@ -112,6 +112,8 @@ export default function SetRoute({
             location={location}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
+            showPlaces={showPlaces}
+            setShowPlaces={setShowPlaces}
           />
           <MapView
             provider={PROVIDER_GOOGLE}
@@ -128,8 +130,6 @@ export default function SetRoute({
                 setPOIPlaces={setPOIPlaces}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
-                setShowPlaces={setShowPlaces}
-                showPlaces={showPlaces}
               />
             ) : (
               <FoodMarkers
@@ -182,7 +182,7 @@ export default function SetRoute({
           onPress={() => setShowPlaces(false)}
         />
       </View>
-      {/* {waypointA.name !== "not_set" && waypointB.name !== "not_set" ? (
+      {waypointA.name !== "not_set" && waypointB.name !== "not_set" ? (
         <View>
           <Text>Walking Duration: 1.09 mins </Text>
           <Text>Walking Distance: 7.89 km</Text>
@@ -211,7 +211,7 @@ export default function SetRoute({
             </>
           )}
         </>
-      )} */}
+      )}
 
       <View style={{ flexDirection: "row" }}>
         <RemoveMarkers

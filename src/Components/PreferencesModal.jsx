@@ -2,9 +2,8 @@ import Modal from "react-native-modal";
 import SetTimer from "./SetTimer";
 import SpeedSelector from "./SpeedSelector";
 import { useState } from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, Image } from "react-native";
 import { Button } from "@react-native-material/core";
-
 import { Buttons } from "../styles";
 
 export default function PreferencesModal({ setKmh, setTotalDuration }) {
@@ -12,6 +11,10 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
 
   return (
     <Modal isVisible={showModal} style={styles.modal}>
+      {/* <Image
+        style={{ objectFit: "contain", maxWidth: 300, marginTop: 40 }}
+        source={require("../walking-lunch-logo.png")}
+      ></Image> */}
       <Text style={{ fontSize: 22, padding: 30, textAlign: "center" }}>
         Set your walking preferences
       </Text>
