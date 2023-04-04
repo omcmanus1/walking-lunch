@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { StatusBar } from 'expo-status-bar';
 import {
   Button,
@@ -19,27 +20,30 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
+=======
+import { Button } from "@react-native-material/core";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View, DevSettings } from "react-native";
+import StartTimer from "./StartTimer";
+import React, { useState } from "react";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapJson from "./MapJson";
+import MapViewDirections from "react-native-maps-directions";
+import Modal from "react-native-modal";
+import { useNavigation } from "@react-navigation/native";
+>>>>>>> 3c872249f24d34c60719f4285f97bcce64d571ed
 
 export default function StartWalk({
-  kmh,
-  setKmh,
   totalDuration,
-  setTotalDuration,
   location,
   markerLocations,
   journeyDistancesDurations,
   lastLegWalkingDuration,
-  totalDistance
+  totalDistance,
 }) {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [completedModal, setCompletedModal] = useState(false);
-const navigation = useNavigation();
-
-// const completedWalk = () => {
-//   setCompletedModal(false);
-//   navigation.navigate("Set Route");
-// };
-  
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -112,15 +116,17 @@ const navigation = useNavigation();
           </View>
         );
       })}
-      {/* lastLegWalkingDuration={lastLegWalkingDuration} */}
-
       <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
       <Modal isVisible={completedModal} style={styles.modal}>
         <Text>
           Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
         </Text>
+        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
         <Button title="New Walk" onPress={() => DevSettings.reload()}></Button>
-        <Button title="See Stats" onPress={() => navigation.navigate("User")}></Button>
+        <Button
+          title="See Stats"
+          onPress={() => navigation.navigate("User")}
+        ></Button>
       </Modal>
       <StatusBar style="auto" />
     </View>
@@ -130,18 +136,18 @@ const navigation = useNavigation();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   map: {
-    width: '90%',
-    height: '40%'
+    width: "90%",
+    height: "40%",
   },
   modal: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     margin: 25,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

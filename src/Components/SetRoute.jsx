@@ -1,21 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, View, TextInput, Alert } from 'react-native';
-import React from 'react';
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import { useState, useEffect } from 'react';
-import * as Location from 'expo-location';
-import { FoodMarkers } from './FoodMarkers';
-import MapJson from './MapJson';
-import PlotMarkers from './PlotMarkers';
-import DestinationSearch from './DestinationSearch';
-import PlotRoute from './PlotRoute';
-import { POIMarkers } from './POIMarkers';
-import { ListAllPOI } from './ListAllPOI';
-import RemoveMarkers from './RemoveMarkers';
-import PreferencesModal from './PreferencesModal';
-import StartJourneyModal from './StartJourneyModal';
-import { ListAllRestaurants } from './ListAllRestaurants';
-import * as Device from 'expo-device';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { useState, useEffect } from "react";
+import * as Location from "expo-location";
+import { FoodMarkers } from "./FoodMarkers";
+import MapJson from "./MapJson";
+import PlotMarkers from "./PlotMarkers";
+import DestinationSearch from "./DestinationSearch";
+import PlotRoute from "./PlotRoute";
+import { POIMarkers } from "./POIMarkers";
+import { ListAllPOI } from "./ListAllPOI";
+import RemoveMarkers from "./RemoveMarkers";
+import PreferencesModal from "./PreferencesModal";
+import StartJourneyModal from "./StartJourneyModal";
+import { ListAllRestaurants } from "./ListAllRestaurants";
+import { Button } from "@react-native-material/core";
+import * as Device from "expo-device";
 
 export default function SetRoute({
   setPOIPlaces,
@@ -30,10 +31,9 @@ export default function SetRoute({
   setMarkerLocations,
   journeyDistancesDurations,
   setJourneyDistancesDurations,
-  lastLegWalkingDuration,
   setLastLegWalkingDuration,
   totalDistance,
-  setTotalDistance
+  setTotalDistance,
 }) {
   // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -43,11 +43,11 @@ export default function SetRoute({
   const [showRoute, setShowRoute] = useState(true);
   const [waypointA, setWaypointA] = useState({
     coords: { latitude: 0, longitude: 0 },
-    name: 'not_set'
+    name: "not_set",
   });
   const [waypointB, setWaypointB] = useState({
     coords: { latitude: 0, longitude: 0 },
-    name: 'not_set'
+    name: "not_set",
   });
   const [origin, setOrigin] = useState({});
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
@@ -55,7 +55,7 @@ export default function SetRoute({
   const [showPlaces, setShowPlaces] = useState(false);
   const [showWalkInfo, setWalkInfo] = useState(false)
 
-  const GOOGLE_MAPS_APIKEY = 'AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U';
+  const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
   const handleStartJourney = () => {
     setShowStartJourneyModal(true);
@@ -67,16 +67,16 @@ export default function SetRoute({
         latitude: 53.472669328839075,
         longitude: -2.238509469312171,
         latitudeDelta: 0.015,
-        longitudeDelta: 0.032
+        longitudeDelta: 0.032,
       });
       setOrigin({
         latitude: 53.472669328839075,
-        longitude: -2.238509469312171
+        longitude: -2.238509469312171,
       });
     } else {
       const getPermissions = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') {
+        if (status !== "granted") {
           return;
         }
 
@@ -86,11 +86,11 @@ export default function SetRoute({
           latitude: currentLocation.coords.latitude,
           longitude: currentLocation.coords.longitude,
           latitudeDelta: 0.015,
-          longitudeDelta: 0.032
+          longitudeDelta: 0.032,
         });
         setOrigin({
           latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude
+          longitude: currentLocation.coords.longitude,
         });
       };
       getPermissions();
@@ -99,7 +99,11 @@ export default function SetRoute({
  
   return (
     <View style={styles.container}>
-      <PreferencesModal setKmh={setKmh} setTotalDuration={setTotalDuration} />
+      <PreferencesModal
+        style={styles.modal}
+        setKmh={setKmh}
+        setTotalDuration={setTotalDuration}
+      />
       {location ? (
         <>
           <DestinationSearch
@@ -109,7 +113,6 @@ export default function SetRoute({
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
           />
-
           <MapView
             provider={PROVIDER_GOOGLE}
             style={styles.map}
@@ -165,6 +168,20 @@ export default function SetRoute({
       ) : (
         <Text>Loading...</Text>
       )}
+      <View style={{ flexDirection: "row" }}>
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          disabled={showPlaces}
+          title="show places"
+          onPress={() => setShowPlaces(true)}
+        />
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="show restaurants"
+          disabled={!showPlaces}
+          onPress={() => setShowPlaces(false)}
+        />
+      </View>
 
       <Button
         disabled={showPlaces}
@@ -182,6 +199,7 @@ export default function SetRoute({
           <Text>Walking Distance: 7.89 km</Text>
         </View>
       ) : (
+      
         <>
           {showPlaces ? (
             <>
@@ -206,14 +224,20 @@ export default function SetRoute({
           )}
         </>
       )}
-
-      <RemoveMarkers setWaypointA={setWaypointA} setWaypointB={setWaypointB} />
-      <Button
-        title="Start Journey"
-        onPress={() => {
-          setShowStartJourneyModal(true);
-        }}
-      />
+      
+      <View style={{ flexDirection: "row" }}>
+        <RemoveMarkers
+          setWaypointA={setWaypointA}
+          setWaypointB={setWaypointB}
+        />
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="Start Journey"
+          onPress={() => {
+            setShowStartJourneyModal(true);
+          }}
+        />
+      </View>
       <StartJourneyModal
         showStartJourneyModal={showStartJourneyModal}
         setShowStartJourneyModal={setShowStartJourneyModal}
@@ -238,12 +262,21 @@ export default function SetRoute({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    marginTop: 40,
+    paddingTop: 10,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   map: {
-    width: '90%',
-    height: '40%'
-  }
+    width: "90%",
+    height: "50%",
+    padding: 20,
+  },
+  modal: {
+    backgroundColor: "white",
+    margin: 25,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
