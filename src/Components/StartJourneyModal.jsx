@@ -19,6 +19,7 @@ export default function StartJourneyModal({
   totalDuration,
   journeyDistancesDurations,
   setJourneyDistancesDurations,
+  markerLocations
 }) {
   const navigation = useNavigation();
   return (
@@ -47,6 +48,7 @@ export default function StartJourneyModal({
         totalDuration={totalDuration}
         journeyDistancesDurations={journeyDistancesDurations}
         setJourneyDistancesDurations={setJourneyDistancesDurations}
+        markerLocations={markerLocations}
       />
       <Text style={styles.headers}>Are you ready to start your journey?</Text>
 

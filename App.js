@@ -5,8 +5,7 @@ import UserPastWalks from "./src/Components/UserPastWalks";
 import SetRoute from "./src/Components/SetRoute";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import React, { useState } from "react";
-// import AndroidSafeView from "./src/Components/AndroidSafeview";
-// import { SafeAreaView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,69 +23,71 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Set Route"
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+      <SafeAreaProvider>
+        <Tab.Navigator
+          initialRouteName="Set Route"
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === "Set Route") {
-              iconName = focused ? "pin" : "pin-outline";
-            } else if (route.name === "User") {
-              iconName = focused ? "person-circle-outline" : "person-circle";
-            } else if (route.name === "Start Walk") {
-              iconName = focused ? "walk-outline" : "walk";
-            }
+              if (route.name === "Set Route") {
+                iconName = focused ? "pin" : "pin-outline";
+              } else if (route.name === "User") {
+                iconName = focused ? "person-circle-outline" : "person-circle";
+              } else if (route.name === "Start Walk") {
+                iconName = focused ? "walk-outline" : "walk";
+              }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
-        })}
-      >
-        <Tab.Screen name="Set Route">
-          {() => (
-            <SetRoute
-              POIPlaces={POIPlaces}
-              setPOIPlaces={setPOIPlaces}
-              kmh={kmh}
-              setKmh={setKmh}
-              totalDuration={totalDuration}
-              setTotalDuration={setTotalDuration}
-              location={location}
-              setLocation={setLocation}
-              markerLocations={markerLocations}
-              setMarkerLocations={setMarkerLocations}
-              journeyDistancesDurations={journeyDistancesDurations}
-              setJourneyDistancesDurations={setJourneyDistancesDurations}
-              lastLegWalkingDuration={lastLegWalkingDuration}
-              setLastLegWalkingDuration={setLastLegWalkingDuration}
-              totalDistance={totalDistance}
-              setTotalDistance={setTotalDistance}
-            />
-          )}
-        </Tab.Screen>
-        <Tab.Screen name="Start Walk">
-          {() => (
-            <StartWalk
-              kmh={kmh}
-              setKmh={setKmh}
-              totalDuration={totalDuration}
-              setTotalDuration={setTotalDuration}
-              location={location}
-              markerLocations={markerLocations}
-              journeyDistancesDurations={journeyDistancesDurations}
-              lastLegWalkingDuration={lastLegWalkingDuration}
-              totalDistance={totalDistance}
-            />
-          )}
-        </Tab.Screen>
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: "tomato",
+            tabBarInactiveTintColor: "gray",
+          })}
+        >
+          <Tab.Screen name="Set Route">
+            {() => (
+              <SetRoute
+                POIPlaces={POIPlaces}
+                setPOIPlaces={setPOIPlaces}
+                kmh={kmh}
+                setKmh={setKmh}
+                totalDuration={totalDuration}
+                setTotalDuration={setTotalDuration}
+                location={location}
+                setLocation={setLocation}
+                markerLocations={markerLocations}
+                setMarkerLocations={setMarkerLocations}
+                journeyDistancesDurations={journeyDistancesDurations}
+                setJourneyDistancesDurations={setJourneyDistancesDurations}
+                lastLegWalkingDuration={lastLegWalkingDuration}
+                setLastLegWalkingDuration={setLastLegWalkingDuration}
+                totalDistance={totalDistance}
+                setTotalDistance={setTotalDistance}
+              />
+            )}
+          </Tab.Screen>
+          <Tab.Screen name="Start Walk">
+            {() => (
+              <StartWalk
+                kmh={kmh}
+                setKmh={setKmh}
+                totalDuration={totalDuration}
+                setTotalDuration={setTotalDuration}
+                location={location}
+                markerLocations={markerLocations}
+                journeyDistancesDurations={journeyDistancesDurations}
+                lastLegWalkingDuration={lastLegWalkingDuration}
+                totalDistance={totalDistance}
+              />
+            )}
+          </Tab.Screen>
 
-        <Tab.Screen name="User">
-          {() => <UserPastWalks totalDistance={totalDistance} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+          <Tab.Screen name="User">
+            {() => <UserPastWalks totalDistance={totalDistance} />}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </SafeAreaProvider>
     </NavigationContainer>
   );
 }

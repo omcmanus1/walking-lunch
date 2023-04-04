@@ -245,6 +245,7 @@ export default function SetRoute({
         setWaypointA={setWaypointA}
         setWaypointB={setWaypointB}
         totalDuration={totalDuration}
+        markerLocations={markerLocations}
       />
       <StatusBar style="auto" />
     </View>

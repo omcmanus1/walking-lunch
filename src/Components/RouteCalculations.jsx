@@ -15,9 +15,10 @@ export default function RouteCalculations({
   setWaypointB,
   setShowStartJourneyModal,
   totalDuration,
+  markerLocations,
 }) {
-  // const [totalDistance, setTotalDistance] = useState(0);
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
+  console.log(markerLocations);
 
   let totalDur = 0;
 
@@ -103,11 +104,19 @@ export default function RouteCalculations({
   return (
     <>
       <View style={{ margin: 10 }}>
-        {journeyDistancesDurations.map((journey) => {
+        {journeyDistancesDurations.map((journey, index) => {
           return (
             <View style={{ padding: 15 }} key={journey.journey_id}>
               <Text style={styles.journeyHeaders}>
-                Journey {journey.journey_id}:
+                {index === 0
+                  ? `Origin - ${markerLocations[index + 1].name}:`
+                  : null}
+                {index === 1
+                  ? `${markerLocations[index].name} - ${
+                      markerLocations[index + 1].name
+                    }:`
+                  : null}
+                {index === 2 ? `${markerLocations[index].name} - End:` : null}
               </Text>
               <Text style={styles.text}>Distance: {journey.distance} km</Text>
               {journey.duration.hours ? (
