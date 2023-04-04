@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput, Alert } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import { FoodMarkers } from "./FoodMarkers";
@@ -31,7 +31,6 @@ export default function SetRoute({
   setMarkerLocations,
   journeyDistancesDurations,
   setJourneyDistancesDurations,
-  lastLegWalkingDuration,
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
