@@ -118,7 +118,8 @@ export default function SetRoute({
             style={styles.map}
             initialRegion={location}
             showsUserLocation={true}
-            customMapStyle={MapJson}
+            customMapStyle={MapJson} 
+            onRegionChange={}
           >
             {showPlaces ? (
               <POIMarkers

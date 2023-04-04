@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, View } from "react-native";
 import { Chip } from "react-native-paper";
 import { addWaypoints } from "../utils/functions/add-waypoints";
+import { focusOnMarker } from "../utils/functions/map-focus";
 
 export const ListAllRestaurants = ({
   foodPlaces,
@@ -22,6 +23,10 @@ export const ListAllRestaurants = ({
         backgroundColor: "lightgreen",
         justifyContent: "space-between",
       }}
+      onLongPress={()=>{focusOnMarker({
+        latitude: item.geometry.location.lat,
+        longitude: item.geometry.location.lng,
+      });}}
       onPress={() => {
         addWaypoints(
           setWaypointA,
