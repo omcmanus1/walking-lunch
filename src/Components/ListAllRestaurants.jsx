@@ -59,7 +59,6 @@ export const ListAllRestaurants = ({
         data={foodPlaces}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
-        style={{ flexDirection: "row" }}
       />
     </View>
   );

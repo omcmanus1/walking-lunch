@@ -213,7 +213,6 @@ export default function SetRoute({
           )}
         </>
       )}
-
       <View style={{ flexDirection: "row" }}>
         <RemoveMarkers
           setWaypointA={setWaypointA}
