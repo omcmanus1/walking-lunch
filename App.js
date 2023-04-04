@@ -9,8 +9,6 @@ import React, { useState } from "react";
 // import { SafeAreaView } from "react-native";
 
 const Tab = createBottomTabNavigator();
-const windowDimensions = Dimensions.get("window");
-const screenDimensions = Dimensions.get("screen");
 
 export default function App() {
   const [POIPlaces, setPOIPlaces] = useState([]);
@@ -33,18 +31,18 @@ export default function App() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Set Route') {
-              iconName = focused ? 'pin' : 'pin-outline';
-            } else if (route.name === 'User') {
-              iconName = focused ? 'person-circle-outline' : 'person-circle';
-            } else if (route.name === 'Start Walk') {
-              iconName = focused ? 'walk-outline' : 'walk';
+            if (route.name === "Set Route") {
+              iconName = focused ? "pin" : "pin-outline";
+            } else if (route.name === "User") {
+              iconName = focused ? "person-circle-outline" : "person-circle";
+            } else if (route.name === "Start Walk") {
+              iconName = focused ? "walk-outline" : "walk";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray'
+          tabBarActiveTintColor: "tomato",
+          tabBarInactiveTintColor: "gray",
         })}
       >
         <Tab.Screen name="Set Route">
@@ -86,11 +84,7 @@ export default function App() {
         </Tab.Screen>
 
         <Tab.Screen name="User">
-           {() => (
-            <UserPastWalks  
-          totalDistance={totalDistance}
-          />
-          )}
+          {() => <UserPastWalks totalDistance={totalDistance} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

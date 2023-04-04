@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   View,
 } from "react-native";
-import { Chip } from "@rneui/themed";
+import { Chip } from "react-native-paper";
 import LinearGradient from "react-native-linear-gradient";
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
@@ -20,9 +20,15 @@ export const ListAllPOI = ({
   const renderItem = ({ item }) => (
     <Chip
       key={item.name}
-      title={item.name}
-      type="outline"
-      containerStyle={{ flexDirection: "row" }}
+      style={{
+        width: "auto",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        margin: 5,
+        selectedColor: "green",
+        backgroundColor: "lightgreen",
+        justifyContent: "space-between",
+      }}
       onPress={() => {
         addWaypoints(
           setWaypointA,
@@ -36,14 +42,24 @@ export const ListAllPOI = ({
           showPlaces
         );
       }}
-    />
+    >
+      📷 {item.name}
+    </Chip>
   );
-
   return (
-    <View>
+    <View
+      style={{
+        flexDirection: "column",
+        maxWidth: 400,
+        height: 200,
+        alignItems: "center",
+        flexWrap: "wrap",
+      }}
+    >
       <FlatList
         data={POIPlaces}
         renderItem={renderItem}
+        keyExtractor={(item) => item.name}
         style={{ flexDirection: "row" }}
       />
     </View>
