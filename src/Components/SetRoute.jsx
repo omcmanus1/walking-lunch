@@ -136,6 +136,8 @@ export default function SetRoute({
                 setPOIPlaces={setPOIPlaces}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
               />
             ) : (
               <FoodMarkers
