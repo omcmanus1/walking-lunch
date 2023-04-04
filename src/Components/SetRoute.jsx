@@ -164,7 +164,7 @@ console.log("Location", location)
                 GOOGLE_MAPS_APIKEY={GOOGLE_MAPS_APIKEY}
                 setDistances={setDistances}
                 markerLocations={markerLocations}
-                showRoute={showRoute}
+                rrRoute={showRoute}
               />
             ) : null}
           </MapView>
