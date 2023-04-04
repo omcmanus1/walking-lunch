@@ -48,11 +48,11 @@ export default function StartJourneyModal({
         journeyDistancesDurations={journeyDistancesDurations}
         setJourneyDistancesDurations={setJourneyDistancesDurations}
       />
-      <Text style={styles.headers}>Are you content with your journey?</Text>
+      <Text style={styles.headers}>Are you ready to start your journey?</Text>
 
       <Button
         style={{
-          backgroundColor: "green",
+          backgroundColor: "seagreen",
           margin: 20,
           padding: 5,
         }}
@@ -61,7 +61,7 @@ export default function StartJourneyModal({
       ></Button>
       <Button
         style={{
-          backgroundColor: "yellowgreen",
+          backgroundColor: "#79bd6a",
           margin: 10,
         }}
         title="Go Back"

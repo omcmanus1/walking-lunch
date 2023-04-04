@@ -1,0 +1,11 @@
+most buttons
+#578a5e
+
+reset, back, speed buttons
+#79bd6a
+
+important buttons
+"seagreen"
+
+pale green grey (list items, search bar)
+#d5e3d7

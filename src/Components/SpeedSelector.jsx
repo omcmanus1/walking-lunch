@@ -15,21 +15,21 @@ export default function SpeedSelector({ setKmh }) {
       </Text>
       <View style={{ flexDirection: "row", padding: 5 }}>
         <Button
-          style={{ backgroundColor: "seagreen", margin: 3 }}
+          style={{ backgroundColor: "#79bd6a", margin: 3 }}
           title="slow"
           onPress={() => {
             handleSpeedSelection("slow");
           }}
         ></Button>
         <Button
-          style={{ backgroundColor: "seagreen", margin: 3 }}
+          style={{ backgroundColor: "#79bd6a", margin: 3 }}
           title="medium"
           onPress={() => {
             handleSpeedSelection("medium");
           }}
         ></Button>
         <Button
-          style={{ backgroundColor: "seagreen", margin: 3 }}
+          style={{ backgroundColor: "#79bd6a", margin: 3 }}
           title="fast"
           onPress={() => {
             handleSpeedSelection("fast");

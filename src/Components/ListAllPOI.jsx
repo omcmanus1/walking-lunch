@@ -22,12 +22,11 @@ export const ListAllPOI = ({
       key={item.name}
       style={{
         width: "auto",
-        flexWrap: "wrap",
-        flexDirection: "row",
+        // flexWrap: "wrap",
+        // flexDirection: "row",
         margin: 5,
-        selectedColor: "green",
-        backgroundColor: "lightgreen",
-        justifyContent: "space-between",
+        backgroundColor: "#d5e3d7",
+        // justifyContent: "space-between",
       }}
       onPress={() => {
         addWaypoints(
@@ -51,17 +50,16 @@ export const ListAllPOI = ({
       style={{
         flexDirection: "column",
         maxWidth: 400,
-        height: 180,
+        height: 190,
         alignItems: "center",
         flexWrap: "wrap",
-        margin: 10,
+        margin: 5,
       }}
     >
       <FlatList
         data={POIPlaces}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
-        style={{ flexDirection: "row" }}
       />
     </View>
   );

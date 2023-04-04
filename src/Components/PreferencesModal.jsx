@@ -22,7 +22,7 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
       <SetTimer setTotalDuration={setTotalDuration}></SetTimer>
       <Button
         style={{
-          backgroundColor: "green",
+          backgroundColor: "seagreen",
           margin: 20,
           padding: 10,
         }}

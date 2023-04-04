@@ -92,7 +92,11 @@ export default function StartWalk({
           </View>
         );
       })}
-      <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
+      <Button
+        style={styles.buttons}
+        title="End Walk"
+        onPress={() => setCompletedModal(true)}
+      ></Button>
       <Modal isVisible={completedModal} style={styles.modal}>
         <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
           Hope you enjoyed your break 😄
@@ -114,7 +118,7 @@ export default function StartWalk({
         </View>
         <Button
           style={{
-            backgroundColor: "yellowgreen",
+            backgroundColor: "#79bd6a",
             margin: 20,
           }}
           title="Back"
@@ -135,7 +139,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "90%",
-    height: "40%",
+    height: "60%",
   },
   modal: {
     backgroundColor: "white",
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttons: {
-    backgroundColor: "green",
+    backgroundColor: "#578a5e",
     margin: 8,
     padding: 5,
   },
