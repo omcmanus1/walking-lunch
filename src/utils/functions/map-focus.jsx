@@ -1,0 +1,4 @@
+
+
+const LATITUDE_DELTA = 0.01;
+const LONGITUDE_DELTA = 0.01;

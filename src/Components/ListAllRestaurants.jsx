@@ -15,6 +15,7 @@ export const ListAllRestaurants = ({
       title={item.name}
       type="outline"
       containerStyle={{ flexDirection: "row", margin: 1 }}
+      onLongPress={()=>{console.log("LongPress")}}
       onPress={() => {
         addWaypoints(
           setWaypointA,
