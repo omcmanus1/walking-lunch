@@ -11,12 +11,24 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
 
   return (
     <Modal isVisible={showModal} style={styles.modal}>
-      {/* <Image
-        style={{ objectFit: "contain", maxWidth: 300, marginTop: 40 }}
-        source={require("../walking-lunch-logo.png")}
-      ></Image> */}
-      <Text style={{ fontSize: 22, padding: 30, textAlign: "center" }}>
-        Set your walking preferences
+      <Image
+        style={{
+          objectFit: "contain",
+          width: 200,
+          height: 200,
+          marginTop: 40,
+        }}
+        source={require("../logo2.png")}
+      ></Image>
+      <Text
+        style={{
+          fontSize: 22,
+          padding: 20,
+          textAlign: "center",
+          fontFamily: "",
+        }}
+      >
+        Get ready for your Walking Lunch!
       </Text>
       <SpeedSelector setKmh={setKmh} />
       <SetTimer setTotalDuration={setTotalDuration}></SetTimer>
@@ -24,6 +36,7 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
         style={{
           backgroundColor: "seagreen",
           margin: 20,
+          marginBottom: 40,
           padding: 10,
         }}
         title="Set Preferences"
@@ -36,8 +49,11 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
 const styles = StyleSheet.create({
   buttons: Buttons.buttons,
   modal: {
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     backgroundColor: "white",
-    margin: 25,
+    margin: 40,
+
     alignItems: "center",
     justifyContent: "center",
     alignContent: "center",
