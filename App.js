@@ -21,6 +21,7 @@ export default function App() {
   );
   const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
   const [totalDistance, setTotalDistance] = useState(0);
+  
 
   return (
     <NavigationContainer>
@@ -64,6 +65,8 @@ export default function App() {
               setLastLegWalkingDuration={setLastLegWalkingDuration}
               totalDistance={totalDistance}
               setTotalDistance={setTotalDistance}
+              
+          
             />
           )}
         </Tab.Screen>

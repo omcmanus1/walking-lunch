@@ -34,6 +34,7 @@ export default function SetRoute({
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
+  
 }) {
   // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -54,6 +55,7 @@ export default function SetRoute({
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [showPlaces, setShowPlaces] = useState(false);
   const [showWalkInfo, setWalkInfo] = useState(false);
+  const [newRegion, setNewRegion] = useState({});
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -121,6 +123,10 @@ export default function SetRoute({
             initialRegion={location}
             showsUserLocation={true}
             customMapStyle={MapJson}
+            region={newRegion}
+            onRegionChange={(_region) => {
+              newRegion;
+            }}
           >
             {showPlaces ? (
               <POIMarkers
@@ -201,6 +207,7 @@ export default function SetRoute({
                 setWaypointB={setWaypointB}
                 setShowPlaces={setShowPlaces}
                 showPlaces={showPlaces}
+                setNewRegion={setNewRegion}
               />
             </>
           ) : (
@@ -211,6 +218,7 @@ export default function SetRoute({
                 setWaypointB={setWaypointB}
                 setShowPlaces={setShowPlaces}
                 showPlaces={showPlaces}
+                setNewRegion={setNewRegion}
               />
             </>
           )}
