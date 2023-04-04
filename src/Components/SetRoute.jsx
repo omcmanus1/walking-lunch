@@ -53,6 +53,7 @@ export default function SetRoute({
   const [showStartJourneyModal, setShowStartJourneyModal] = useState(false);
   const [foodPlaces, setFoodPlaces] = useState([]);
   const [showPlaces, setShowPlaces] = useState(false);
+  const [showWalkInfo, setWalkInfo] = useState(false)
 
   const GOOGLE_MAPS_APIKEY = "AIzaSyDIt7GvEhgmT3io-pKMPqTKIif4jkx9-2U";
 
@@ -95,7 +96,7 @@ export default function SetRoute({
       getPermissions();
     }
   }, []);
-
+ 
   return (
     <View style={styles.container}>
       <PreferencesModal
@@ -182,27 +183,48 @@ export default function SetRoute({
         />
       </View>
 
-      {showPlaces ? (
-        <>
-          <ListAllPOI
-            POIPlaces={POIPlaces}
-            setWaypointA={setWaypointA}
-            setWaypointB={setWaypointB}
-            setShowPlaces={setShowPlaces}
-            showPlaces={showPlaces}
-          />
-        </>
+      <Button
+        disabled={showPlaces}
+        title="show places"
+        onPress={() => setShowPlaces(true)}
+      />
+      <Button
+        title="show restaurants"
+        disabled={!showPlaces}
+        onPress={() => setShowPlaces(false)}
+      />
+      {waypointA.name !== "not_set" && waypointB.name !== "not_set" ? (
+        <View>
+          <Text>Walking Duration: 1.09 mins </Text>
+          <Text>Walking Distance: 7.89 km</Text>
+        </View>
       ) : (
+      
         <>
-          <ListAllRestaurants
-            foodPlaces={foodPlaces}
-            setWaypointA={setWaypointA}
-            setWaypointB={setWaypointB}
-            setShowPlaces={setShowPlaces}
-            showPlaces={showPlaces}
-          />
+          {showPlaces ? (
+            <>
+              <ListAllPOI
+                POIPlaces={POIPlaces}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
+              />
+            </>
+          ) : (
+            <>
+              <ListAllRestaurants
+                foodPlaces={foodPlaces}
+                setWaypointA={setWaypointA}
+                setWaypointB={setWaypointB}
+                setShowPlaces={setShowPlaces}
+                showPlaces={showPlaces}
+              />
+            </>
+          )}
         </>
       )}
+      
       <View style={{ flexDirection: "row" }}>
         <RemoveMarkers
           setWaypointA={setWaypointA}
