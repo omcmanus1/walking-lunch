@@ -36,7 +36,7 @@ export default function SpeedSelector({ setKmh }) {
         ></Button>
 
         <Button
-          title="medium🐎"
+          title="medium 🐎"
           style={buttonPressed.buttonTwo}
           onPress={() => {
             handleSpeedSelection("medium");
@@ -48,7 +48,7 @@ export default function SpeedSelector({ setKmh }) {
           }}
         ></Button>
         <Button
-          title="fast🚀"
+          title="fast 🚀"
           style={buttonPressed.buttonThree}
           onPress={() => {
             handleSpeedSelection("fast");

@@ -1,7 +1,7 @@
 most buttons
 #578a5e
 
-reset, back, speed buttons
+reset, back, speed buttons - light green
 #79bd6a
 
 important buttons
