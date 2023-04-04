@@ -60,7 +60,6 @@ export const ListAllPOI = ({
         data={POIPlaces}
         renderItem={renderItem}
         keyExtractor={(item) => item.name}
-        style={{ flexDirection: "row" }}
       />
     </View>
   );
