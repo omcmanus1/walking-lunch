@@ -16,7 +16,6 @@ export default function RouteCalculations({
   setShowStartJourneyModal,
   totalDuration,
 }) {
-  // const [totalDistance, setTotalDistance] = useState(0);
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
 
   let totalDur = 0;
