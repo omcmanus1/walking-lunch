@@ -1,12 +1,16 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import StartWalk from './src/Components/StartWalk';
-import UserPastWalks from './src/Components/UserPastWalks';
-import SetRoute from './src/Components/SetRoute';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import React, { useState } from 'react';
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import StartWalk from "./src/Components/StartWalk";
+import UserPastWalks from "./src/Components/UserPastWalks";
+import SetRoute from "./src/Components/SetRoute";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { useState } from "react";
+// import AndroidSafeView from "./src/Components/AndroidSafeview";
+// import { SafeAreaView } from "react-native";
 
 const Tab = createBottomTabNavigator();
+const windowDimensions = Dimensions.get("window");
+const screenDimensions = Dimensions.get("screen");
 
 export default function App() {
   const [POIPlaces, setPOIPlaces] = useState([]);
@@ -14,7 +18,9 @@ export default function App() {
   const [totalDuration, setTotalDuration] = useState(0);
   const [location, setLocation] = useState();
   const [markerLocations, setMarkerLocations] = useState([]);
-  const [journeyDistancesDurations, setJourneyDistancesDurations] = useState([]);
+  const [journeyDistancesDurations, setJourneyDistancesDurations] = useState(
+    []
+  );
   const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
   const [totalDistance, setTotalDistance] = useState(0);
 

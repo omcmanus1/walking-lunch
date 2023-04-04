@@ -5,9 +5,9 @@ import {
   View,
   DevSettings,
   nativemodules,
-  Button
 } from "react-native";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
+import { Button } from "@react-native-material/core";
 
 // const [userData, setUserData] = useState(null)
 

@@ -1,6 +1,7 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Alert, Button } from "react-native";
-
+import { Alert } from "react-native";
+import { Button } from "@react-native-material/core";
+import { SearchBar } from "@rneui/themed";
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
 export default function DestinationSearch({
@@ -35,6 +36,9 @@ export default function DestinationSearch({
         styles={{
           container: {
             flex: 0,
+            backgroundColor: "lightgreen",
+            padding: 5,
+            paddingTop: 9,
             width: "100%",
             zIndex: 1,
             listView: { backgroundColor: "white" },
@@ -45,6 +49,7 @@ export default function DestinationSearch({
           is for waypointA or waypointB.
           Use conditional to populate either state based on choice. */}
       <Button
+        style={{ backgroundColor: "green", margin: 5 }}
         title="Add Destination"
         onPress={() => {
           // TODO: Add location name as 4th argument, test with searchbar

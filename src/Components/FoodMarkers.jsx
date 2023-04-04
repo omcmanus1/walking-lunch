@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllFood } from "../api/api";
 import { Marker, Callout } from "react-native-maps";
-import { Text, Image, Button, View } from "react-native";
+import { Text, Image, View } from "react-native";
+import { Button } from "@react-native-material/core";
 
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
