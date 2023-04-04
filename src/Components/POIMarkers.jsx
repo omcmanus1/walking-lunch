@@ -90,7 +90,10 @@ export const POIMarkers = ({
                   </Text>
                 ) : null}
 
-                <Button color="#841584" title="Add Point of Interest" />
+                <Button
+                  style={{ backgroundColor: "#79bd6a" }}
+                  title="Add Point of Interest"
+                />
               </View>
             </Callout>
           </Marker>

@@ -84,7 +84,11 @@ export const FoodMarkers = ({
                   showPlaces
                 );
               }}
-              style={{ flex: -1, position: "absolute", width: 300 }}
+              style={{
+                flex: -1,
+                position: "absolute",
+                width: 300,
+              }}
             >
               <View>
                 <Text style={{ fontWeight: "bold", fontWeight: "bold" }}>
@@ -107,7 +111,10 @@ export const FoodMarkers = ({
                   </Text>
                 ) : null}
 
-                <Button title="Add destination" />
+                <Button
+                  style={{ backgroundColor: "#79bd6a" }}
+                  title="Add destination"
+                />
               </View>
             </Callout>
           </Marker>

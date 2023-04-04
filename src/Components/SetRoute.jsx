@@ -114,6 +114,8 @@ export default function SetRoute({
             location={location}
             setWaypointA={setWaypointA}
             setWaypointB={setWaypointB}
+            showPlaces={showPlaces}
+            setShowPlaces={setShowPlaces}
           />
           <MapView
             provider={PROVIDER_GOOGLE}
@@ -134,8 +136,6 @@ export default function SetRoute({
                 setPOIPlaces={setPOIPlaces}
                 setWaypointA={setWaypointA}
                 setWaypointB={setWaypointB}
-                setShowPlaces={setShowPlaces}
-                showPlaces={showPlaces}
               />
             ) : (
               <FoodMarkers
@@ -176,22 +176,24 @@ export default function SetRoute({
       )}
       <View style={{ flexDirection: "row" }}>
         <Button
-          style={{ backgroundColor: "green", margin: 3 }}
+          style={{ backgroundColor: "#578a5e", margin: 5 }}
           disabled={showPlaces}
           title="show places"
           onPress={() => setShowPlaces(true)}
         />
         <Button
-          style={{ backgroundColor: "green", margin: 3 }}
+          style={{ backgroundColor: "#578a5e", margin: 5 }}
           title="show restaurants"
           disabled={!showPlaces}
           onPress={() => setShowPlaces(false)}
         />
       </View>
       {waypointA.name !== "not_set" && waypointB.name !== "not_set" ? (
-        <View>
-          <Text>Walking Duration: 1.09 mins </Text>
-          <Text>Walking Distance: 7.89 km</Text>
+        <View style={{ margin: 40 }}>
+          <Text style={{ fontSize: 18 }}>
+            Total Walking Duration: 1.09 mins{" "}
+          </Text>
+          <Text style={{ fontSize: 18 }}>Total Walking Distance: 7.89 km</Text>
         </View>
       ) : (
         <>
@@ -220,13 +222,14 @@ export default function SetRoute({
           )}
         </>
       )}
+
       <View style={{ flexDirection: "row" }}>
         <RemoveMarkers
           setWaypointA={setWaypointA}
           setWaypointB={setWaypointB}
         />
         <Button
-          style={{ backgroundColor: "green", margin: 3 }}
+          style={{ backgroundColor: "#578a5e", margin: 3 }}
           title="Start Journey"
           onPress={() => {
             setShowStartJourneyModal(true);
@@ -257,16 +260,15 @@ export default function SetRoute({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 40,
+    marginTop: 20,
     paddingTop: 10,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   map: {
-    width: "90%",
+    width: "92%",
     height: "50%",
-    padding: 20,
   },
   modal: {
     backgroundColor: "white",
