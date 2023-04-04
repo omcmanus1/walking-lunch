@@ -16,7 +16,7 @@ export default function SetTimer({ setTotalDuration }) {
         <Text
           style={{ fontSize: 18, padding: 15, margin: 10, textAlign: "center" }}
         >
-          How long do you have?
+          How much time do you have?
         </Text>
         <Text style={{ textAlign: "center", fontSize: 15 }}>
           {sliderValue} mins
