@@ -103,13 +103,13 @@ export default function StartWalk({
         <View style={{ flexDirection: "row", margin: 20 }}>
           <Button
             style={styles.buttons}
-            title="New Walk"
-            onPress={() => DevSettings.reload()}
+            title="See Stats"
+            onPress={() => navigation.navigate("User")}
           ></Button>
           <Button
             style={styles.buttons}
-            title="See Stats"
-            onPress={() => navigation.navigate("User")}
+            title="New Walk"
+            onPress={() => DevSettings.reload()}
           ></Button>
         </View>
         <Button
