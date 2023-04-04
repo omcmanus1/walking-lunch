@@ -5,8 +5,7 @@ import UserPastWalks from "./src/Components/UserPastWalks";
 import SetRoute from "./src/Components/SetRoute";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import React, { useState } from "react";
-// import AndroidSafeView from "./src/Components/AndroidSafeview";
-// import { SafeAreaView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 
@@ -25,20 +24,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Set Route"
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
+      <SafeAreaProvider>
+        <Tab.Navigator
+          initialRouteName="Set Route"
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
 
-            if (route.name === "Set Route") {
-              iconName = focused ? "pin" : "pin-outline";
-            } else if (route.name === "User") {
-              iconName = focused ? "person-circle-outline" : "person-circle";
-            } else if (route.name === "Start Walk") {
-              iconName = focused ? "walk-outline" : "walk";
-            }
+              if (route.name === "Set Route") {
+                iconName = focused ? "pin" : "pin-outline";
+              } else if (route.name === "User") {
+                iconName = focused ? "person-circle-outline" : "person-circle";
+              } else if (route.name === "Start Walk") {
+                iconName = focused ? "walk-outline" : "walk";
+              }
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -86,10 +86,11 @@ export default function App() {
           )}
         </Tab.Screen>
 
-        <Tab.Screen name="User">
-          {() => <UserPastWalks totalDistance={totalDistance} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+          <Tab.Screen name="User">
+            {() => <UserPastWalks totalDistance={totalDistance} />}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </SafeAreaProvider>
     </NavigationContainer>
   );
 }
