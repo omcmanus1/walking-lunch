@@ -34,6 +34,8 @@ export default function SetRoute({
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
+  newRegion,
+  setNewRegion
 }) {
   // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
@@ -96,7 +98,7 @@ export default function SetRoute({
       getPermissions();
     }
   }, []);
-
+console.log("Location", location)
   return (
     <View style={styles.container}>
       <PreferencesModal
@@ -119,7 +121,8 @@ export default function SetRoute({
             initialRegion={location}
             showsUserLocation={true}
             customMapStyle={MapJson} 
-            onRegionChange={}
+            //onRegionChange={newRegion}
+            region={newRegion}
           >
             {showPlaces ? (
               <POIMarkers
@@ -208,6 +211,7 @@ export default function SetRoute({
                 setWaypointB={setWaypointB}
                 setShowPlaces={setShowPlaces}
                 showPlaces={showPlaces}
+                setNewRegion={setNewRegion}
               />
             </>
           )}

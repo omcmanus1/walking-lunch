@@ -1,7 +1,8 @@
 import MapView, { AnimatedRegion, Animated } from "react-native-maps";
 
-export const focusOnMarker = (location) => {
-  const LATITUDE_DELTA = 0.01;
-  const LONGITUDE_DELTA = 0.01;
-  console.log(location);
+export const focusOnMarker = (location, setRegion) => {
+  const latitudeDelta = 0.01;
+  const longitudeDelta = 0.01;
+  const region = { ...location, latitudeDelta, longitudeDelta };
+  console.log(region)
 };
