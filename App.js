@@ -9,8 +9,7 @@ import React, { useState } from "react";
 // import { SafeAreaView } from "react-native";
 
 const Tab = createBottomTabNavigator();
-const windowDimensions = Dimensions.get("window");
-const screenDimensions = Dimensions.get("screen");
+
 
 export default function App() {
   const [POIPlaces, setPOIPlaces] = useState([]);

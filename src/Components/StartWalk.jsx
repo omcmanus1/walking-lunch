@@ -1,26 +1,3 @@
-<<<<<<< HEAD
-import { StatusBar } from 'expo-status-bar';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  nativemodules,
-  DevSettings,
-} from "react-native";
-import StartTimer from './StartTimer';
-import React, { useState } from 'react';
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import MapJson from './MapJson';
-import MapViewDirections from 'react-native-maps-directions';
-import Modal from 'react-native-modal';
-import { wipeMarkers } from '../utils/functions/wipe-markers';
-import { useNavigation } from '@react-navigation/native';
-
-
-
-=======
 import { Button } from "@react-native-material/core";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, DevSettings } from "react-native";
@@ -31,7 +8,6 @@ import MapJson from "./MapJson";
 import MapViewDirections from "react-native-maps-directions";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
->>>>>>> 3c872249f24d34c60719f4285f97bcce64d571ed
 
 export default function StartWalk({
   totalDuration,
