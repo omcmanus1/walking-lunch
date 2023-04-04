@@ -35,7 +35,7 @@ export default function StartJourneyModal({
         setWaypointB={setWaypointB}
         setShowStartJourneyModal={setShowStartJourneyModal}
         totalDuration={totalDuration}
-         journeyDistancesDurations={journeyDistancesDurations}
+        journeyDistancesDurations={journeyDistancesDurations}
         setJourneyDistancesDurations={setJourneyDistancesDurations}
       />
       <Text>Are you content with your journey?</Text>
