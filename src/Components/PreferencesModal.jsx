@@ -12,11 +12,17 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
 
   return (
     <Modal isVisible={showModal} style={styles.modal}>
-      <Text>Set your walking preferences!!!</Text>
+      <Text style={{ fontSize: 22, padding: 30, textAlign: "center" }}>
+        Set your walking preferences
+      </Text>
       <SpeedSelector setKmh={setKmh} />
       <SetTimer setTotalDuration={setTotalDuration}></SetTimer>
       <Button
-        style={{ backgroundColor: "green", margin: 3 }}
+        style={{
+          backgroundColor: "green",
+          margin: 20,
+          padding: 10,
+        }}
         title="Set Preferences"
         onPress={() => setShowModal(false)}
       ></Button>
@@ -31,5 +37,6 @@ const styles = StyleSheet.create({
     margin: 25,
     alignItems: "center",
     justifyContent: "center",
+    alignContent: "center",
   },
 });
