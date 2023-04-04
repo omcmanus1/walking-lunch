@@ -94,14 +94,31 @@ export default function StartWalk({
       })}
       <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
       <Modal isVisible={completedModal} style={styles.modal}>
-        <Text>
-          Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
+        <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
+          Hope you enjoyed your break 😄
         </Text>
-        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
-        <Button title="New Walk" onPress={() => DevSettings.reload()}></Button>
+        <Text style={{ fontSize: 18, textAlign: "center", padding: 20 }}>
+          You walked {totalDistance} km! 🚶🏼‍♂️
+        </Text>
+        <View style={{ flexDirection: "row", margin: 20 }}>
+          <Button
+            style={styles.buttons}
+            title="New Walk"
+            onPress={() => DevSettings.reload()}
+          ></Button>
+          <Button
+            style={styles.buttons}
+            title="See Stats"
+            onPress={() => navigation.navigate("User")}
+          ></Button>
+        </View>
         <Button
-          title="See Stats"
-          onPress={() => navigation.navigate("User")}
+          style={{
+            backgroundColor: "yellowgreen",
+            margin: 20,
+          }}
+          title="Back"
+          onPress={() => setCompletedModal(false)}
         ></Button>
       </Modal>
       <StatusBar style="auto" />
@@ -125,5 +142,10 @@ const styles = StyleSheet.create({
     margin: 25,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttons: {
+    backgroundColor: "green",
+    margin: 8,
+    padding: 5,
   },
 });

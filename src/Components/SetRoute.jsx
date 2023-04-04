@@ -182,7 +182,7 @@ export default function SetRoute({
         />
       </View>
 
-      {showPlaces ? (
+      {/* {showPlaces ? (
         <>
           <ListAllPOI
             POIPlaces={POIPlaces}
@@ -202,7 +202,7 @@ export default function SetRoute({
             showPlaces={showPlaces}
           />
         </>
-      )}
+      )} */}
       <View style={{ flexDirection: "row" }}>
         <RemoveMarkers
           setWaypointA={setWaypointA}

@@ -23,7 +23,16 @@ export default function StartJourneyModal({
   const navigation = useNavigation();
   return (
     <Modal isVisible={showStartJourneyModal} style={styles.modal}>
-      <Text>Journey Details</Text>
+      <Text
+        style={{
+          fontSize: 22,
+          padding: 10,
+          textAlign: "center",
+          fontWeight: "bold",
+        }}
+      >
+        Journey Details
+      </Text>
       <RouteCalculations
         distances={distances}
         kmh={kmh}
@@ -39,13 +48,22 @@ export default function StartJourneyModal({
         journeyDistancesDurations={journeyDistancesDurations}
         setJourneyDistancesDurations={setJourneyDistancesDurations}
       />
-      <Text>Are you content with your journey?</Text>
+      <Text style={styles.headers}>Are you content with your journey?</Text>
 
       <Button
+        style={{
+          backgroundColor: "green",
+          margin: 20,
+          padding: 5,
+        }}
         title="Start Journey"
         onPress={() => navigation.navigate("Start Walk")}
       ></Button>
       <Button
+        style={{
+          backgroundColor: "yellowgreen",
+          margin: 10,
+        }}
         title="Go Back"
         onPress={() => setShowStartJourneyModal(false)}
       ></Button>
@@ -60,4 +78,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  headers: { fontWeight: "bold", fontSize: 15, padding: 10 },
 });

@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { Button } from "@react-native-material/core";
 
 export default function SpeedSelector({ setKmh }) {
@@ -9,29 +9,33 @@ export default function SpeedSelector({ setKmh }) {
   };
 
   return (
-    <>
-      <Text>How fast do you walk?</Text>
-      <Button
-        style={{ backgroundColor: "green", margin: 3 }}
-        title="slow"
-        onPress={() => {
-          handleSpeedSelection("slow");
-        }}
-      ></Button>
-      <Button
-        style={{ backgroundColor: "green", margin: 3 }}
-        title="medium"
-        onPress={() => {
-          handleSpeedSelection("medium");
-        }}
-      ></Button>
-      <Button
-        style={{ backgroundColor: "green", margin: 3 }}
-        title="fast"
-        onPress={() => {
-          handleSpeedSelection("fast");
-        }}
-      ></Button>
-    </>
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 18, padding: 15, textAlign: "center" }}>
+        How fast do you walk?
+      </Text>
+      <View style={{ flexDirection: "row", padding: 5 }}>
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="slow"
+          onPress={() => {
+            handleSpeedSelection("slow");
+          }}
+        ></Button>
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="medium"
+          onPress={() => {
+            handleSpeedSelection("medium");
+          }}
+        ></Button>
+        <Button
+          style={{ backgroundColor: "green", margin: 3 }}
+          title="fast"
+          onPress={() => {
+            handleSpeedSelection("fast");
+          }}
+        ></Button>
+      </View>
+    </View>
   );
 }
