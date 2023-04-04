@@ -4,5 +4,5 @@ export const focusOnMarker = (location, setRegion) => {
   const latitudeDelta = 0.01;
   const longitudeDelta = 0.01;
   const region = { ...location, latitudeDelta, longitudeDelta };
-  console.log(region)
+  setRegion(region)
 };

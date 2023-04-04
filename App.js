@@ -21,7 +21,7 @@ export default function App() {
   );
   const [lastLegWalkingDuration, setLastLegWalkingDuration] = useState(0);
   const [totalDistance, setTotalDistance] = useState(0);
-  const [newRegion, setNewRegion] = useState({})
+  
 
   return (
     <NavigationContainer>
@@ -65,8 +65,7 @@ export default function App() {
               setLastLegWalkingDuration={setLastLegWalkingDuration}
               totalDistance={totalDistance}
               setTotalDistance={setTotalDistance}
-              newRegion={newRegion}
-              setNewRegion={setNewRegion}
+              
           
             />
           )}

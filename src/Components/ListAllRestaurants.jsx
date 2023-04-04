@@ -10,7 +10,8 @@ export const ListAllRestaurants = ({
   setWaypointB,
   setShowPlaces,
   showPlaces,
-  setNewRegion
+  setNewRegion,
+  newRegion
 }) => {
   const renderItem = ({ item }) => (
     <Chip
@@ -24,11 +25,13 @@ export const ListAllRestaurants = ({
         backgroundColor: "lightgreen",
         justifyContent: "space-between",
       }}
-      onLongPress={()=>{focusOnMarker({
-        latitude: item.geometry.location.lat,
-        longitude: item.geometry.location.lng,
+      onLongPress={()=>{focusOnMarker(
+        {
+          latitude: item.geometry.location.lat,
+          longitude: item.geometry.location.lng,
+        },
         setNewRegion
-      });}}
+      );}}
       onPress={() => {
         addWaypoints(
           setWaypointA,

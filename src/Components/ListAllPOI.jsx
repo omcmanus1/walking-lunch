@@ -9,6 +9,8 @@ import {
 import { Chip } from "react-native-paper";
 import LinearGradient from "react-native-linear-gradient";
 import { addWaypoints } from "../utils/functions/add-waypoints";
+import { focusOnMarker } from "../utils/functions/map-focus";
+
 
 export const ListAllPOI = ({
   POIPlaces,
@@ -16,6 +18,7 @@ export const ListAllPOI = ({
   setWaypointB,
   setShowPlaces,
   showPlaces,
+  setNewRegion
 }) => {
   const renderItem = ({ item }) => (
     <Chip
@@ -28,6 +31,15 @@ export const ListAllPOI = ({
         selectedColor: "green",
         backgroundColor: "lightgreen",
         justifyContent: "space-between",
+      }}
+      onLongPress={() => {
+        focusOnMarker(
+          {
+            latitude: item.geometry.location.lat,
+            longitude: item.geometry.location.lng,
+          },
+          setNewRegion
+        );
       }}
       onPress={() => {
         addWaypoints(
