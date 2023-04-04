@@ -28,8 +28,10 @@ export default function StartTimer({
       </Text>
       <CountDown
         until={totalDuration}
-        timeToShow={["M", "S"]}
-        timeLabels={{ m: "MM", s: "SS" }}
+        timeToShow={["H", "M", "S"]}
+        timeLabels={{ h: "HH", m: "MM", s: "SS" }}
+        digitStyle={{ backgroundColor: "#d5e3d7" }}
+        digitTxtStyle={{ color: "seagreen" }}
         onChange={() => setSecondsLeft((currSecs) => currSecs - 1)}
         size={20}
       />

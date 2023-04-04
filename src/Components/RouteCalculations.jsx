@@ -18,27 +18,21 @@ export default function RouteCalculations({
   markerLocations,
 }) {
   const [totalWalkingDuration, setTotalWalkingDuration] = useState(0);
-  console.log(markerLocations);
-
   let totalDur = 0;
-
   const convertToHoursMins = (totalMins) => {
     const hours = Math.floor(totalMins / 60);
     const mins = Math.floor(totalMins % 60);
     return { hours, mins };
   };
-
   const convertBackToMins = (totalWalkingDuration) => {
     let mins = totalWalkingDuration.hours * 60 + totalWalkingDuration.mins;
     return mins;
   };
-
   const calculateWalkingDuration = (distance, kmh) => {
     const totalMins = Math.round((distance / kmh) * 60);
     totalDur += totalMins;
     return totalMins;
   };
-
   const journeyLengthAlert = (journeyTime) => {
     let plugTimeInMsg = "";
     if (journeyTime.hours > 1) {
