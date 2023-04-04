@@ -8,6 +8,7 @@ import MapJson from "./MapJson";
 import MapViewDirections from "react-native-maps-directions";
 import Modal from "react-native-modal";
 import { useNavigation } from "@react-navigation/native";
+import ConfettiCannon from "react-native-confetti-cannon";
 
 export default function StartWalk({
   totalDuration,
@@ -111,6 +112,7 @@ export default function StartWalk({
         onPress={() => setCompletedModal(true)}
       ></Button>
       <Modal isVisible={completedModal} style={styles.modal}>
+        <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} />
         <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
           Hope you enjoyed your break 😄
         </Text>
@@ -162,7 +164,8 @@ const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: "seagreen",
-    padding: 5,
+    padding: 3,
+    margin: 7,
   },
   journeyHeaders: { fontSize: 14, textAlign: "center", fontStyle: "italic" },
   text: { fontSize: 14, textAlign: "center" },

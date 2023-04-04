@@ -98,7 +98,7 @@ export default function UserPastWalks({ totalDistance }) {
       </View>
       <Button
         style={{
-          backgroundColor: "#79bd6a",
+          backgroundColor: "seagreen",
           margin: 20,
         }}
         title="New Walk"
