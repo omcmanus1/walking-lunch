@@ -22,11 +22,14 @@ export default function StartTimer({
   }, [secondsLeft, lastLegWalkingDuration]);
 
   return (
-    <View>
-      <Text>Time left: </Text>
+    <View style={{ margin: 10, marginTop: 15 }}>
+      <Text style={{ textAlign: "center", padding: 5, fontSize: 14 }}>
+        Time left:{" "}
+      </Text>
       <CountDown
         until={totalDuration}
         timeToShow={["M", "S"]}
+        timeLabels={{ m: "MM", s: "SS" }}
         onChange={() => setSecondsLeft((currSecs) => currSecs - 1)}
         size={20}
       />

@@ -76,22 +76,35 @@ export default function StartWalk({
           </>
         </MapView>
       </>
-      {journeyDistancesDurations.map((journey) => {
-        return (
-          <View key={journey.journey_id}>
-            <Text>Journey {journey.journey_id}:</Text>
-            <Text>Distance: {journey.distance} km</Text>
-            {journey.duration.hours ? (
-              <Text>
-                Walking Duration: {journey.duration.hours} hours{" "}
-                {journey.duration.mins} mins{" "}
+      <View
+        style={{
+          margin: 15,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {journeyDistancesDurations.map((journey) => {
+          return (
+            <View style={{ padding: 8 }} key={journey.journey_id}>
+              <Text style={styles.journeyHeaders}>
+                Journey {journey.journey_id}:
               </Text>
-            ) : (
-              <Text>Walking Duration: {journey.duration.mins} mins </Text>
-            )}
-          </View>
-        );
-      })}
+              <Text style={styles.text}>Distance: {journey.distance} km</Text>
+              {journey.duration.hours ? (
+                <Text style={styles.text}>
+                  Walking Duration: {journey.duration.hours} hours{" "}
+                  {journey.duration.mins} mins{" "}
+                </Text>
+              ) : (
+                <Text style={styles.text}>
+                  Walking Duration: {journey.duration.mins} mins{" "}
+                </Text>
+              )}
+            </View>
+          );
+        })}
+      </View>
       <Button
         style={styles.buttons}
         title="End Walk"
@@ -139,7 +152,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "90%",
-    height: "60%",
+    height: "50%",
   },
   modal: {
     backgroundColor: "white",
@@ -148,8 +161,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   buttons: {
-    backgroundColor: "#578a5e",
-    margin: 8,
+    backgroundColor: "seagreen",
     padding: 5,
   },
+  journeyHeaders: { fontSize: 14, textAlign: "center", fontStyle: "italic" },
+  text: { fontSize: 14, textAlign: "center" },
+  totals: { fontSize: 16, textAlign: "center" },
+  headers: { fontWeight: "bold", fontSize: 16, textAlign: "center" },
 });
