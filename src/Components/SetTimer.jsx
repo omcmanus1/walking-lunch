@@ -13,13 +13,19 @@ export default function SetTimer({ setTotalDuration }) {
   return (
     <View>
       <View>
-        <Text>How long do you have?</Text>
-        <Text>{sliderValue} mins</Text>
+        <Text
+          style={{ fontSize: 18, padding: 15, margin: 10, textAlign: "center" }}
+        >
+          How long do you have?
+        </Text>
+        <Text style={{ textAlign: "center", fontSize: 15 }}>
+          {sliderValue} mins
+        </Text>
         <Slider
-          style={{ width: 200, height: 40 }}
+          style={{ width: 300, height: 60, alignContent: "center" }}
           minimumValue={0}
           maximumValue={60}
-          minimumTrackTintColor="blue"
+          minimumTrackTintColor="green"
           maximumTrackTintColor="#000000"
           step={5}
           value={sliderValue}

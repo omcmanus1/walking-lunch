@@ -1,21 +1,16 @@
 import { Button } from "@react-native-material/core";
-import { StyleSheet, Text, View, DevSettings } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { TextInput, nativemodules } from "react-native";
+import { StyleSheet, Text, View, DevSettings } from "react-native";
 import StartTimer from "./StartTimer";
 import React, { useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE, Callout } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapJson from "./MapJson";
 import MapViewDirections from "react-native-maps-directions";
 import Modal from "react-native-modal";
-import { wipeMarkers } from "../utils/functions/wipe-markers";
 import { useNavigation } from "@react-navigation/native";
 
 export default function StartWalk({
-  kmh,
-  setKmh,
   totalDuration,
-  setTotalDuration,
   location,
   markerLocations,
   journeyDistancesDurations,
@@ -25,11 +20,6 @@ export default function StartWalk({
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [completedModal, setCompletedModal] = useState(false);
   const navigation = useNavigation();
-
-  // const completedWalk = () => {
-  //   setCompletedModal(false);
-  //   navigation.navigate("Set Route");
-  // };
 
   return (
     <View style={styles.container}>
@@ -104,14 +94,31 @@ export default function StartWalk({
       })}
       <Button title="End Walk" onPress={() => setCompletedModal(true)}></Button>
       <Modal isVisible={completedModal} style={styles.modal}>
-        <Text>
-          Hope you enjoyed your lunch! You walked {totalDistance}km!!!1!!
+        <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
+          Hope you enjoyed your break 😄
         </Text>
-        <Button title="Home" onPress={() => setCompletedModal(false)}></Button>
-        <Button title="New Walk" onPress={() => DevSettings.reload()}></Button>
+        <Text style={{ fontSize: 18, textAlign: "center", padding: 20 }}>
+          You walked {totalDistance} km! 🚶🏼‍♂️
+        </Text>
+        <View style={{ flexDirection: "row", margin: 20 }}>
+          <Button
+            style={styles.buttons}
+            title="See Stats"
+            onPress={() => navigation.navigate("User")}
+          ></Button>
+          <Button
+            style={styles.buttons}
+            title="New Walk"
+            onPress={() => DevSettings.reload()}
+          ></Button>
+        </View>
         <Button
-          title="See Stats"
-          onPress={() => navigation.navigate("User")}
+          style={{
+            backgroundColor: "yellowgreen",
+            margin: 20,
+          }}
+          title="Back"
+          onPress={() => setCompletedModal(false)}
         ></Button>
       </Modal>
       <StatusBar style="auto" />
@@ -135,5 +142,10 @@ const styles = StyleSheet.create({
     margin: 25,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttons: {
+    backgroundColor: "green",
+    margin: 8,
+    padding: 5,
   },
 });
