@@ -80,7 +80,7 @@ export const POIMarkers = ({
 
                 <Text>Rating:{getEmojiForRating(POI.rating)}</Text>
 
-                {POI.photos && POI.photos.length > 0 ? (
+                {/* {POI.photos && POI.photos.length > 0 ? (
                   <Text>
                     <Image
                       resizeMode="cover"
@@ -92,7 +92,7 @@ export const POIMarkers = ({
                       }}
                     />
                   </Text>
-                ) : null}
+                ) : null} */}
 
                 <Button
                   style={{ backgroundColor: "#79bd6a" }}

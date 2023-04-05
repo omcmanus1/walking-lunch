@@ -79,7 +79,7 @@ export const FoodMarkers = ({
             <Callout
               onPress={() => {
                 addWaypoints(
-                  rsetWaypointA,
+                  setWaypointA,
                   setWaypointB,
                   {
                     latitude: eatery.geometry.location.lat,
@@ -104,7 +104,7 @@ export const FoodMarkers = ({
                 <Text>Price Level:{getEmojiForPrice(eatery.price_level)} </Text>
                 <Text>Rating:{getEmojiForRating(eatery.rating)}</Text>
 
-                {eatery.photos && eatery.photos.length > 0 ? (
+                {/* {eatery.photos && eatery.photos.length > 0 ? (
                   <Text>
                     <Image
                       resizeMode="cover"
@@ -115,7 +115,7 @@ export const FoodMarkers = ({
                       }}
                     />
                   </Text>
-                ) : null}
+                ) : null} */}
 
                 <Button
                   style={{ backgroundColor: "#79bd6a" }}
