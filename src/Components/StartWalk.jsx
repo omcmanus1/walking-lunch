@@ -85,7 +85,7 @@ export default function StartWalk({
           justifyContent: "center",
         }}
       >
-        {journeyDistancesDurations.map((journey) => {
+        {journeyDistancesDurations.map((journey, index) => {
           return (
             <View
               style={{
@@ -97,7 +97,15 @@ export default function StartWalk({
               key={journey.journey_id}
             >
               <Text style={styles.journeyHeaders}>
-                Journey {journey.journey_id}:
+                {index === 0
+                  ? `Origin -- ${markerLocations[index + 1].name}:`
+                  : null}
+                {index === 1
+                  ? `${markerLocations[index].name} -- ${
+                      markerLocations[index + 1].name
+                    }:`
+                  : null}
+                {index === 2 ? `${markerLocations[index].name} -- End:` : null}
               </Text>
               <Text style={styles.text}>Distance: {journey.distance} km</Text>
               {journey.duration.hours ? (

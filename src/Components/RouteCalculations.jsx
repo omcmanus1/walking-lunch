@@ -111,14 +111,14 @@ export default function RouteCalculations({
             >
               <Text style={styles.journeyHeaders}>
                 {index === 0
-                  ? `Origin - ${markerLocations[index + 1].name}:`
+                  ? `Origin -- ${markerLocations[index + 1].name}:`
                   : null}
                 {index === 1
-                  ? `${markerLocations[index].name} - ${
+                  ? `${markerLocations[index].name} -- ${
                       markerLocations[index + 1].name
                     }:`
                   : null}
-                {index === 2 ? `${markerLocations[index].name} - End:` : null}
+                {index === 2 ? `${markerLocations[index].name} -- End:` : null}
               </Text>
               <Text style={styles.text}>Distance: {journey.distance} km</Text>
               {journey.duration.hours ? (
