@@ -1,5 +1,4 @@
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { StyleSheet } from "react-native";
 import { Button } from "@react-native-material/core";
 import { addWaypoints } from "../utils/functions/add-waypoints";
 
@@ -42,7 +41,6 @@ export default function DestinationSearch({
       fetchDetails={true}
       GooglePlacesSearchQuery={{ rankby: "distance" }}
       onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
         setSearchedDestination({
           name: details.name,
           coords: {

@@ -35,10 +35,8 @@ export default function SetRoute({
   totalDistance,
   setTotalDistance,
 }) {
-  // const [location, setLocation] = useState();
   const [address, setAddress] = useState();
   const [distances, setDistances] = useState([]);
-  // const [markerLocations, setMarkerLocations] = useState([]);
   const [searchedDestination, setSearchedDestination] = useState({});
   const [showRoute, setShowRoute] = useState(true);
   const [waypointA, setWaypointA] = useState({

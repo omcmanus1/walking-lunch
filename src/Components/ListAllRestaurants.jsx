@@ -18,11 +18,8 @@ export const ListAllRestaurants = ({
       key={item.name}
       style={{
         width: "auto",
-        // flexWrap: "wrap",
-        // flexDirection: "row",
         margin: 5,
         backgroundColor: "#d5e3d7",
-        // justifyContent: "space-between",
       }}
       onLongPress={() => {
         focusOnMarker(

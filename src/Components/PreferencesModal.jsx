@@ -4,7 +4,7 @@ import SpeedSelector from "./SpeedSelector";
 import { useState } from "react";
 import { Text, StyleSheet, Image } from "react-native";
 import { Button } from "@react-native-material/core";
-import { Buttons } from "../styles";
+import { buttons } from "../styles/buttons";
 
 export default function PreferencesModal({ setKmh, setTotalDuration }) {
   const [showModal, setShowModal] = useState(true);
@@ -47,7 +47,7 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
 }
 
 const styles = StyleSheet.create({
-  buttons: Buttons.buttons,
+  buttons: buttons,
   modal: {
     backgroundColor: "white",
     margin: 20,

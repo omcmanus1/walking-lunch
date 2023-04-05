@@ -1,16 +1,7 @@
-import {
-  Text,
-  FlatList,
-  Pressable,
-  Alert,
-  SafeAreaView,
-  View,
-} from "react-native";
+import { FlatList, View } from "react-native";
 import { Chip } from "react-native-paper";
-import LinearGradient from "react-native-linear-gradient";
 import { addWaypoints } from "../utils/functions/add-waypoints";
 import { focusOnMarker } from "../utils/functions/map-focus";
-
 
 export const ListAllPOI = ({
   POIPlaces,
@@ -18,18 +9,15 @@ export const ListAllPOI = ({
   setWaypointB,
   setShowPlaces,
   showPlaces,
-  setNewRegion
+  setNewRegion,
 }) => {
   const renderItem = ({ item }) => (
     <Chip
       key={item.name}
       style={{
         width: "auto",
-        // flexWrap: "wrap",
-        // flexDirection: "row",
         margin: 5,
         backgroundColor: "#d5e3d7",
-        // justifyContent: "space-between",
       }}
       onLongPress={() => {
         focusOnMarker(

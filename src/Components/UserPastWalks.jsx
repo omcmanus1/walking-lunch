@@ -1,19 +1,9 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  DevSettings,
-  nativemodules,
-} from "react-native";
+import { StyleSheet, Text, View, DevSettings } from "react-native";
 import { LineChart, ProgressChart } from "react-native-chart-kit";
 import { Button } from "@react-native-material/core";
 
-// const [userData, setUserData] = useState(null)
-
 export default function UserPastWalks({ totalDistance }) {
-  console.log(totalDistance);
-
   return (
     <View style={styles.container}>
       <View style={styles.chartContainer}>
