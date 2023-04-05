@@ -50,7 +50,11 @@ export const POIMarkers = ({
               longitude: POI.geometry.location.lng,
             }}
           >
-            <Image source={require("../../assets/camerasmall.png")} />
+            <Image
+              style={{ height: 40 }}
+              resizeMode="contain"
+              source={require("../../assets/camerasmall.png")}
+            />
 
             <Callout
               onPress={() => {
