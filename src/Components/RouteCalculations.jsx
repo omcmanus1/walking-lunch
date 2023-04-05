@@ -74,7 +74,7 @@ export default function RouteCalculations({
       const totalMins = calculateWalkingDuration(distance, kmh);
       const duration = convertToHoursMins(totalMins);
       id++;
-      totalKm += distance;
+      totalKm += Number(distance);
       return { journey_id: id, distance, duration };
     });
     setJourneyDistancesDurations(journeys);

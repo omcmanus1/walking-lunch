@@ -24,7 +24,7 @@ export default function PlotRoute({
         strokeColor="hotpink"
         apikey={GOOGLE_MAPS_APIKEY}
         onReady={(result) => {
-          setDistanceA(result.distance);
+          setDistanceA(Number(result.distance).toFixed(2));
         }}
       />
       <MapViewDirections
@@ -35,7 +35,7 @@ export default function PlotRoute({
         strokeColor="blue"
         apikey={GOOGLE_MAPS_APIKEY}
         onReady={(result) => {
-          setDistanceB(result.distance);
+          setDistanceB(Number(result.distance).toFixed(2));
         }}
       />
       <MapViewDirections
@@ -46,7 +46,7 @@ export default function PlotRoute({
         strokeColor="orange"
         apikey={GOOGLE_MAPS_APIKEY}
         onReady={(result) => {
-          setDistanceC(result.distance);
+          setDistanceC(Number(result.distance).toFixed(2));
         }}
       />
     </>
