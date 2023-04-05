@@ -22,7 +22,7 @@ export default function StartTimer({
   }, [secondsLeft, lastLegWalkingDuration]);
 
   return (
-    <View style={{ margin: 10, marginTop: 15 }}>
+    <View style={{ margin: 5, marginTop: 15 }}>
       <Text style={{ textAlign: "center", padding: 5, fontSize: 14 }}>
         Time left:{" "}
       </Text>
