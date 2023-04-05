@@ -21,7 +21,14 @@ export default function SpeedSelector({ setKmh }) {
       <Text style={{ fontSize: 18, padding: 15, textAlign: "center" }}>
         How fast do you walk?
       </Text>
-      <View style={{ flexDirection: "row", padding: 5 }}>
+      <View
+        style={{
+          flexDirection: "row",
+          padding: 5,
+          marginLeft: 20,
+          marginRight: 20,
+        }}
+      >
         <Button
           style={buttonPressed.buttonOne}
           title="slow 🐢"

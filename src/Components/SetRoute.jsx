@@ -34,7 +34,6 @@ export default function SetRoute({
   setLastLegWalkingDuration,
   totalDistance,
   setTotalDistance,
-  
 }) {
   // const [location, setLocation] = useState();
   const [address, setAddress] = useState();

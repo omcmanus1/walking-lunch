@@ -87,17 +87,25 @@ export default function StartWalk({
       >
         {journeyDistancesDurations.map((journey, index) => {
           return (
-            <View style={{ padding: 8 }} key={journey.journey_id}>
+            <View
+              style={{
+                padding: 8,
+                margin: 3,
+                backgroundColor: "#d5e3d7",
+                borderRadius: 10,
+              }}
+              key={journey.journey_id}
+            >
               <Text style={styles.journeyHeaders}>
                 {index === 0
-                  ? `Origin -- ${markerLocations[index + 1].name}:`
+                  ? `Origin ➡️ ${markerLocations[index + 1].name}:`
                   : null}
                 {index === 1
-                  ? `${markerLocations[index].name} -- ${
+                  ? `${markerLocations[index].name} ➡️ ${
                       markerLocations[index + 1].name
                     }:`
                   : null}
-                {index === 2 ? `${markerLocations[index].name} -- End:` : null}
+                {index === 2 ? `${markerLocations[index].name} ➡️ End:` : null}
               </Text>
               <Text style={styles.text}>Distance: {journey.distance} km</Text>
               {journey.duration.hours ? (
@@ -124,17 +132,24 @@ export default function StartWalk({
         <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
           Hope you enjoyed your break 😄
         </Text>
-        <Text style={{ fontSize: 18, textAlign: "center", padding: 20 }}>
+        <Text
+          style={{
+            fontSize: 16,
+            textAlign: "center",
+            padding: 20,
+            margin: 10,
+          }}
+        >
           You walked {totalDistance} km! 🚶🏼‍♂️
         </Text>
-        <View style={{ flexDirection: "row", margin: 20 }}>
+        <View style={{ flexDirection: "row", margin: 15 }}>
           <Button
-            style={styles.buttons}
+            style={{ backgroundColor: "seagreen", margin: 8, padding: 10 }}
             title="See Stats"
             onPress={() => navigation.navigate("User")}
           ></Button>
           <Button
-            style={styles.buttons}
+            style={{ backgroundColor: "seagreen", margin: 8, padding: 10 }}
             title="New Walk"
             onPress={() => DevSettings.reload()}
           ></Button>
@@ -142,7 +157,7 @@ export default function StartWalk({
         <Button
           style={{
             backgroundColor: "#79bd6a",
-            margin: 20,
+            margin: 10,
           }}
           title="Back"
           onPress={() => setCompletedModal(false)}
@@ -162,7 +177,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: "90%",
-    height: "50%",
+    height: "45%",
   },
   modal: {
     backgroundColor: "white",
@@ -172,10 +187,13 @@ const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: "seagreen",
-    padding: 3,
-    margin: 7,
   },
-  journeyHeaders: { fontSize: 14, textAlign: "center", fontStyle: "italic" },
+  journeyHeaders: {
+    fontWeight: "bold",
+    fontSize: 14,
+    textAlign: "center",
+    fontStyle: "italic",
+  },
   text: { fontSize: 14, textAlign: "center" },
   totals: { fontSize: 16, textAlign: "center" },
   headers: { fontWeight: "bold", fontSize: 16, textAlign: "center" },

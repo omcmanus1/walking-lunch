@@ -97,20 +97,28 @@ export default function RouteCalculations({
 
   return (
     <>
-      <View style={{ margin: 10 }}>
+      <View style={{ margin: 7 }}>
         {journeyDistancesDurations.map((journey, index) => {
           return (
-            <View style={{ padding: 15 }} key={journey.journey_id}>
+            <View
+              style={{
+                padding: 15,
+                margin: 7,
+                backgroundColor: "#d5e3d7",
+                borderRadius: 30,
+              }}
+              key={journey.journey_id}
+            >
               <Text style={styles.journeyHeaders}>
                 {index === 0
-                  ? `Origin -- ${markerLocations[index + 1].name}:`
+                  ? `Origin ➡️ ${markerLocations[index + 1].name}:`
                   : null}
                 {index === 1
-                  ? `${markerLocations[index].name} -- ${
+                  ? `${markerLocations[index].name} ➡️ ${
                       markerLocations[index + 1].name
                     }:`
                   : null}
-                {index === 2 ? `${markerLocations[index].name} -- End:` : null}
+                {index === 2 ? `${markerLocations[index].name} ➡️ End:` : null}
               </Text>
               <Text style={styles.text}>Distance: {journey.distance} km</Text>
               {journey.duration.hours ? (
@@ -126,12 +134,12 @@ export default function RouteCalculations({
             </View>
           );
         })}
-        <View style={{ margin: 20 }}>
-          <Text style={styles.headers}>Total Distance</Text>
+        <View style={{ margin: 15 }}>
+          <Text style={styles.headers}>Total Distance:</Text>
           <Text style={styles.totals}>{totalDistance} km</Text>
           {totalWalkingDuration.hours ? (
             <View>
-              <Text style={styles.headers}>Total Walking Duration</Text>
+              <Text style={styles.headers}>Total Walking Duration:</Text>
               <Text style={styles.totals}>
                 {totalWalkingDuration.hours} hour {totalWalkingDuration.mins}{" "}
                 mins{" "}
@@ -139,7 +147,7 @@ export default function RouteCalculations({
             </View>
           ) : (
             <View>
-              <Text style={styles.headers}>Total Walking Duration</Text>
+              <Text style={styles.headers}>Total Walking Duration:</Text>
               <Text style={styles.totals}>
                 {totalWalkingDuration.mins} mins{" "}
               </Text>
@@ -152,8 +160,14 @@ export default function RouteCalculations({
 }
 
 const styles = StyleSheet.create({
-  journeyHeaders: { fontSize: 14, textAlign: "center", fontStyle: "italic" },
-  text: { fontSize: 14, textAlign: "center" },
+  journeyHeaders: {
+    fontSize: 16,
+    textAlign: "center",
+    fontStyle: "italic",
+    fontWeight: "bold",
+    color: "seagreen",
+  },
+  text: { fontSize: 16, textAlign: "center" },
   totals: { fontSize: 16, textAlign: "center" },
   headers: { fontWeight: "bold", fontSize: 16, textAlign: "center" },
 });
