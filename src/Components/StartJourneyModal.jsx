@@ -19,7 +19,7 @@ export default function StartJourneyModal({
   totalDuration,
   journeyDistancesDurations,
   setJourneyDistancesDurations,
-  markerLocations
+  markerLocations,
 }) {
   const navigation = useNavigation();
   return (
@@ -27,7 +27,7 @@ export default function StartJourneyModal({
       <Text
         style={{
           fontSize: 22,
-          padding: 10,
+          padding: 8,
           textAlign: "center",
           fontWeight: "bold",
         }}
@@ -55,7 +55,7 @@ export default function StartJourneyModal({
       <Button
         style={{
           backgroundColor: "seagreen",
-          margin: 20,
+          margin: 15,
           padding: 5,
         }}
         title="Start Journey"
@@ -64,7 +64,7 @@ export default function StartJourneyModal({
       <Button
         style={{
           backgroundColor: "#79bd6a",
-          margin: 10,
+          margin: 5,
         }}
         title="Go Back"
         onPress={() => setShowStartJourneyModal(false)}
@@ -80,5 +80,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  headers: { fontWeight: "bold", fontSize: 15, padding: 10 },
+  headers: { fontWeight: "bold", fontSize: 18, padding: 10 },
 });

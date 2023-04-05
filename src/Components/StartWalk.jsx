@@ -87,7 +87,15 @@ export default function StartWalk({
       >
         {journeyDistancesDurations.map((journey) => {
           return (
-            <View style={{ padding: 8 }} key={journey.journey_id}>
+            <View
+              style={{
+                padding: 5,
+                margin: 10,
+                backgroundColor: "#d5e3d7",
+                borderRadius: 30,
+              }}
+              key={journey.journey_id}
+            >
               <Text style={styles.journeyHeaders}>
                 Journey {journey.journey_id}:
               </Text>
@@ -116,7 +124,15 @@ export default function StartWalk({
         <Text style={{ fontSize: 20, textAlign: "center", padding: 20 }}>
           Hope you enjoyed your break 😄
         </Text>
-        <Text style={{ fontSize: 18, textAlign: "center", padding: 20 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            textAlign: "center",
+            padding: 20,
+            backgroundColor: "#d5e3d7",
+            borderRadius: 10,
+          }}
+        >
           You walked {totalDistance} km! 🚶🏼‍♂️
         </Text>
         <View style={{ flexDirection: "row", margin: 20 }}>
@@ -165,7 +181,7 @@ const styles = StyleSheet.create({
   buttons: {
     backgroundColor: "seagreen",
     padding: 3,
-    margin: 7,
+    // margin: 7,
   },
   journeyHeaders: { fontSize: 14, textAlign: "center", fontStyle: "italic" },
   text: { fontSize: 14, textAlign: "center" },

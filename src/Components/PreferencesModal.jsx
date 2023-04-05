@@ -49,11 +49,8 @@ export default function PreferencesModal({ setKmh, setTotalDuration }) {
 const styles = StyleSheet.create({
   buttons: Buttons.buttons,
   modal: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
     backgroundColor: "white",
-    margin: 40,
-
+    margin: 20,
     alignItems: "center",
     justifyContent: "center",
     alignContent: "center",
